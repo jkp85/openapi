@@ -6,7 +6,6 @@
     "title" : "3blades API"
   },
   "host" : "staging.3blades.io",
-  "basePath" : "/",
   "schemes" : [ "https" ],
   "consumes" : [ "application/json", "application/x-www-form-urlencoded", "multipart/form-data" ],
   "produces" : [ "application/json", "text/html" ],
@@ -149,7 +148,6 @@
     "/auth/jwt-token-verify/" : {
       "post" : {
         "tags" : [ "auth" ],
-        "summary" : "API View that checks the veracity of a token, returning the token if it",
         "description" : "API View that checks the veracity of a token, returning the token if it\nis valid.",
         "operationId" : "auth_jwt-token-verify_create",
         "consumes" : [ "application/json" ],
