@@ -118,7 +118,7 @@
     "/auth/jwt-token-refresh/" : {
       "post" : {
         "tags" : [ "auth" ],
-        "description" : "API View that returns a refreshed token (with new expiration) based on\nexisting token\n\nIf 'orig_iat' field (original issued-at-time) is found, will first check\nif it's within expiration window, then copy it to the new token.",
+        "description" : "Checks veracity of token.",
         "operationId" : "auth_jwt-token-refresh_create",
         "consumes" : [ "application/json" ],
         "parameters" : [ {
@@ -148,7 +148,6 @@
     "/auth/jwt-token-verify/" : {
       "post" : {
         "tags" : [ "auth" ],
-        "description" : "API View that checks the veracity of a token, returning the token if it\nis valid.",
         "operationId" : "auth_jwt-token-verify_create",
         "consumes" : [ "application/json" ],
         "parameters" : [ {
