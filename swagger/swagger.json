@@ -179,7 +179,6 @@
     "/auth/register/" : {
       "post" : {
         "tags" : [ "auth" ],
-        "summary" : "User register",
         "description" : "User register",
         "operationId" : "auth_register_create",
         "consumes" : [ "application/json" ],
