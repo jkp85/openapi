@@ -149,7 +149,6 @@
     "/auth/jwt-token-verify/" : {
       "post" : {
         "tags" : [ "auth" ],
-        "summary" : "API View that checks the veracity of a token, returning the token if it",
         "description" : "API View that checks the veracity of a token, returning the token if it\nis valid.",
         "operationId" : "auth_jwt-token-verify_create",
         "consumes" : [ "application/json" ],
