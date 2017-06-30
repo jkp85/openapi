@@ -1980,6 +1980,12 @@
           "description" : "Ordering of list values when getting project file list.",
           "required" : false,
           "type" : "string"
+        }, {
+          "name" : "filename",
+          "in" : "query",
+          "description" : "Exact file name, relative to the project root. If no such file is found, an empty list will be returned.",
+          "required" : false,
+          "type" : "string"
         } ],
         "responses" : {
           "200" : {
@@ -2008,12 +2014,6 @@
           "name" : "namespace",
           "in" : "path",
           "description" : "User or team name.",
-          "required" : true,
-          "type" : "string"
-        }, {
-          "name" : "project",
-          "in" : "formData",
-          "description" : "Project name.",
           "required" : true,
           "type" : "string"
         }, {
@@ -2118,12 +2118,6 @@
           "required" : true,
           "type" : "string"
         }, {
-          "name" : "project",
-          "in" : "formData",
-          "description" : "Project name.",
-          "required" : true,
-          "type" : "string"
-        }, {
           "name" : "file",
           "in" : "formData",
           "description" : "File to update.",
@@ -2218,12 +2212,6 @@
           "in" : "path",
           "description" : "File unique identifier expressed as UUID.",
           "required" : true,
-          "type" : "string"
-        }, {
-          "name" : "project",
-          "in" : "formData",
-          "description" : "Project name.",
-          "required" : false,
           "type" : "string"
         }, {
           "name" : "file",
