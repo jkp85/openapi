@@ -23,7 +23,7 @@
         }, {
           "name" : "offset",
           "in" : "query",
-          "description" : "Offest items when retrieving actions.",
+          "description" : "Offset items when retrieving actions.",
           "required" : false,
           "type" : "string"
         }, {
