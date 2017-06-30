@@ -4680,12 +4680,6 @@
         "operationId" : "users_emails_create",
         "consumes" : [ "application/json" ],
         "parameters" : [ {
-          "name" : "namespace",
-          "in" : "path",
-          "description" : "User or team name.",
-          "required" : true,
-          "type" : "string"
-        }, {
           "name" : "user_pk",
           "in" : "path",
           "description" : "User unique identifier expressed as UUID.",
