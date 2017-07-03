@@ -2001,7 +2001,7 @@
       },
       "post" : {
         "tags" : [ "projects" ],
-        "summary" : "Uploads a file.",
+        "description" : "Uploads a file.",
         "operationId" : "projects_project_files_create",
         "consumes" : [ "multipart/form-data" ],
         "parameters" : [ {
