@@ -1,12 +1,11 @@
 {
   "swagger" : "2.0",
   "info" : {
-    "description" : "# Introduction\n\n3Blades currently offers a HTTP REST API and a Websocket Stream API which are used by both the Web UI and the CLI. This API documentation contains all API operations currently supported in the platform and provides examples of how to execute them using our Command Line Interface (CLI), Python SDK and Go SDK.\n\n# Authentication\n\nIn order to be able to make requests to the 3Blades API, you should first obtain an JWT (API authentication token) for your account. You many obtain a valid JWT by authenticating to the RESTful authentication endpoint with a valid user id and password.\n\n# RESTful API\n\nThe 3Blades REST API is reachable through the following hostname:\n\nhttps://api.3blades.io/v1\n\nAll requests should be sent to this endpoint using basic authentication using a valid authentication token.\n\n## Namespaced Endpoints\n\nEndpoints that are labeled as `namespaced` allow users to operate over different account/projects, for example a over a specific user project. The namespace includes the user or team account + project name, since it is possible for two accounts to have a project with the same name. A namespace therefore identifies the full project path.\n\nExample:\n\nThe user `foo` wants to manage a file within a specific project. They can use either of the following urls: https://api.3blades.io/v1/foo/my-proyect/my-file.\n\n## Namespaced Endpoints in the 3Blades CLI\n\nIf you are using namespaces with the 3Blades CLI, set them by changing the value of the TBS_NAMESPACE environment variable. In `*nix` environments you can `eval $(tbs env --namespace foo/myproject)` into your namespace. For more information please view [CLI Tools README](https://github.com/3blades/cli-tools).\n\n# Stream API\n\nThe 3Blades Stream API is reachable through the following hostname:\n\n  wss://ws.api.3blades.io/\n\nThe Stream API requires the same authentication mechanism as the REST API.\n",
-    "version" : "0.2.2",
+    "description" : "# Introduction\n\n3Blades currently offers a HTTP REST API and a Websocket Stream API which are used by both the Web UI and the CLI. This API documentation contains all API operations currently supported in the platform and provides examples of how to execute them using our Command Line Interface (CLI), Python SDK and Go SDK.\n\n# Authentication\n\nIn order to be able to make requests to the 3Blades API, you should first obtain an JWT (API authentication token) for your account. You many obtain a valid JWT by authenticating to the RESTful authentication endpoint with a valid user id and password.\n\n# RESTful API\n\nThe 3Blades REST API is reachable through the following hostname:\n\nhttps://api.3blades.io/v1.0\n\nAll requests should be sent to this endpoint using basic authentication using a valid authentication token.\n\n## Namespaced Endpoints\n\nEndpoints that are labeled as `namespaced` allow users to operate over different account/projects, for example a over a specific user project. The namespace includes the user or team account + project name, since it is possible for two accounts to have a project with the same name. A namespace therefore identifies the full project path.\n\nExample:\n\nThe user `foo` wants to manage a file within a specific project. They can use either of the following urls: https://api.3blades.io/v1.0/foo/my-proyect/my-file.\n\n## Namespaced Endpoints in the 3Blades CLI\n\nIf you are using namespaces with the 3Blades CLI, set them by changing the value of the TBS_NAMESPACE environment variable. In `*nix` environments you can `eval $(tbs env --namespace foo/myproject)` into your namespace. For more information please view [CLI Tools README](https://github.com/3blades/cli-tools).\n\n# Stream API\n\nThe 3Blades Stream API is reachable through the following hostname:\n\n  wss://ws.api.3blades.io/v1.0\n\nThe Stream API requires the same authentication mechanism as the REST API.",
+    "version" : "1.1",
     "title" : "3blades API"
   },
-  "host" : "staging.3blades.io",
-  "basePath" : "/",
+  "host" : "staging-api.3blades.ai",
   "schemes" : [ "https" ],
   "consumes" : [ "application/json", "application/x-www-form-urlencoded", "multipart/form-data" ],
   "produces" : [ "application/json", "text/html" ],
@@ -24,7 +23,7 @@
         }, {
           "name" : "offset",
           "in" : "query",
-          "description" : "Offest items when retrieving actions.",
+          "description" : "Offset items when retrieving actions.",
           "required" : false,
           "type" : "string"
         }, {
@@ -119,7 +118,7 @@
     "/auth/jwt-token-refresh/" : {
       "post" : {
         "tags" : [ "auth" ],
-        "description" : "API View that returns a refreshed token (with new expiration) based on\nexisting token\n\nIf 'orig_iat' field (original issued-at-time) is found, will first check\nif it's within expiration window, then copy it to the new token.",
+        "description" : "Checks veracity of token.",
         "operationId" : "auth_jwt-token-refresh_create",
         "consumes" : [ "application/json" ],
         "parameters" : [ {
@@ -149,7 +148,7 @@
     "/auth/jwt-token-verify/" : {
       "post" : {
         "tags" : [ "auth" ],
-        "description" : "API View that checks the veracity of a token, returning the token if it\nis valid.",
+        "description" : "Checks veraciy of token.",
         "operationId" : "auth_jwt-token-verify_create",
         "consumes" : [ "application/json" ],
         "parameters" : [ {
@@ -1981,6 +1980,12 @@
           "description" : "Ordering of list values when getting project file list.",
           "required" : false,
           "type" : "string"
+        }, {
+          "name" : "filename",
+          "in" : "query",
+          "description" : "Exact file name, relative to the project root. If no such file is found, an empty list will be returned.",
+          "required" : false,
+          "type" : "string"
         } ],
         "responses" : {
           "200" : {
@@ -2009,12 +2014,6 @@
           "name" : "namespace",
           "in" : "path",
           "description" : "User or team name.",
-          "required" : true,
-          "type" : "string"
-        }, {
-          "name" : "project",
-          "in" : "formData",
-          "description" : "Project name.",
           "required" : true,
           "type" : "string"
         }, {
@@ -2119,12 +2118,6 @@
           "required" : true,
           "type" : "string"
         }, {
-          "name" : "project",
-          "in" : "formData",
-          "description" : "Project name.",
-          "required" : true,
-          "type" : "string"
-        }, {
           "name" : "file",
           "in" : "formData",
           "description" : "File to update.",
@@ -2219,12 +2212,6 @@
           "in" : "path",
           "description" : "File unique identifier expressed as UUID.",
           "required" : true,
-          "type" : "string"
-        }, {
-          "name" : "project",
-          "in" : "formData",
-          "description" : "Project name.",
-          "required" : false,
           "type" : "string"
         }, {
           "name" : "file",
@@ -2530,6 +2517,52 @@
             "description" : "Server not found",
             "schema" : {
               "$ref" : "#/definitions/NotFound"
+            }
+          }
+        }
+      }
+    },
+    "/{namespace}/projects/{project_pk}/servers/{id}/logs/" : {
+      "get" : {
+        "tags" : [ "projects", "stream_api" ],
+        "operationId" : "projects_servers_logs",
+        "parameters" : [ {
+          "name" : "project_pk",
+          "in" : "path",
+          "description" : "Project unique identifier expressed as UUID.",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "namespace",
+          "in" : "path",
+          "description" : "User or team name.",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "id",
+          "in" : "path",
+          "description" : "Server unique identifier expressed as UUID.",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "101" : {
+            "description" : "Get `stdout` and `stderr` logs from a server.",
+            "schema" : {
+              "type" : "string",
+              "format" : "binary"
+            }
+          },
+          "404" : {
+            "description" : "Server not found.",
+            "schema" : {
+              "$ref" : "#/definitions/NotFound"
+            }
+          },
+          "500" : {
+            "description" : "Server error.",
+            "schema" : {
+              "$ref" : "#/definitions/ErrorResponse"
             }
           }
         }
@@ -3343,6 +3376,52 @@
             "description" : "Invalid data supplied",
             "schema" : {
               "$ref" : "#/definitions/ServerStatisticsError"
+            }
+          }
+        }
+      }
+    },
+    "/{namespace}/projects/{project_pk}/servers/{server_pk}/status/" : {
+      "get" : {
+        "tags" : [ "projects", "stream_api" ],
+        "operationId" : "projects_servers_status",
+        "parameters" : [ {
+          "name" : "namespace",
+          "in" : "path",
+          "description" : "User or team name.",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "project_pk",
+          "in" : "path",
+          "description" : "Project unique identifier expressed as UUID.",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "server_pk",
+          "in" : "path",
+          "description" : "Server unique identifier expressed as UUID.",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "101" : {
+            "description" : "Get server status of a server.",
+            "schema" : {
+              "type" : "string",
+              "format" : "binary"
+            }
+          },
+          "404" : {
+            "description" : "Server not found.",
+            "schema" : {
+              "$ref" : "#/definitions/NotFound"
+            }
+          },
+          "500" : {
+            "description" : "Server error.",
+            "schema" : {
+              "$ref" : "#/definitions/ErrorResponse"
             }
           }
         }
@@ -4412,17 +4491,11 @@
         }
       }
     },
-    "/{namespace}/users/" : {
+    "/users/" : {
       "get" : {
         "tags" : [ "users" ],
         "operationId" : "users_list",
         "parameters" : [ {
-          "name" : "namespace",
-          "in" : "path",
-          "description" : "User or team name.",
-          "required" : true,
-          "type" : "string"
-        }, {
           "name" : "limit",
           "in" : "query",
           "description" : "Limit user list.",
@@ -4470,12 +4543,6 @@
         "operationId" : "users_create",
         "consumes" : [ "application/json" ],
         "parameters" : [ {
-          "name" : "namespace",
-          "in" : "path",
-          "description" : "User or team name.",
-          "required" : true,
-          "type" : "string"
-        }, {
           "in" : "body",
           "name" : "data",
           "required" : false,
@@ -4499,17 +4566,11 @@
         }
       }
     },
-    "/{namespace}/users/{id}/" : {
+    "/users/{id}/" : {
       "get" : {
         "tags" : [ "users" ],
         "operationId" : "users_read",
         "parameters" : [ {
-          "name" : "namespace",
-          "in" : "path",
-          "description" : "User or team name.",
-          "required" : true,
-          "type" : "string"
-        }, {
           "name" : "id",
           "in" : "path",
           "description" : "Unique identifier expressed as UUID.",
@@ -4536,12 +4597,6 @@
         "operationId" : "users_update",
         "consumes" : [ "application/json" ],
         "parameters" : [ {
-          "name" : "namespace",
-          "in" : "path",
-          "description" : "User or team name.",
-          "required" : true,
-          "type" : "string"
-        }, {
           "name" : "id",
           "in" : "path",
           "description" : "User unique identifier expressed as UUID.",
@@ -4574,12 +4629,6 @@
         "tags" : [ "users" ],
         "operationId" : "users_delete",
         "parameters" : [ {
-          "name" : "namespace",
-          "in" : "path",
-          "description" : "User or team name.",
-          "required" : true,
-          "type" : "string"
-        }, {
           "name" : "id",
           "in" : "path",
           "description" : "User identifier expressed as UUID.",
@@ -4603,12 +4652,6 @@
         "operationId" : "users_partial_update",
         "consumes" : [ "application/json" ],
         "parameters" : [ {
-          "name" : "namespace",
-          "in" : "path",
-          "description" : "User or team name.",
-          "required" : true,
-          "type" : "string"
-        }, {
           "name" : "id",
           "in" : "path",
           "description" : "User unique identifier expressed as UUID.",
@@ -4644,17 +4687,11 @@
         }
       }
     },
-    "/{namespace}/users/{user_pk}/api-key/" : {
+    "/users/{user_pk}/api-key/" : {
       "get" : {
         "tags" : [ "users" ],
         "operationId" : "users_api-key_list",
         "parameters" : [ {
-          "name" : "namespace",
-          "in" : "path",
-          "description" : "User or team name.",
-          "required" : true,
-          "type" : "string"
-        }, {
           "name" : "user_pk",
           "in" : "path",
           "description" : "User unique identifier expressed as UUID.",
@@ -4668,17 +4705,11 @@
         }
       }
     },
-    "/{namespace}/users/{user_pk}/api-key/reset/" : {
+    "/users/{user_pk}/api-key/reset/" : {
       "post" : {
         "tags" : [ "users" ],
         "operationId" : "users_api-key_reset_create",
         "parameters" : [ {
-          "name" : "namespace",
-          "in" : "path",
-          "description" : "User or team name.",
-          "required" : true,
-          "type" : "string"
-        }, {
           "name" : "user_pk",
           "in" : "path",
           "description" : "User unique identifier expressed as UUID.",
@@ -4695,17 +4726,11 @@
         }
       }
     },
-    "/{namespace}/users/{user_pk}/emails/" : {
+    "/users/{user_pk}/emails/" : {
       "get" : {
         "tags" : [ "users" ],
         "operationId" : "users_emails_list",
         "parameters" : [ {
-          "name" : "namespace",
-          "in" : "path",
-          "description" : "User or team name.",
-          "required" : true,
-          "type" : "string"
-        }, {
           "name" : "user_pk",
           "in" : "path",
           "description" : "User unique identifier as expressed as UUID.",
@@ -4747,12 +4772,6 @@
         "operationId" : "users_emails_create",
         "consumes" : [ "application/json" ],
         "parameters" : [ {
-          "name" : "namespace",
-          "in" : "path",
-          "description" : "User or team name.",
-          "required" : true,
-          "type" : "string"
-        }, {
           "name" : "user_pk",
           "in" : "path",
           "description" : "User unique identifier expressed as UUID.",
@@ -4782,7 +4801,7 @@
         }
       }
     },
-    "/{namespace}/users/{user_pk}/emails/{address}/" : {
+    "/users/{user_pk}/emails/{address}/" : {
       "get" : {
         "tags" : [ "users" ],
         "operationId" : "users_emails_read",
@@ -4790,12 +4809,6 @@
           "name" : "address",
           "in" : "path",
           "description" : "Email address.",
-          "required" : true,
-          "type" : "string"
-        }, {
-          "name" : "namespace",
-          "in" : "path",
-          "description" : "User or team name.",
           "required" : true,
           "type" : "string"
         }, {
@@ -4828,12 +4841,6 @@
           "name" : "address",
           "in" : "path",
           "description" : "Email address.",
-          "required" : true,
-          "type" : "string"
-        }, {
-          "name" : "namespace",
-          "in" : "path",
-          "description" : "User or team name.",
           "required" : true,
           "type" : "string"
         }, {
@@ -4875,12 +4882,6 @@
           "required" : true,
           "type" : "string"
         }, {
-          "name" : "namespace",
-          "in" : "path",
-          "description" : "User or team name.",
-          "required" : true,
-          "type" : "string"
-        }, {
           "name" : "user_pk",
           "in" : "path",
           "description" : "User unique identifier expressed as UUID.",
@@ -4907,12 +4908,6 @@
           "name" : "address",
           "in" : "path",
           "description" : "Email address.",
-          "required" : true,
-          "type" : "string"
-        }, {
-          "name" : "namespace",
-          "in" : "path",
-          "description" : "User or team name.",
           "required" : true,
           "type" : "string"
         }, {
@@ -4951,17 +4946,11 @@
         }
       }
     },
-    "/{namespace}/users/{user_pk}/integrations/" : {
+    "/users/{user_pk}/integrations/" : {
       "get" : {
         "tags" : [ "users" ],
         "operationId" : "users_integrations_list",
         "parameters" : [ {
-          "name" : "namespace",
-          "in" : "path",
-          "description" : "User or team name.",
-          "required" : true,
-          "type" : "string"
-        }, {
           "name" : "user_pk",
           "in" : "path",
           "description" : "User unique identifier expressed as UUID.",
@@ -5003,12 +4992,6 @@
         "operationId" : "users_integrations_create",
         "consumes" : [ "application/json" ],
         "parameters" : [ {
-          "name" : "namespace",
-          "in" : "path",
-          "description" : "User or team name.",
-          "required" : true,
-          "type" : "string"
-        }, {
           "name" : "user_pk",
           "in" : "path",
           "description" : "User unique identifier expressed as UUID.",
@@ -5038,7 +5021,7 @@
         }
       }
     },
-    "/{namespace}/users/{user_pk}/integrations/{id}/" : {
+    "/users/{user_pk}/integrations/{id}/" : {
       "get" : {
         "tags" : [ "users" ],
         "operationId" : "users_integrations_read",
@@ -5046,12 +5029,6 @@
           "name" : "id",
           "in" : "path",
           "description" : "Integration unique identifier expressed as UUID.",
-          "required" : true,
-          "type" : "string"
-        }, {
-          "name" : "namespace",
-          "in" : "path",
-          "description" : "User or team name.",
           "required" : true,
           "type" : "string"
         }, {
@@ -5084,12 +5061,6 @@
           "name" : "id",
           "in" : "path",
           "description" : "Integrations unique identifier expressed as UUID.",
-          "required" : true,
-          "type" : "string"
-        }, {
-          "name" : "namespace",
-          "in" : "path",
-          "description" : "User name or team name.",
           "required" : true,
           "type" : "string"
         }, {
@@ -5131,12 +5102,6 @@
           "required" : true,
           "type" : "string"
         }, {
-          "name" : "namespace",
-          "in" : "path",
-          "description" : "User or team name.",
-          "required" : true,
-          "type" : "string"
-        }, {
           "name" : "user_pk",
           "in" : "path",
           "description" : "User unique identifier expressed as UUID.",
@@ -5163,12 +5128,6 @@
           "name" : "id",
           "in" : "path",
           "description" : "Integration unique identifier expressed as UUID.",
-          "required" : true,
-          "type" : "string"
-        }, {
-          "name" : "namespace",
-          "in" : "path",
-          "description" : "User or team name.",
           "required" : true,
           "type" : "string"
         }, {
@@ -5207,17 +5166,11 @@
         }
       }
     },
-    "/{namespace}/users/{user_pk}/ssh-key/" : {
+    "/users/{user_pk}/ssh-key/" : {
       "get" : {
         "tags" : [ "users" ],
         "operationId" : "users_ssh-key_list",
         "parameters" : [ {
-          "name" : "namespace",
-          "in" : "path",
-          "description" : "User or team name.",
-          "required" : true,
-          "type" : "string"
-        }, {
           "name" : "user_pk",
           "in" : "path",
           "description" : "User unique identifier expressed as UUID.",
@@ -5231,17 +5184,11 @@
         }
       }
     },
-    "/{namespace}/users/{user_pk}/ssh-key/reset/" : {
+    "/users/{user_pk}/ssh-key/reset/" : {
       "post" : {
         "tags" : [ "users" ],
         "operationId" : "users_ssh-key_reset_create",
         "parameters" : [ {
-          "name" : "namespace",
-          "in" : "path",
-          "description" : "User or team name.",
-          "required" : true,
-          "type" : "string"
-        }, {
           "name" : "user_pk",
           "in" : "path",
           "description" : "User unique identifier expressed as UUID.",
@@ -6393,6 +6340,19 @@
             "type" : "string"
           }
         }
+      }
+    },
+    "ErrorResponse" : {
+      "type" : "object",
+      "properties" : {
+        "message" : {
+          "type" : "string",
+          "description" : "The error message."
+        }
+      },
+      "description" : "Represents an error.",
+      "example" : {
+        "message" : "Something went wrong."
       }
     },
     "Integration" : {
