@@ -7,7 +7,7 @@ Public facing API documents are published with Readme.io. Readme.io's documentat
 ## Add new SwaggerHub project version
 
 - Log into [SwaggerHub](https://app.swaggerhub.com/apis/3Blades/3blades_api/) with hour GitHub account.
-- Version may be edited, however every edit should correspond to a new SwaggerHub version. Version management should [follow these guidelines](./VERSION_MANAGEMENT.md).
+- Version may be edited, however every edit should correspond to a new SwaggerHub version. Version management should [follow these guidelines](http://semver.org/).
 - Click on `...` button on the top right and select `Add version`.
 - Edit document and save. Make sure version is also reflected in swagger document:
 
