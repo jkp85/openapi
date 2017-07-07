@@ -6,7 +6,7 @@ testOpenApiSpecValidity() {
         expectedOutputSize=${#expectedOutput}
 
         # Prepares the spec URL from GitHub Pull-Request (PR)
-        specUrl="https://raw.githubusercontent.com/$TRAVIS_PULL_REQUEST_SLUG/$TRAVIS_PULL_REQUEST_BRANCH/swagger/tbs_swagger.yml"
+        specUrl="https://raw.githubusercontent.com/$TRAVIS_PULL_REQUEST_SLUG/$TRAVIS_PULL_REQUEST_BRANCH/tbs_swagger.yml"
         # Now prepare the open API spec file to use the online validator service.
         validationUrl="http://online.swagger.io/validator/debug?url=$specUrl"
 
