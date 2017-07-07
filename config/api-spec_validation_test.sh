@@ -28,7 +28,7 @@ testOpenApiSpecValidity() {
         assertEquals "Validation failed - service unavailable or error found." $expectedOutputSize $validationOutputSize
 
     fi
-    
+ 
 }
 
 

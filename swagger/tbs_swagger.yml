@@ -1,5 +1,5 @@
 swagger: '2.0'
-info:
+info:::
   title: 3blades API
   version: "1.3"
   description: |-
@@ -90,6 +90,7 @@ paths:
           in: query
           description: 'Oder items when retrieving actions.'
           type: string
+      summary: 'Get actions'
       tags:
         - actions
   '/actions/{id}/cancel/':
@@ -106,7 +107,8 @@ paths:
           in: path
           description: 'Action unique identifier.'
           type: string
-      description: 'Cancel an action object by ID.'
+      summary: 'Cancel action using id.'
+      description: 'Cancel an action object by UUID.'
       tags:
         - actions
   /auth/jwt-token-auth/:
@@ -128,6 +130,7 @@ paths:
             $ref: '#/definitions/JWTData'
       consumes:
         - application/json
+      summary: 'Get JSON Web Token (JWT)'
       tags:
         - auth
   /auth/jwt-token-refresh/:
@@ -147,7 +150,8 @@ paths:
           in: body
           schema:
             $ref: '#/definitions/RefreshJSONWebTokenData'
-      description: 'Checks veracity of token.'
+      summary: 'Get new JWT'
+      description: 'Obtains a new JSON Web Token using existing user credentials.'
       consumes:
         - application/json
       tags:
@@ -169,6 +173,7 @@ paths:
           in: body
           schema:
             $ref: '#/definitions/VerifyJSONWebTokenData'
+      summary: 'Validate JWT'
       description: 'Checks veraciy of token.'
       consumes:
         - application/json
@@ -191,6 +196,7 @@ paths:
           in: body
           schema:
             $ref: '#/definitions/UserData'
+      summary: 'Register a user'
       description: 'User register'
       consumes:
         - application/json
@@ -215,6 +221,7 @@ paths:
             $ref: '#/definitions/AuthTokenData'
       consumes:
         - application/json
+      summary: 'Create simple JWT'
       tags:
         - auth
   '/{namespace}/billing/cards/':
@@ -248,6 +255,7 @@ paths:
           in: query
           description: 'Order when retrieving cards.'
           type: string
+      summary: 'Get credit cards'
       tags:
         - billing
     post:
@@ -271,6 +279,7 @@ paths:
           in: body
           schema:
             $ref: '#/definitions/CardData'
+      summary: 'Create new credit card'
       consumes:
         - application/json
       tags:
@@ -298,6 +307,7 @@ paths:
           in: path
           description: 'User unique identifier expressed as UUID.'
           type: string
+      summary: 'Get credit card by id'
       tags:
         - billing
     put:
@@ -328,6 +338,7 @@ paths:
             $ref: '#/definitions/CardData'
       consumes:
         - application/json
+      summary: 'Update credit card'
       tags:
         - billing
     patch:
@@ -362,6 +373,7 @@ paths:
             $ref: '#/definitions/CardData'
       consumes:
         - application/json
+      summary: 'Update credit card'
       tags:
         - billing
     delete:
@@ -384,6 +396,7 @@ paths:
           in: path
           description: 'Card unique identifier expressed as UUID.'
           type: string
+      summary: 'Delete a credit card'
       tags:
         - billing
   '/{namespace}/billing/customers/':
@@ -417,6 +430,7 @@ paths:
           in: query
           description: 'Ordering when getting items.'
           type: string
+      summary: 'Get customers'
       tags:
         - billing
     post:
@@ -442,6 +456,7 @@ paths:
             $ref: '#/definitions/CustomerData'
       consumes:
         - application/json
+      summary: 'Create new customer'
       tags:
         - billing
   '/{namespace}/billing/customers/{id}/':
@@ -467,6 +482,7 @@ paths:
           in: path
           description: 'Customer unique identifier.'
           type: string
+      summary: 'Get a customer'
       tags:
         - billing
     put:
@@ -497,6 +513,7 @@ paths:
             $ref: '#/definitions/CustomerData'
       consumes:
         - application/json
+      summary: 'Update a customer'
       tags:
         - billing
     patch:
@@ -531,6 +548,7 @@ paths:
             $ref: '#/definitions/CustomerData'
       consumes:
         - application/json
+      summary: 'Update a customer'
       tags:
         - billing
     delete:
@@ -553,6 +571,7 @@ paths:
           in: path
           description: 'Customer unique identifier.'
           type: string
+      summary: 'Delete a customer'
       tags:
         - billing
   '/{namespace}/billing/invoices/':
@@ -586,6 +605,7 @@ paths:
           in: query
           description: 'Ordering when getting items.'
           type: string
+      summary: 'Get invoices'
       tags:
         - billing
   '/{namespace}/billing/invoices/{id}/':
@@ -611,6 +631,7 @@ paths:
           in: path
           description: 'Invoice unique identifier expressed as UUID.'
           type: string
+      summary: 'Get an invoice'
       tags:
         - billing
   '/{namespace}/billing/plans/':
@@ -644,6 +665,7 @@ paths:
           in: query
           description: 'Ordering when getting items.'
           type: string
+      summary: 'Get billing plans'
       tags:
         - billing
     post:
@@ -669,6 +691,7 @@ paths:
             $ref: '#/definitions/PlanData'
       consumes:
         - application/json
+      summary: 'Create a billing plan'
       tags:
         - billing
   '/{namespace}/billing/plans/{id}/':
@@ -694,6 +717,7 @@ paths:
           in: path
           description: 'Plan unique identifier expressed as UUID.'
           type: string
+      summary: 'Get a billing plan'
       tags:
         - billing
     put:
@@ -724,6 +748,7 @@ paths:
             $ref: '#/definitions/PlanData'
       consumes:
         - application/json
+      summary: 'Update a billing plan'
       tags:
         - billing
     patch:
@@ -758,6 +783,7 @@ paths:
             $ref: '#/definitions/PlanData'
       consumes:
         - application/json
+      summary: 'Update a billing plan'
       tags:
         - billing
     delete:
@@ -780,6 +806,7 @@ paths:
           in: path
           description: 'Plan unique identifier expressed as UUID.'
           type: string
+      summary: 'Delete a billing plan'
       tags:
         - billing
   '/{namespace}/billing/subscription_required/':
@@ -794,6 +821,7 @@ paths:
           in: path
           description: 'User or team name.'
           type: string
+      summary: 'Get subscription required'
       tags:
         - billing
     post:
@@ -809,6 +837,7 @@ paths:
           in: path
           description: 'User or team name.'
           type: string
+      summary: 'Require subscription for account.'
       tags:
         - billing
   '/{namespace}/billing/subscriptions/':
@@ -842,6 +871,7 @@ paths:
           in: query
           description: 'Ordering when getting items.'
           type: string
+      summary: 'Get valid subscriptons'
       tags:
         - billing
     post:
@@ -867,6 +897,7 @@ paths:
             $ref: '#/definitions/SubscriptionData'
       consumes:
         - application/json
+      summary: 'Create a new subscription'
       tags:
         - billing
   '/{namespace}/billing/subscriptions/{id}/':
@@ -892,6 +923,7 @@ paths:
           in: path
           description: 'Unique identifier expressed as UUID.'
           type: string
+      summary: 'Get a subscriptions'
       tags:
         - billing
     put:
@@ -922,6 +954,7 @@ paths:
             $ref: '#/definitions/SubscriptionData'
       consumes:
         - application/json
+      summary: 'Update a subscription'
       tags:
         - billing
     patch:
@@ -956,6 +989,7 @@ paths:
             $ref: '#/definitions/SubscriptionData'
       consumes:
         - application/json
+      summary: 'Update a subscription'
       tags:
         - billing
     delete:
@@ -978,6 +1012,7 @@ paths:
           in: path
           description: 'Subscription unique identifier expressed as UUID.'
           type: string
+      summary: 'Delete a subscription'
       tags:
         - billing
   '/{namespace}/hosts/':
@@ -1016,6 +1051,7 @@ paths:
           in: query
           description: 'Ordering when getting items.'
           type: string
+      summary: 'Get available hosts'
       tags:
         - hosts
     post:
@@ -1041,6 +1077,7 @@ paths:
             $ref: '#/definitions/DockerHostData'
       consumes:
         - application/json
+      summary: 'Create a new host'
       tags:
         - hosts
   '/{namespace}/hosts/{id}/':
@@ -1066,6 +1103,7 @@ paths:
           in: path
           description: 'Unique identifier expressed as UUID.'
           type: string
+      summary: 'Get a host'
       tags:
         - hosts
     put:
@@ -1096,6 +1134,7 @@ paths:
             $ref: '#/definitions/DockerHostData'
       consumes:
         - application/json
+      summary: 'Update a host'
       tags:
         - hosts
     patch:
@@ -1130,6 +1169,7 @@ paths:
             $ref: '#/definitions/DockerHostData'
       consumes:
         - application/json
+      summary: 'Update a host'
       tags:
         - hosts
     delete:
@@ -1152,6 +1192,7 @@ paths:
           in: path
           description: 'DockerHost unique identifier expressed as UUID.'
           type: string
+      summary: 'Delete a host'
       tags:
         - hosts
   '/{namespace}/projects/':
@@ -1195,6 +1236,7 @@ paths:
           in: query
           description: 'Ordering when getting projects.'
           type: string
+      summary: 'Get available projects'
       tags:
         - projects
     post:
@@ -1220,6 +1262,7 @@ paths:
             $ref: '#/definitions/ProjectData'
       consumes:
         - application/json
+      summary: 'Create a new project'
       tags:
         - projects
   '/{namespace}/projects/{id}/':
@@ -1245,6 +1288,7 @@ paths:
           in: path
           description: 'Project unique identifier expressed as UUID.'
           type: string
+      summary: 'Get a project'
       tags:
         - projects
     put:
@@ -1275,6 +1319,7 @@ paths:
             $ref: '#/definitions/ProjectData'
       consumes:
         - application/json
+      summary: 'Update a project'
       tags:
         - projects
     patch:
@@ -1309,6 +1354,7 @@ paths:
             $ref: '#/definitions/ProjectData'
       consumes:
         - application/json
+      summary: 'Update a project'
       tags:
         - projects
     delete:
@@ -1331,9 +1377,10 @@ paths:
           in: path
           description: 'Project unique identifier expressed as UUID.'
           type: string
+      summary: 'Delete a project'
       tags:
         - projects
-  '/{namespace}/projects/{project_pk}/collaborators/':
+  '/{namespace}/projects/{project_id}/collaborators/':
     get:
       operationId: projects_collaborators_list
       responses:
@@ -1344,7 +1391,7 @@ paths:
             items:
               $ref: '#/definitions/Collaborator'
       parameters:
-        - name: project_pk
+        - name: project_id
           required: true
           in: path
           description: 'Project unique identifier expressed as UUID.'
@@ -1369,6 +1416,7 @@ paths:
           in: query
           description: 'Ordering when retrieving items.'
           type: string
+      summary: 'Get project collaborators'
       tags:
         - projects
     post:
@@ -1383,7 +1431,7 @@ paths:
           schema:
             $ref: '#/definitions/CollaboratorError'
       parameters:
-        - name: project_pk
+        - name: project_id
           required: true
           in: path
           description: 'Project unique identifier expressed as UUID.'
@@ -1399,9 +1447,10 @@ paths:
             $ref: '#/definitions/CollaboratorData'
       consumes:
         - application/json
+      summary: 'Get project collaborators'
       tags:
         - projects
-  '/{namespace}/projects/{project_pk}/collaborators/{id}/':
+  '/{namespace}/projects/{project_id}/collaborators/{id}/':
     get:
       operationId: projects_collaborators_read
       responses:
@@ -1414,7 +1463,7 @@ paths:
           schema:
             $ref: '#/definitions/NotFound'
       parameters:
-        - name: project_pk
+        - name: project_id
           required: true
           in: path
           description: 'Project unique identifier.'
@@ -1429,6 +1478,7 @@ paths:
           in: path
           description: 'Collaborator unique identifier expressed as UUID.'
           type: string
+      summary: 'Get a project collaborator'
       tags:
         - projects
     put:
@@ -1447,7 +1497,7 @@ paths:
           schema:
             $ref: '#/definitions/NotFound'
       parameters:
-        - name: project_pk
+        - name: project_id
           required: true
           in: path
           description: 'Project unique identifier expressed as UUID.'
@@ -1468,6 +1518,7 @@ paths:
             $ref: '#/definitions/CollaboratorData'
       consumes:
         - application/json
+      summary: 'Update project collaborator'
       tags:
         - projects
     patch:
@@ -1486,7 +1537,7 @@ paths:
           schema:
             $ref: '#/definitions/NotFound'
       parameters:
-        - name: project_pk
+        - name: project_id
           required: true
           in: path
           description: ''
@@ -1507,6 +1558,7 @@ paths:
             $ref: '#/definitions/CollaboratorError'
       consumes:
         - application/json
+      summary: 'Update project collaborator'
       tags:
         - projects
     delete:
@@ -1519,7 +1571,7 @@ paths:
           schema:
             $ref: '#/definitions/NotFound'
       parameters:
-        - name: project_pk
+        - name: project_id
           required: true
           in: path
           description: 'Project unique identifier expressed as UUID.'
@@ -1534,9 +1586,10 @@ paths:
           in: path
           description: 'Collaborator unique identifier expressed as UUID.'
           type: string
+      summary: 'Delete project collaborator'
       tags:
         - projects
-  '/{namespace}/projects/{project_pk}/project_files/':
+  '/{namespace}/projects/{project_id}/project_files/':
     get:
       operationId: projects_project_files_list
       responses:
@@ -1547,7 +1600,7 @@ paths:
             items:
               $ref: '#/definitions/ProjectFile'
       parameters:
-        - name: project_pk
+        - name: project_id
           required: true
           in: path
           description: 'Unique identifier for project file expressed as UUID.'
@@ -1577,6 +1630,7 @@ paths:
           in: query
           description: 'Exact file name, relative to the project root. If no such file is found, an empty list will be returned.'
           type: string
+      summary: 'Get project files'
       tags:
         - projects
     post:
@@ -1592,7 +1646,7 @@ paths:
           schema:
             $ref: '#/definitions/ProjectFileError'
       parameters:
-        - name: project_pk
+        - name: project_id
           required: true
           in: path
           description: 'Unique project identifier expressed as UUID.'
@@ -1624,9 +1678,10 @@ paths:
           type: string
       consumes:
         - multipart/form-data
+      summary: 'Create project files'
       tags:
         - projects
-  '/{namespace}/projects/{project_pk}/project_files/{id}/':
+  '/{namespace}/projects/{project_id}/project_files/{id}/':
     get:
       operationId: projects_project_files_read
       responses:
@@ -1639,7 +1694,7 @@ paths:
           schema:
             $ref: '#/definitions/NotFound'
       parameters:
-        - name: project_pk
+        - name: project_id
           required: true
           in: path
           description: 'Project unique identifer expressed as UUID.'
@@ -1654,6 +1709,7 @@ paths:
           in: path
           description: 'File unique identifier expressed as UUID.'
           type: string
+      summary: 'Get a project file'
       tags:
         - projects
     put:
@@ -1668,7 +1724,7 @@ paths:
           schema:
             $ref: '#/definitions/ProjectFileError'
       parameters:
-        - name: project_pk
+        - name: project_id
           required: true
           in: path
           description: 'Project unique identifer expressed as UUID.'
@@ -1705,6 +1761,7 @@ paths:
           type: string
       consumes:
         - multipart/form-data
+      summary: 'Update a project file'
       tags:
         - projects
     patch:
@@ -1723,7 +1780,7 @@ paths:
           schema:
             $ref: '#/definitions/NotFound'
       parameters:
-        - name: project_pk
+        - name: project_id
           required: true
           in: path
           description: 'Project unique identifier.'
@@ -1760,6 +1817,7 @@ paths:
           type: string
       consumes:
         - multipart/form-data
+      summary: 'Update a project file'
       tags:
         - projects
     delete:
@@ -1772,7 +1830,7 @@ paths:
           schema:
             $ref: '#/definitions/NotFound'
       parameters:
-        - name: project_pk
+        - name: project_id
           required: true
           in: path
           description: 'Project unique identifier expressed as UUID.'
@@ -1787,9 +1845,10 @@ paths:
           in: path
           description: 'File unique identifier expressed as UUID.'
           type: string
+      summary: 'Delete a project file'
       tags:
         - projects
-  '/{namespace}/projects/{project_pk}/servers/':
+  '/{namespace}/projects/{project_id}/servers/':
     get:
       operationId: projects_servers_list
       responses:
@@ -1800,7 +1859,7 @@ paths:
             items:
               $ref: '#/definitions/Server'
       parameters:
-        - name: project_pk
+        - name: project_id
           required: true
           in: path
           description: 'Project unique identifier expressed as UUID.'
@@ -1830,6 +1889,7 @@ paths:
           in: query
           description: 'Ordering option when getting server list.'
           type: string
+      summary: 'Retrieve servers'
       tags:
         - projects
     post:
@@ -1844,7 +1904,7 @@ paths:
           schema:
             $ref: '#/definitions/ServerError'
       parameters:
-        - name: project_pk
+        - name: project_id
           required: true
           in: path
           description: 'Project unique identifer expressed as UUID.'
@@ -1860,9 +1920,10 @@ paths:
             $ref: '#/definitions/ServerData'
       consumes:
         - application/json
+      summary: 'Create a new server'
       tags:
         - projects
-  '/{namespace}/projects/{project_pk}/servers/{id}/':
+  '/{namespace}/projects/{project_id}/servers/{id}/':
     get:
       operationId: projects_servers_read
       responses:
@@ -1875,7 +1936,7 @@ paths:
           schema:
             $ref: '#/definitions/NotFound'
       parameters:
-        - name: project_pk
+        - name: project_id
           required: true
           in: path
           description: 'Project unique identifier expressed as UUID.'
@@ -1890,6 +1951,7 @@ paths:
           in: path
           description: 'Server unique identifier expressed as UUID.'
           type: string
+      summary: 'Retrieve a server'
       tags:
         - projects
     put:
@@ -1904,7 +1966,7 @@ paths:
           schema:
             $ref: '#/definitions/ServerError'
       parameters:
-        - name: project_pk
+        - name: project_id
           required: true
           in: path
           description: 'Project unique identifier expressed as UUID.'
@@ -1925,6 +1987,7 @@ paths:
             $ref: '#/definitions/ServerData'
       consumes:
         - application/json
+      summary: 'Update a server'
       tags:
         - projects
     patch:
@@ -1943,7 +2006,7 @@ paths:
           schema:
             $ref: '#/definitions/NotFound'
       parameters:
-        - name: project_pk
+        - name: project_id
           required: true
           in: path
           description: 'Project unique identifier expressed as UUID.'
@@ -1964,6 +2027,7 @@ paths:
             $ref: '#/definitions/ServerData'
       consumes:
         - application/json
+      summary: 'Update a server'
       tags:
         - projects
     delete:
@@ -1976,7 +2040,7 @@ paths:
           schema:
             $ref: '#/definitions/NotFound'
       parameters:
-        - name: project_pk
+        - name: project_id
           required: true
           in: path
           description: 'Project unique identifier expressed as UUID.'
@@ -1991,19 +2055,20 @@ paths:
           in: path
           description: 'User unique identifier expressed as UUID.'
           type: string
+      summary: 'Delete a server'
       tags:
         - projects
-  '/{namespace}/projects/{project_pk}/servers/{id}/is-allowed/':
+  '/{namespace}/projects/{project_id}/servers/{id}/is-allowed/':
     get:
       operationId: projects_servers_is-allowed_list
       responses:
         '200':
           description: 'Is Allowed'
       parameters:
-        - name: project_pk
+        - name: project_id
           required: true
           in: path
-          description: 'Projedct unique identifier expressed as UUID.'
+          description: 'Project unique identifier expressed as UUID.'
           type: string
         - name: namespace
           required: true
@@ -2015,10 +2080,11 @@ paths:
           in: path
           description: 'Server unique identifier expressed as UUID.'
           type: string
-      description: Checks if user is allowed to access model server
+      summary: 'Obtain access server rights'
+      description: 'Checks if user is allowed to access restful server'
       tags:
         - projects
-  '/{namespace}/projects/{project_pk}/servers/{id}/start/':
+  '/{namespace}/projects/{project_id}/servers/{id}/start/':
     post:
       operationId: projects_servers_start_create
       responses:
@@ -2027,7 +2093,7 @@ paths:
         '400':
           description: 'Invalid data supplied.'
       parameters:
-        - name: project_pk
+        - name: project_id
           required: true
           in: path
           description: 'Project unique identifier expressed as UUID.'
@@ -2042,9 +2108,10 @@ paths:
           in: path
           description: 'Server unique identifier expressed as UUID.'
           type: string
+      summary: 'Start a server'
       tags:
         - projects
-  '/{namespace}/projects/{project_pk}/servers/{id}/stop/':
+  '/{namespace}/projects/{project_id}/servers/{id}/stop/':
     post:
       operationId: projects_servers_stop_create
       responses:
@@ -2053,7 +2120,7 @@ paths:
         '400':
           description: 'Invalid data supplied.'
       parameters:
-        - name: project_pk
+        - name: project_id
           required: true
           in: path
           description: 'Project unique identifier expressed as UUID.'
@@ -2068,9 +2135,10 @@ paths:
           in: path
           description: 'Server unique identifier expressed as UUID.'
           type: string
+      summary: 'Stop a server'
       tags:
         - projects
-  '/{namespace}/projects/{project_pk}/servers/{id}/terminate/':
+  '/{namespace}/projects/{project_id}/servers/{id}/terminate/':
     post:
       operationId: projects_servers_terminate_create
       responses:
@@ -2079,7 +2147,7 @@ paths:
         '400':
           description: 'Invalid data supplied.'
       parameters:
-        - name: project_pk
+        - name: project_id
           required: true
           in: path
           description: 'Project identifier expressed as UUID.'
@@ -2094,9 +2162,10 @@ paths:
           in: path
           description: 'Server identifier expressed as UUID.'
           type: string
+      summary: 'Delete a server'
       tags:
         - projects
-  '/{namespace}/projects/{project_pk}/servers/{server_pk}/run-stats/':
+  '/{namespace}/projects/{project_id}/servers/{server_id}/run-stats/':
     get:
       operationId: projects_servers_run-stats_list
       responses:
@@ -2107,12 +2176,12 @@ paths:
             items:
               $ref: '#/definitions/ServerRunStatistics'
       parameters:
-        - name: server_pk
+        - name: server_id
           required: true
           in: path
           description: 'Server identifier expressed as UUID.'
           type: string
-        - name: project_pk
+        - name: project_id
           required: true
           in: path
           description: 'Project identifier expressed as UUID.'
@@ -2137,6 +2206,7 @@ paths:
           in: query
           description: 'Order retrieved items.'
           type: string
+      summary: 'Retrieve server run statistics'
       tags:
         - projects
     post:
@@ -2151,12 +2221,12 @@ paths:
           schema:
             $ref: '#/definitions/ServerRunStatisticsError'
       parameters:
-        - name: server_pk
+        - name: server_id
           required: true
           in: path
           description: 'Server unique identifier expressed as UUID.'
           type: string
-        - name: project_pk
+        - name: project_id
           required: true
           in: path
           description: 'Project unique identifier expressed as UUID.'
@@ -2170,11 +2240,12 @@ paths:
           in: body
           schema:
             $ref: '#/definitions/ServerRunStatisticsData'
+      summary: 'Create new server run statistics'
       consumes:
         - application/json
       tags:
         - projects
-  '/{namespace}/projects/{project_pk}/servers/{server_pk}/run-stats/{id}/':
+  '/{namespace}/projects/{project_id}/servers/{server_id}/run-stats/{id}/':
     get:
       operationId: projects_servers_run-stats_read
       responses:
@@ -2187,12 +2258,12 @@ paths:
           schema:
             $ref: '#/definitions/NotFound'
       parameters:
-        - name: server_pk
+        - name: server_id
           required: true
           in: path
           description: 'Server unique identifier expressed as UUID.'
           type: string
-        - name: project_pk
+        - name: project_id
           required: true
           in: path
           description: 'Project unique identifier expressed as UUID.'
@@ -2207,6 +2278,7 @@ paths:
           in: path
           description: 'Run statistics unique identifier expressed as UUID.'
           type: string
+      summary: 'Retrieve statistics for a server'
       tags:
         - projects
     put:
@@ -2221,12 +2293,12 @@ paths:
           schema:
             $ref: '#/definitions/ServerRunStatisticsError'
       parameters:
-        - name: server_pk
+        - name: server_id
           required: true
           in: path
           description: 'Server unique identifier expressed as UUID.'
           type: string
-        - name: project_pk
+        - name: project_id
           required: true
           in: path
           description: 'Project unique identifier expressed as UUID.'
@@ -2245,6 +2317,7 @@ paths:
           in: body
           schema:
             $ref: '#/definitions/ServerRunStatisticsData'
+      summary: "Update a server's statistics"
       consumes:
         - application/json
       tags:
@@ -2265,12 +2338,12 @@ paths:
           schema:
             $ref: '#/definitions/NotFound'
       parameters:
-        - name: server_pk
+        - name: server_id
           required: true
           in: path
           description: 'Server unique identifier expressed as UUID.'
           type: string
-        - name: project_pk
+        - name: project_id
           required: true
           in: path
           description: 'Project unique identifier expressed as UUID.'
@@ -2291,6 +2364,7 @@ paths:
             $ref: '#/definitions/ServerRunStatisticsData'
       consumes:
         - application/json
+      summary: "Update a server's statistics"
       tags:
         - projects
     delete:
@@ -2303,12 +2377,12 @@ paths:
           schema:
             $ref: '#/definitions/NotFound'
       parameters:
-        - name: server_pk
+        - name: server_id
           required: true
           in: path
           description: 'Server unique identifier expressed as UUID.'
           type: string
-        - name: project_pk
+        - name: project_id
           required: true
           in: path
           description: 'Project unique identifier expressed as UUID.'
@@ -2323,9 +2397,10 @@ paths:
           in: path
           description: 'Server run statistics unique identifier expressed as UUID.'
           type: string
+      summary: "Delete a server's statistics"
       tags:
         - projects
-  '/{namespace}/projects/{project_pk}/servers/{server_pk}/ssh-tunnels/':
+  '/{namespace}/projects/{project_id}/servers/{server_id}/ssh-tunnels/':
     get:
       operationId: projects_servers_ssh-tunnels_list
       responses:
@@ -2336,12 +2411,12 @@ paths:
             items:
               $ref: '#/definitions/SshTunnel'
       parameters:
-        - name: server_pk
+        - name: server_id
           required: true
           in: path
           description: 'Sercer unique identifier expressed as UUID.'
           type: string
-        - name: project_pk
+        - name: project_id
           required: true
           in: path
           description: 'Project unique identifier expressed as UUID.'
@@ -2366,6 +2441,7 @@ paths:
           in: query
           description: 'Order retrieved items.'
           type: string
+      summary: "Get SSH Tunnels associated to a server"
       tags:
         - projects
     post:
@@ -2380,12 +2456,12 @@ paths:
           schema:
             $ref: '#/definitions/SshTunnelError'
       parameters:
-        - name: server_pk
+        - name: server_id
           required: true
           in: path
           description: 'Server unique identifier expressed as UUID.'
           type: string
-        - name: project_pk
+        - name: project_id
           required: true
           in: path
           description: 'Project unique identifier expressed as UUID.'
@@ -2401,9 +2477,10 @@ paths:
             $ref: '#/definitions/SshTunnelData'
       consumes:
         - application/json
+      summary: "Create SSH Tunnel associated to a server"
       tags:
         - projects
-  '/{namespace}/projects/{project_pk}/servers/{server_pk}/ssh-tunnels/{id}/':
+  '/{namespace}/projects/{project_id}/servers/{server_id}/ssh-tunnels/{id}/':
     get:
       operationId: projects_servers_ssh-tunnels_read
       responses:
@@ -2416,12 +2493,12 @@ paths:
           schema:
             $ref: '#/definitions/NotFound'
       parameters:
-        - name: server_pk
+        - name: server_id
           required: true
           in: path
           description: 'Server unique identifier expressed as UUID.'
           type: string
-        - name: project_pk
+        - name: project_id
           required: true
           in: path
           description: 'Project unique identifier expressed as UUID.'
@@ -2436,6 +2513,7 @@ paths:
           in: path
           description: 'SSH tunnel unique identifier expressed as UUID.'
           type: string
+      summary: "Get an SSH Tunnel associated to a server"
       tags:
         - projects
     put:
@@ -2450,12 +2528,12 @@ paths:
           schema:
             $ref: '#/definitions/SshTunnelError'
       parameters:
-        - name: server_pk
+        - name: server_id
           required: true
           in: path
           description: 'Server unique identifier expressed as UUID.'
           type: string
-        - name: project_pk
+        - name: project_id
           required: true
           in: path
           description: 'Project unique identifier expressed as UUID.'
@@ -2476,6 +2554,7 @@ paths:
             $ref: '#/definitions/SshTunnelData'
       consumes:
         - application/json
+      summary: "Update an SSH Tunnel associated to a server"
       tags:
         - projects
     patch:
@@ -2494,12 +2573,12 @@ paths:
           schema:
             $ref: '#/definitions/NotFound'
       parameters:
-        - name: server_pk
+        - name: server_id
           required: true
           in: path
           description: ''
           type: string
-        - name: project_pk
+        - name: project_id
           required: true
           in: path
           description: ''
@@ -2520,6 +2599,7 @@ paths:
             $ref: '#/definitions/SshTunnelData'
       consumes:
         - application/json
+      summary: "Get an SSH Tunnel associated to a server"
       tags:
         - projects
     delete:
@@ -2532,12 +2612,12 @@ paths:
           schema:
             $ref: '#/definitions/NotFound'
       parameters:
-        - name: server_pk
+        - name: server_id
           required: true
           in: path
           description: 'Sercer unique identifier expressed as UUID.'
           type: string
-        - name: project_pk
+        - name: project_id
           required: true
           in: path
           description: 'Project unique identifier expressed as UUID.'
@@ -2552,9 +2632,10 @@ paths:
           in: path
           description: 'SSH tunnel unique identifier expressed as UUID.'
           type: string
+      summary: "Delete an SSH Tunnel associated to a server"
       tags:
         - projects
-  '/{namespace}/projects/{project_pk}/servers/{server_pk}/stats/':
+  '/{namespace}/projects/{project_id}/servers/{server_id}/stats/':
     get:
       operationId: projects_servers_stats_list
       responses:
@@ -2565,12 +2646,12 @@ paths:
             items:
               $ref: '#/definitions/ServerStatistics'
       parameters:
-        - name: server_pk
+        - name: server_id
           required: true
           in: path
           description: 'Server unique identifier expressed as UUID.'
           type: string
-        - name: project_pk
+        - name: project_id
           required: true
           in: path
           description: 'Project unique identifier expressed as UUID.'
@@ -2595,6 +2676,7 @@ paths:
           in: query
           description: 'Order when retrieving items.'
           type: string
+      summary: "Retrieve server statistics"
       tags:
         - projects
     post:
@@ -2609,12 +2691,12 @@ paths:
           schema:
             $ref: '#/definitions/ServerStatisticsError'
       parameters:
-        - name: server_pk
+        - name: server_id
           required: true
           in: path
           description: 'Server unique identifier expressed as UUID.'
           type: string
-        - name: project_pk
+        - name: project_id
           required: true
           in: path
           description: 'Project unique identifier expressed as UUID.'
@@ -2630,9 +2712,10 @@ paths:
             $ref: '#/definitions/ServerStatisticsData'
       consumes:
         - application/json
+      summary: "Create server statistics"
       tags:
         - projects
-  '/{namespace}/projects/{project_pk}/servers/{server_pk}/stats/{id}/':
+  '/{namespace}/projects/{project_id}/servers/{server_id}/stats/{id}/':
     get:
       operationId: projects_servers_stats_read
       responses:
@@ -2645,12 +2728,12 @@ paths:
           schema:
             $ref: '#/definitions/NotFound'
       parameters:
-        - name: server_pk
+        - name: server_id
           required: true
           in: path
           description: 'Server unique identifier expressed as UUID.'
           type: string
-        - name: project_pk
+        - name: project_id
           required: true
           in: path
           description: 'Project unique identifier expressed as UUID.'
@@ -2665,6 +2748,7 @@ paths:
           in: path
           description: 'Sercer statistics unique identifier expressed as UUID.'
           type: string
+      summary: "Retrieve a server's statistics"
       tags:
         - projects
     put:
@@ -2679,12 +2763,12 @@ paths:
           schema:
             $ref: '#/definitions/ServerStatisticsError'
       parameters:
-        - name: server_pk
+        - name: server_id
           required: true
           in: path
           description: 'Server unique identifier expressed as UUID.'
           type: string
-        - name: project_pk
+        - name: project_id
           required: true
           in: path
           description: 'Project unique identifier expressed as UUID.'
@@ -2705,6 +2789,7 @@ paths:
             $ref: '#/definitions/ServerStatisticsData'
       consumes:
         - application/json
+      summary: "Update a server's statistics"
       tags:
         - projects
     patch:
@@ -2723,12 +2808,12 @@ paths:
           schema:
             $ref: '#/definitions/NotFound'
       parameters:
-        - name: server_pk
+        - name: server_id
           required: true
           in: path
           description: 'Server unique identifier expressed as UUID.'
           type: string
-        - name: project_pk
+        - name: project_id
           required: true
           in: path
           description: 'Project unique identifier expressed as UUID.'
@@ -2749,6 +2834,7 @@ paths:
             $ref: '#/definitions/ServerStatisticsData'
       consumes:
         - application/json
+      summary: "Update a server's statistics"
       tags:
         - projects
     delete:
@@ -2761,12 +2847,12 @@ paths:
           schema:
             $ref: '#/definitions/NotFound'
       parameters:
-        - name: server_pk
+        - name: server_id
           required: true
           in: path
           description: 'Server unique identifier expressed as UUID.'
           type: string
-        - name: project_pk
+        - name: project_id
           required: true
           in: path
           description: 'Project unique identifier expressed as UUID.'
@@ -2781,9 +2867,10 @@ paths:
           in: path
           description: 'Stats unique identifier expressed as UUID.'
           type: string
+      summary: "Delete a server's statistics"
       tags:
         - projects
-  '/{namespace}/projects/{project_pk}/synced-resources/':
+  '/{namespace}/projects/{project_id}/synced-resources/':
     get:
       operationId: projects_synced-resources_list
       responses:
@@ -2794,7 +2881,7 @@ paths:
             items:
               $ref: '#/definitions/SyncedResource'
       parameters:
-        - name: project_pk
+        - name: project_id
           required: true
           in: path
           description: 'Project unique identifier expressed as UUID.'
@@ -2819,6 +2906,7 @@ paths:
           in: query
           description: 'Ordering when getting items.'
           type: string
+      summary: "Retrieve synched resources"
       tags:
         - projects
     post:
@@ -2833,7 +2921,7 @@ paths:
           schema:
             $ref: '#/definitions/SyncedResourceError'
       parameters:
-        - name: project_pk
+        - name: project_id
           required: true
           in: path
           description: 'Project unique identifier.'
@@ -2849,6 +2937,7 @@ paths:
             $ref: '#/definitions/SyncedResourceData'
       consumes:
         - application/json
+      summary: "Create a new synched resource"
       tags:
         - projects
   '/{namespace}/search/':
@@ -2877,6 +2966,7 @@ paths:
           in: query
           description: 'Offset data when getting items.'
           type: string
+      summary: "Get a search results"
       tags:
         - search
   '/{namespace}/servers/options/resources/':
@@ -2910,6 +3000,7 @@ paths:
           in: query
           description: 'Set order when retrieving items.'
           type: string
+      summary: "Retrieve available resources"
       tags:
         - servers
     post:
@@ -2935,6 +3026,7 @@ paths:
             $ref: '#/definitions/EnvironmentResourceData'
       consumes:
         - application/json
+      summary: "Create a new resource"
       tags:
         - servers
   '/{namespace}/servers/options/resources/{id}/':
@@ -2960,6 +3052,7 @@ paths:
           in: path
           description: 'Resource unique identifier expressed as UUID.'
           type: string
+      summary: "Get a resource by id"
       tags:
         - servers
     put:
@@ -2994,6 +3087,7 @@ paths:
             $ref: '#/definitions/EnvironmentResourceData'
       consumes:
         - application/json
+      summary: "Update a resource by id"
       tags:
         - servers
     patch:
@@ -3028,6 +3122,7 @@ paths:
             $ref: '#/definitions/EnvironmentResourceData'
       consumes:
         - application/json
+      summary: "Update a resource by id"
       tags:
         - servers
     delete:
@@ -3050,9 +3145,10 @@ paths:
           in: path
           description: 'Environment resource unique identifier expressed as UUID.'
           type: string
+      summary: "Delete a resource by id"
       tags:
         - servers
-  '/{namespace}/service/{server_pk}/trigger/':
+  '/{namespace}/service/{server_id}/trigger/':
     get:
       operationId: service_trigger_list
       responses:
@@ -3063,7 +3159,7 @@ paths:
             items:
               $ref: '#/definitions/ServerAction'
       parameters:
-        - name: server_pk
+        - name: server_id
           required: true
           in: path
           description: 'Server unique identifier expressed as UUID.'
@@ -3088,6 +3184,7 @@ paths:
           in: query
           description: 'Ordering when getting triggers.'
           type: string
+      summary: "Retrieve server triggers"
       tags:
         - service
     post:
@@ -3102,7 +3199,7 @@ paths:
           schema:
             $ref: '#/definitions/ServerActionError'
       parameters:
-        - name: server_pk
+        - name: server_id
           required: true
           in: path
           description: 'Server unique identifier expressed as UUID.'
@@ -3118,9 +3215,10 @@ paths:
             $ref: '#/definitions/ServerActionData'
       consumes:
         - application/json
+      summary: "Create a new server trigger"
       tags:
         - service
-  '/{namespace}/service/{server_pk}/trigger/{id}/':
+  '/{namespace}/service/{server_id}/trigger/{id}/':
     get:
       operationId: service_trigger_read
       responses:
@@ -3133,7 +3231,7 @@ paths:
           schema:
             $ref: '#/definitions/NotFound'
       parameters:
-        - name: server_pk
+        - name: server_id
           required: true
           in: path
           description: 'Server unique identifier expressed as UUID.'
@@ -3148,6 +3246,7 @@ paths:
           in: path
           description: 'Trigger identifier expressed as UUID.'
           type: string
+      summary: "Get a server trigger"
       tags:
         - service
     put:
@@ -3166,7 +3265,7 @@ paths:
           schema:
             $ref: '#/definitions/NotFound'
       parameters:
-        - name: server_pk
+        - name: server_id
           required: true
           in: path
           description: 'Server unique identifier expressed as UUID.'
@@ -3187,6 +3286,7 @@ paths:
             $ref: '#/definitions/ServerActionData'
       consumes:
         - application/json
+      summary: "Update a server trigger"
       tags:
         - service
     patch:
@@ -3205,7 +3305,7 @@ paths:
           schema:
             $ref: '#/definitions/NotFound'
       parameters:
-        - name: server_pk
+        - name: server_id
           required: true
           in: path
           description: 'Server unique identifier expressed as UUID.'
@@ -3226,6 +3326,7 @@ paths:
             $ref: '#/definitions/ServerActionData'
       consumes:
         - application/json
+      summary: "Update a server trigger"
       tags:
         - service
     delete:
@@ -3238,7 +3339,7 @@ paths:
           schema:
             $ref: '#/definitions/NotFound'
       parameters:
-        - name: server_pk
+        - name: server_id
           required: true
           in: path
           description: 'Server unique identifier expressed as UUID.'
@@ -3253,9 +3354,10 @@ paths:
           in: path
           description: 'Trigger identifier expressed as UUID.'
           type: string
+      summary: "Delete a server trigger"
       tags:
         - service
-  '/{namespace}/service/{server_pk}/trigger/{id}/call/':
+  '/{namespace}/service/{server_id}/trigger/{id}/call/':
     post:
       operationId: service_trigger_call_create
       responses:
@@ -3264,7 +3366,7 @@ paths:
         '400':
           description: 'Invalid data supplied'
       parameters:
-        - name: server_pk
+        - name: server_id
           required: true
           in: path
           description: 'Server identifier expressed as UUID.'
@@ -3279,6 +3381,7 @@ paths:
           in: path
           description: 'Trigger identifier expressed as UUID.'
           type: string
+      summary: "Call a trigger"
       tags:
         - service
   '/{namespace}/triggers/':
@@ -3312,6 +3415,7 @@ paths:
           in: query
           description: 'Order list of values returned.'
           type: string
+      summary: "Retrieve account triggers"
       tags:
         - triggers
     post:
@@ -3337,6 +3441,7 @@ paths:
             $ref: '#/definitions/TriggerData'
       consumes:
         - application/json
+      summary: "Create a new trigger"
       tags:
         - triggers
   '/{namespace}/triggers/{id}/':
@@ -3362,6 +3467,7 @@ paths:
           in: path
           description: 'Trigger identifier expressed as UUID.'
           type: string
+      summary: "Get a trigger"
       tags:
         - triggers
     put:
@@ -3397,6 +3503,7 @@ paths:
             $ref: '#/definitions/TriggerData'
       consumes:
         - application/json
+      summary: "Update a trigger"
       tags:
         - triggers
     patch:
@@ -3431,6 +3538,7 @@ paths:
             $ref: '#/definitions/TriggerData'
       consumes:
         - application/json
+      summary: "Update a trigger"
       tags:
         - triggers
     delete:
@@ -3453,6 +3561,7 @@ paths:
           in: path
           description: 'Trigger unique identifier expressed as UUID.'
           type: string
+      summary: "Delete a trigger"
       tags:
         - triggers
   /users/:
@@ -3491,6 +3600,7 @@ paths:
           in: query
           description: 'Ordering when getting users.'
           type: string
+      summary: "Get user list"
       tags:
         - users
     post:
@@ -3511,6 +3621,7 @@ paths:
             $ref: '#/definitions/UserData'
       consumes:
         - application/json
+      summary: "Create new user"
       tags:
         - users
   '/users/{id}/':
@@ -3531,6 +3642,7 @@ paths:
           in: path
           description: 'Unique identifier expressed as UUID.'
           type: string
+      summary: "Retrieve a user"
       tags:
         - users
     put:
@@ -3556,6 +3668,7 @@ paths:
             $ref: '#/definitions/UserData'
       consumes:
         - application/json
+      summary: "Update a user"
       tags:
         - users
     patch:
@@ -3585,6 +3698,7 @@ paths:
             $ref: '#/definitions/UserData'
       consumes:
         - application/json
+      summary: "Retrieve a user"
       tags:
         - users
     delete:
@@ -3602,23 +3716,25 @@ paths:
           in: path
           description: 'User identifier expressed as UUID.'
           type: string
+      summary: "Delete a user"
       tags:
         - users
-  '/users/{user_pk}/api-key/':
+  '/users/{user_id}/api-key/':
     get:
       operationId: users_api-key_list
       responses:
         '200':
           description: 'Api Key'
       parameters:
-        - name: user_pk
+        - name: user_id
           required: true
           in: path
           description: 'User unique identifier expressed as UUID.'
           type: string
+      summary: "Retrieve account's API key"
       tags:
         - users
-  '/users/{user_pk}/api-key/reset/':
+  '/users/{user_id}/api-key/reset/':
     post:
       operationId: users_api-key_reset_create
       responses:
@@ -3627,14 +3743,15 @@ paths:
         '400':
           description: 'Invalid data supplied'
       parameters:
-        - name: user_pk
+        - name: user_id
           required: true
           in: path
           description: 'User unique identifier expressed as UUID.'
           type: string
+      summary: "Reset a user"
       tags:
         - users
-  '/users/{user_pk}/emails/':
+  '/users/{user_id}/emails/':
     get:
       operationId: users_emails_list
       responses:
@@ -3645,7 +3762,7 @@ paths:
             items:
               $ref: '#/definitions/Email'
       parameters:
-        - name: user_pk
+        - name: user_id
           required: true
           in: path
           description: 'User unique identifier as expressed as UUID.'
@@ -3665,6 +3782,7 @@ paths:
           in: query
           description: 'Ordering when getting email list.'
           type: string
+      summary: "Get account email addresses"
       tags:
         - users
     post:
@@ -3679,7 +3797,7 @@ paths:
           schema:
             $ref: '#/definitions/EmailError'
       parameters:
-        - name: user_pk
+        - name: user_id
           required: true
           in: path
           description: 'User unique identifier expressed as UUID.'
@@ -3690,9 +3808,10 @@ paths:
             $ref: '#/definitions/EmailData'
       consumes:
         - application/json
+      summary: "Create an email address"
       tags:
         - users
-  '/users/{user_pk}/emails/{address}/':
+  '/users/{user_id}/emails/{address}/':
     get:
       operationId: users_emails_read
       responses:
@@ -3710,11 +3829,12 @@ paths:
           in: path
           description: 'Email address.'
           type: string
-        - name: user_pk
+        - name: user_id
           required: true
           in: path
           description: 'User unique identifier expressed as UUID.'
           type: string
+      summary: "Retrieve user email addresses"
       tags:
         - users
     put:
@@ -3734,7 +3854,7 @@ paths:
           in: path
           description: 'Email address.'
           type: string
-        - name: user_pk
+        - name: user_id
           required: true
           in: path
           description: 'User unique identifier expressed as UUID.'
@@ -3745,6 +3865,7 @@ paths:
             $ref: '#/definitions/EmailData'
       consumes:
         - application/json
+      summary: "Update an email address"
       tags:
         - users
     patch:
@@ -3768,7 +3889,7 @@ paths:
           in: path
           description: 'Email address.'
           type: string
-        - name: user_pk
+        - name: user_id
           required: true
           in: path
           description: 'User unique identifier expressed as UUID.'
@@ -3779,6 +3900,7 @@ paths:
             $ref: '#/definitions/EmailData'
       consumes:
         - application/json
+      summary: "Update an email address"
       tags:
         - users
     delete:
@@ -3796,14 +3918,15 @@ paths:
           in: path
           description: 'Email address.'
           type: string
-        - name: user_pk
+        - name: user_id
           required: true
           in: path
           description: 'User unique identifier expressed as UUID.'
           type: string
+      summary: "Delete an email address"
       tags:
         - users
-  '/users/{user_pk}/integrations/':
+  '/users/{user_id}/integrations/':
     get:
       operationId: users_integrations_list
       responses:
@@ -3814,7 +3937,7 @@ paths:
             items:
               $ref: '#/definitions/Integration'
       parameters:
-        - name: user_pk
+        - name: user_id
           required: true
           in: path
           description: 'User unique identifier expressed as UUID.'
@@ -3834,6 +3957,7 @@ paths:
           in: query
           description: 'Ordering of integrations when getting integrations list.'
           type: string
+      summary: "Obtain list of integrations"
       tags:
         - users
     post:
@@ -3848,7 +3972,7 @@ paths:
           schema:
             $ref: '#/definitions/IntegrationError'
       parameters:
-        - name: user_pk
+        - name: user_id
           required: true
           in: path
           description: 'User unique identifier expressed as UUID.'
@@ -3859,9 +3983,10 @@ paths:
             $ref: '#/definitions/IntegrationData'
       consumes:
         - application/json
+      summary: "Create new integration"
       tags:
         - users
-  '/users/{user_pk}/integrations/{id}/':
+  '/users/{user_id}/integrations/{id}/':
     get:
       operationId: users_integrations_read
       responses:
@@ -3879,11 +4004,12 @@ paths:
           in: path
           description: 'Integration unique identifier expressed as UUID.'
           type: string
-        - name: user_pk
+        - name: user_id
           required: true
           in: path
           description: 'User unique identifier expressed as UUID.'
           type: string
+      summary: "Get an integration"
       tags:
         - users
     put:
@@ -3903,7 +4029,7 @@ paths:
           in: path
           description: 'Integrations unique identifier expressed as UUID.'
           type: string
-        - name: user_pk
+        - name: user_id
           required: true
           in: path
           description: 'User unique identifier expressed as UUID.'
@@ -3914,6 +4040,7 @@ paths:
             $ref: '#/definitions/IntegrationData'
       consumes:
         - application/json
+      summary: "Update an integration"
       tags:
         - users
     patch:
@@ -3937,7 +4064,7 @@ paths:
           in: path
           description: 'Integration unique identifier expressed as UUID.'
           type: string
-        - name: user_pk
+        - name: user_id
           required: true
           in: path
           description: 'User unique identifier expressed as UUID.'
@@ -3948,6 +4075,7 @@ paths:
             $ref: '#/definitions/IntegrationData'
       consumes:
         - application/json
+      summary: "Update an integration"
       tags:
         - users
     delete:
@@ -3965,28 +4093,30 @@ paths:
           in: path
           description: 'Integration unique identifier expressed as UUID.'
           type: string
-        - name: user_pk
+        - name: user_id
           required: true
           in: path
           description: 'User unique identifier expressed as UUID.'
           type: string
+      summary: "Delete an integration"
       tags:
         - users
-  '/users/{user_pk}/ssh-key/':
+  '/users/{user_id}/ssh-key/':
     get:
       operationId: users_ssh-key_list
       responses:
         '200':
           description: 'SSH Key.'
       parameters:
-        - name: user_pk
+        - name: user_id
           required: true
           in: path
           description: 'User unique identifier expressed as UUID.'
           type: string
+      summary: "Retrieve an SSH key"
       tags:
         - users
-  '/users/{user_pk}/ssh-key/reset/':
+  '/users/{user_id}/ssh-key/reset/':
     post:
       operationId: users_ssh-key_reset_create
       responses:
@@ -3995,11 +4125,12 @@ paths:
         '400':
           description: 'Invalid data supplied.'
       parameters:
-        - name: user_pk
+        - name: user_id
           required: true
           in: path
           description: 'User unique identifier expressed as UUID.'
           type: string
+      summary: "Recreate an SSH key"
       tags:
         - users
 definitions:
