@@ -2,52 +2,31 @@
 
 3Blades API docs based on Swagger.
 
-Public facing API documents are published with Readme.io. Readme.io's documentation version should be in sync with SwaggerHub's project version. GitHub branches are the method of choice to sync versions between both services.
+Public facing API documents are published with Readme.io. Readme.io's documentation version should be in sync with corresponding GitHub repo version. GitHub branches are the method of choice to sync versions between GitHub and Readme.io.
 
-## Add new SwaggerHub project version
+## Run 2.0 Validity Test
 
-- Log into [SwaggerHub](https://app.swaggerhub.com/apis/3Blades/3blades_api/) with hour GitHub account.
-- Version may be edited, however every edit should correspond to a new SwaggerHub version. Version management should [follow these guidelines](http://semver.org/).
-- Click on `...` button on the top right and select `Add version`.
-- Edit document and save. Make sure version is also reflected in swagger document:
+- Fork this repo:
 
-```
-swagger: '2.0'
-info:
-  title: 3blades API
-  version: "1.1.1"
-```
+    https://github.com/3blades/openapi
 
-> SwaggerHub will automatically detect if `version` has changed. You can create a new project version by first editing `version` confirming option to create new project version.
+- (Optional) Create your working branch:
 
-- Edit document and save.
-- Publish API in SwaggerHub with Publish option in `...` button on top right. This essentially creates a read only version and allows users in the SwaggerHub community to find 3Blades API docs.
+    git checkout -b my_branch_name
 
-## Add new GitHub integration
+- Add, commit and push updated tbs_swagger.yaml
 
-- Each new version needs a new GitHub integration. Select the plug icon on the top right and select `Add new integration`.
-- Select `GitHub sync` from the list of options and click on `Add`. Select/add these integration options:
-  - Name: GitHub
-  - GitHub Token: click on `Connect to GitHub`
-  - Repository owner: 3blades
-  - Repository: openapi
-  - Sync method: Basic sync
-  - Branch: SWAGGERHUB
-  - Generated API Code: swagger
-  - Output folder: swagger
+    git add tbs_swagger.yaml
+    git commit -s -m "commit message"
+    git push origin my_branch_name
 
-## Push changes to GitHub
+- Create Pull request from your working branch to upstream master
 
-- Select `Create and execute` to push changes.
+- When Travis is green, merge :tada:
 
-## Merge to master branch
+## Release Branch
 
-- Create Pull Request from `SWAGGERHUB` branch to `master` branch.
-- Wait for review and merge.
-
-## Create new version branch
-
-- Create new GitHub branch from master. Branch name should be same version as version from SwaggerHub project.
+Using GitHub API or user interface, create a new release branch from master, such as `1.1`.
 
 ## Publish new version in Readme.io
 
@@ -55,9 +34,8 @@ info:
 - Click on 3Blades project.
 - On the top right, select version drop down on top left and select `Manage Versions`.
 - Click on `Add new version` button.
-- Add version and fork from latest version.
-- (Optional) Toggle Main version by clicking `main version?` button.
-- (Optional) Toggle Deprecated version by clicking `is deprecated?` button.
-- (Optional) Toggle Public version by clicking `is public?` button.
-- (Optional) Toggle Deprecated version by clicking `is deprecated?` button.
 - Click on `Edit version` and add **raw** GitHug repo URL with version branch.
+
+> Note Readme.io supports both yaml and json file extensions.
+
+Alternatively, update existing documentation version by clicking on the Version --> Edit option.
