@@ -3,7 +3,7 @@
 testOpenApiSpecValidity() {
 
     if [ "$TRAVIS_PULL_REQUEST" == "true" ] && [ "$TRAVIS_BRANCH" == "master" ]; then
-    
+
         expectedOutput="{}"
         expectedOutputSize=${#expectedOutput}
 
@@ -28,7 +28,6 @@ testOpenApiSpecValidity() {
         assertEquals "Validation failed - service unavailable or error found." $expectedOutputSize $validationOutputSize
 
     fi
- 
 }
 
 

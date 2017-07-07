@@ -1635,7 +1635,6 @@ paths:
         - projects
     post:
       operationId: projects_project_files_create
-      summary: Uploads a file.
       responses:
         '201':
           description: ProjectFile created
