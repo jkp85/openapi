@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/3Blades/openapi.svg?branch=master)](https://travis-ci.org/3Blades/openapi)
+
 # OpenAPI (a.k.a Swagger) Specification for 3Blades API
 
 3Blades API docs based on Swagger.
