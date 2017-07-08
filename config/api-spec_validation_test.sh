@@ -1,5 +1,6 @@
 
 #!/bin/sh
+
 testOpenApiSpecValidity() {
 
         expectedOutput="{}"
