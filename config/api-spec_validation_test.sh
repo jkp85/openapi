@@ -16,7 +16,7 @@ testOpenApiSpecValidity() {
   # Now prepare the open API spec file to use the online validator service.
   mergeValidationUrl="http://online.swagger.io/validator/debug?url=$mergeUrl"
 
-  if [ "$TRAVIS_EVENT_TYPE" == "pull_request" ] || [ "$TRAVIS_EVENT_TYPE" == "push" ]; then
+  if [ "$TRAVIS_EVENT_TYPE" == "pull_request" ]; then
 
     echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
     echo "Validating ENV Variables: Namespace=$TRAVIS_PULL_REQUEST_SLUG, Request Branch=$TRAVIS_PULL_REQUEST_BRANCH"
