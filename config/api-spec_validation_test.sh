@@ -12,11 +12,11 @@ testOpenApiSpecValidity() {
   prValidationUrl="http://online.swagger.io/validator/debug?url=$prUrl"
 
   # Prepares the spec URL from GitHub merge to upstream branch
-  mergehUrl="https://raw.githubusercontent.com/$TRAVIS_REPO_SLUG/$TRAVIS_BRANCH/tbs_swagger.yml"
+  mergeUrl="https://raw.githubusercontent.com/$TRAVIS_REPO_SLUG/$TRAVIS_BRANCH/tbs_swagger.yml"
   # Now prepare the open API spec file to use the online validator service.
-  mergeValidationUrl="http://online.swagger.io/validator/debug?url=$mergehUrl"
+  mergeValidationUrl="http://online.swagger.io/validator/debug?url=$mergeUrl"
 
-  if [ "$TRAVIS_EVENT_TYPE" == "pull_request" ]; then
+  if [ "$TRAVIS_EVENT_TYPE" == "pull_request" ] || [ "$TRAVIS_EVENT_TYPE" == "push" ]; then
 
     echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
     echo "Validating ENV Variables: Namespace=$TRAVIS_PULL_REQUEST_SLUG, Request Branch=$TRAVIS_PULL_REQUEST_BRANCH"
@@ -37,7 +37,7 @@ testOpenApiSpecValidity() {
 
     echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
     echo "Validating ENV Variables: Namespace=$TRAVIS_REPO_SLUG, Request Branch=$TRAVIS_BRANCH"
-    echo "OpenAPI Specification File=$mergehUrl"
+    echo "OpenAPI Specification File=$mergeUrl"
     echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
 
     validationOutput=$(curl $mergeValidationUrl)

@@ -3563,7 +3563,7 @@ paths:
       summary: "Delete a trigger"
       tags:
         - triggers
-  /users/:
+  /users/profiles/:
     get:
       operationId: users_list
       responses:
@@ -3623,7 +3623,7 @@ paths:
       summary: "Create new user"
       tags:
         - users
-  '/users/{id}/':
+  '/users/profiles/{id}/':
     get:
       operationId: users_read
       responses:
@@ -3747,7 +3747,7 @@ paths:
           in: path
           description: 'User unique identifier expressed as UUID.'
           type: string
-      summary: "Reset a user"
+      summary: "Reset a user's API key"
       tags:
         - users
   '/users/{user_id}/emails/':
@@ -3810,7 +3810,7 @@ paths:
       summary: "Create an email address"
       tags:
         - users
-  '/users/{user_id}/emails/{address}/':
+  '/users/{user_id}/emails/{email_id}/':
     get:
       operationId: users_emails_read
       responses:
@@ -3823,10 +3823,10 @@ paths:
           schema:
             $ref: '#/definitions/NotFound'
       parameters:
-        - name: address
+        - name: email_id
           required: true
           in: path
-          description: 'Email address.'
+          description: 'Email unique identifier expressed as UUID.'
           type: string
         - name: user_id
           required: true
@@ -3848,10 +3848,10 @@ paths:
           schema:
             $ref: '#/definitions/EmailError'
       parameters:
-        - name: address
+        - name: email_id
           required: true
           in: path
-          description: 'Email address.'
+          description: 'Email unique identifier expressed as UUID.'
           type: string
         - name: user_id
           required: true
@@ -3883,10 +3883,10 @@ paths:
           schema:
             $ref: '#/definitions/NotFound'
       parameters:
-        - name: address
+        - name: email_id
           required: true
           in: path
-          description: 'Email address.'
+          description: 'Email unique identifier expressed as UUID.'
           type: string
         - name: user_id
           required: true
@@ -3912,10 +3912,10 @@ paths:
           schema:
             $ref: '#/definitions/NotFound'
       parameters:
-        - name: address
+        - name: email_id
           required: true
           in: path
-          description: 'Email address.'
+          description: 'Email unique identifier expressed as UUID.'
           type: string
         - name: user_id
           required: true
