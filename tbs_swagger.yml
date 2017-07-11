@@ -144,7 +144,7 @@ paths:
             $ref: '#/definitions/JWTData'
       consumes:
         - application/json
-      summary: 'Get JSON Web Token (JWT)'
+      summary: 'Create JSON Web Token (JWT)'
       tags:
         - auth
       security: []
@@ -165,7 +165,7 @@ paths:
           in: body
           schema:
             $ref: '#/definitions/RefreshJSONWebTokenData'
-      summary: 'Get new JWT'
+      summary: 'Refresh a JSON Web Token (JWT)'
       description: 'Obtains a new JSON Web Token using existing user credentials.'
       consumes:
         - application/json
@@ -189,7 +189,7 @@ paths:
           in: body
           schema:
             $ref: '#/definitions/VerifyJSONWebTokenData'
-      summary: 'Validate JWT'
+      summary: 'Validate SON Web Token (JWT)'
       description: 'Checks veraciy of token.'
       consumes:
         - application/json
@@ -357,7 +357,7 @@ paths:
             $ref: '#/definitions/CardData'
       consumes:
         - application/json
-      summary: 'Update credit card'
+      summary: 'Replace a credit card'
       tags:
         - billing
     patch:
@@ -392,7 +392,7 @@ paths:
             $ref: '#/definitions/CardData'
       consumes:
         - application/json
-      summary: 'Update credit card'
+      summary: 'Update a credit card'
       tags:
         - billing
     delete:
@@ -532,7 +532,7 @@ paths:
             $ref: '#/definitions/CustomerData'
       consumes:
         - application/json
-      summary: 'Update a customer'
+      summary: 'Replace a customer'
       tags:
         - billing
     patch:
@@ -767,7 +767,7 @@ paths:
             $ref: '#/definitions/PlanData'
       consumes:
         - application/json
-      summary: 'Update a billing plan'
+      summary: 'Replace a billing plan'
       tags:
         - billing
     patch:
@@ -833,7 +833,7 @@ paths:
       operationId: billing_subscription_required_list
       responses:
         '200':
-          description: 'No Subscription.'
+          description: 'Account subscriptions.'
       parameters:
         - name: namespace
           required: true
@@ -847,7 +847,7 @@ paths:
       operationId: billing_subscription_required_create
       responses:
         '201':
-          description: 'No Subscription.'
+          description: 'Account subscription created.'
         '400':
           description: 'Invalid data supplied.'
       parameters:
@@ -856,7 +856,7 @@ paths:
           in: path
           description: 'User or team name.'
           type: string
-      summary: 'Require subscription for account.'
+      summary: 'Require subscription for an account.'
       tags:
         - billing
   '/{namespace}/billing/subscriptions/':
@@ -973,7 +973,7 @@ paths:
             $ref: '#/definitions/SubscriptionData'
       consumes:
         - application/json
-      summary: 'Update a subscription'
+      summary: 'Replace a subscription'
       tags:
         - billing
     patch:
@@ -1153,7 +1153,7 @@ paths:
             $ref: '#/definitions/DockerHostData'
       consumes:
         - application/json
-      summary: 'Update a host'
+      summary: 'Replace a host'
       tags:
         - hosts
     patch:
@@ -1338,7 +1338,7 @@ paths:
             $ref: '#/definitions/ProjectData'
       consumes:
         - application/json
-      summary: 'Update a project'
+      summary: 'Replace a project'
       tags:
         - projects
     patch:
@@ -1466,7 +1466,7 @@ paths:
             $ref: '#/definitions/CollaboratorData'
       consumes:
         - application/json
-      summary: 'Get project collaborators'
+      summary: 'Create project collaborators'
       tags:
         - projects
   '/{namespace}/projects/{project_id}/collaborators/{id}/':
@@ -1537,7 +1537,7 @@ paths:
             $ref: '#/definitions/CollaboratorData'
       consumes:
         - application/json
-      summary: 'Update project collaborator'
+      summary: 'Replace a project collaborator'
       tags:
         - projects
     patch:
@@ -1605,7 +1605,7 @@ paths:
           in: path
           description: 'Collaborator unique identifier expressed as UUID.'
           type: string
-      summary: 'Delete project collaborator'
+      summary: 'Delete a project collaborator'
       tags:
         - projects
   '/{namespace}/projects/{project_id}/project_files/':
@@ -1779,7 +1779,7 @@ paths:
           type: string
       consumes:
         - multipart/form-data
-      summary: 'Update a project file'
+      summary: 'Replace a project file'
       tags:
         - projects
     patch:
@@ -2005,7 +2005,7 @@ paths:
             $ref: '#/definitions/ServerData'
       consumes:
         - application/json
-      summary: 'Update a server'
+      summary: 'Replace a server'
       tags:
         - projects
     patch:
@@ -2258,7 +2258,7 @@ paths:
           in: body
           schema:
             $ref: '#/definitions/ServerRunStatisticsData'
-      summary: 'Create new server run statistics'
+      summary: "Create a new server's run statistics"
       consumes:
         - application/json
       tags:
@@ -2335,7 +2335,7 @@ paths:
           in: body
           schema:
             $ref: '#/definitions/ServerRunStatisticsData'
-      summary: "Update a server's statistics"
+      summary: "Replace a server's statistics"
       consumes:
         - application/json
       tags:
@@ -2572,7 +2572,7 @@ paths:
             $ref: '#/definitions/SshTunnelData'
       consumes:
         - application/json
-      summary: "Update an SSH Tunnel associated to a server"
+      summary: "Replace SSH Tunnel associated to a server"
       tags:
         - projects
     patch:
@@ -2617,7 +2617,7 @@ paths:
             $ref: '#/definitions/SshTunnelData'
       consumes:
         - application/json
-      summary: "Get an SSH Tunnel associated to a server"
+      summary: "Update an SSH Tunnel associated to a server"
       tags:
         - projects
     delete:
@@ -2807,7 +2807,7 @@ paths:
             $ref: '#/definitions/ServerStatisticsData'
       consumes:
         - application/json
-      summary: "Update a server's statistics"
+      summary: "Replace a server's statistics"
       tags:
         - projects
     patch:
@@ -3105,7 +3105,7 @@ paths:
             $ref: '#/definitions/EnvironmentResourceData'
       consumes:
         - application/json
-      summary: "Update a resource by id"
+      summary: "Replace a resource by id"
       tags:
         - servers
     patch:
@@ -3304,7 +3304,7 @@ paths:
             $ref: '#/definitions/ServerActionData'
       consumes:
         - application/json
-      summary: "Update a server trigger"
+      summary: "Replace a server trigger"
       tags:
         - service
     patch:
@@ -3521,7 +3521,7 @@ paths:
             $ref: '#/definitions/TriggerData'
       consumes:
         - application/json
-      summary: "Update a trigger"
+      summary: "Replace a trigger"
       tags:
         - triggers
     patch:
@@ -3686,7 +3686,7 @@ paths:
             $ref: '#/definitions/UserData'
       consumes:
         - application/json
-      summary: "Update a user"
+      summary: "Replace a user"
       tags:
         - users
     patch:
@@ -3716,7 +3716,7 @@ paths:
             $ref: '#/definitions/UserData'
       consumes:
         - application/json
-      summary: "Retrieve a user"
+      summary: "Update a user"
       tags:
         - users
     delete:
@@ -3800,7 +3800,7 @@ paths:
           in: query
           description: 'Ordering when getting email list.'
           type: string
-      summary: "Get account email addresses"
+      summary: "Retrieve account email addresses"
       tags:
         - users
     post:
@@ -3852,7 +3852,7 @@ paths:
           in: path
           description: 'User unique identifier expressed as UUID.'
           type: string
-      summary: "Retrieve user email addresses"
+      summary: "Retrieve a user's email addresses"
       tags:
         - users
     put:
@@ -3883,7 +3883,7 @@ paths:
             $ref: '#/definitions/EmailData'
       consumes:
         - application/json
-      summary: "Update an email address"
+      summary: "Replace an email address"
       tags:
         - users
     patch:
@@ -4001,7 +4001,7 @@ paths:
             $ref: '#/definitions/IntegrationData'
       consumes:
         - application/json
-      summary: "Create new integration"
+      summary: "Create a new integration"
       tags:
         - users
   '/users/{user_id}/integrations/{id}/':
@@ -4058,7 +4058,7 @@ paths:
             $ref: '#/definitions/IntegrationData'
       consumes:
         - application/json
-      summary: "Update an integration"
+      summary: "Replace an integration"
       tags:
         - users
     patch:
