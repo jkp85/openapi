@@ -1,7 +1,7 @@
 swagger: '2.0'
 info:
   title: 3blades API
-  version: "1.1"
+  version: "1.2"
   description: |-
     # Introduction
 
@@ -48,6 +48,7 @@ consumes:
 produces:
   - application/json
   - text/html
+x-samples-languages: ['curl', 'python', 'javascript', 'node', 'ruby', 'php', 'go', 'csharp', 'java', 'swift']
 securityDefinitions:
   jwt:
     description: |
