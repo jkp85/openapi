@@ -95,7 +95,7 @@ paths:
         - actions
   '/actions/{id}/cancel/':
     post:
-      operationId: actions_cancel_create
+      operationId: actions_cancel
       responses:
         '201':
           description: 'Cancel action.'
@@ -113,7 +113,7 @@ paths:
         - actions
   /auth/jwt-token-auth/:
     post:
-      operationId: auth_jwt-token-auth_create
+      operationId: auth_jwt-token-auth
       responses:
         '201':
           description: 'JWT created'
@@ -135,7 +135,7 @@ paths:
         - auth
   /auth/jwt-token-refresh/:
     post:
-      operationId: auth_jwt-token-refresh_create
+      operationId: auth_jwt-token-refresh
       responses:
         '201':
           description: 'RefreshJSONWebToken created'
@@ -158,7 +158,7 @@ paths:
         - auth
   /auth/jwt-token-verify/:
     post:
-      operationId: auth_jwt-token-verify_create
+      operationId: auth_jwt-token-verify
       responses:
         '201':
           description: 'VerifyJSONWebToken created'
@@ -181,7 +181,7 @@ paths:
         - auth
   /auth/register/:
     post:
-      operationId: auth_register_create
+      operationId: auth_register
       responses:
         '201':
           description: 'User created'
@@ -204,7 +204,7 @@ paths:
         - auth
   /auth/simple-token-auth/:
     post:
-      operationId: auth_simple-token-auth_create
+      operationId: auth_simple-token-auth
       responses:
         '201':
           description: 'AuthToken created'
@@ -311,7 +311,7 @@ paths:
       tags:
         - billing
     put:
-      operationId: billing_cards_update
+      operationId: billing_cards_replace
       responses:
         '200':
           description: 'Card updated'
@@ -342,7 +342,7 @@ paths:
       tags:
         - billing
     patch:
-      operationId: billing_cards_partial_update
+      operationId: billing_cards_update
       responses:
         '200':
           description: 'Card updated'
@@ -486,7 +486,7 @@ paths:
       tags:
         - billing
     put:
-      operationId: billing_customers_update
+      operationId: billing_customers_replace
       responses:
         '200':
           description: 'Customer updated'
@@ -517,7 +517,7 @@ paths:
       tags:
         - billing
     patch:
-      operationId: billing_customers_partial_update
+      operationId: billing_customers_update
       responses:
         '200':
           description: 'Customer updated'
@@ -721,7 +721,7 @@ paths:
       tags:
         - billing
     put:
-      operationId: billing_plans_update
+      operationId: billing_plans_replace
       responses:
         '200':
           description: 'Plan updated.'
@@ -752,7 +752,7 @@ paths:
       tags:
         - billing
     patch:
-      operationId: billing_plans_partial_update
+      operationId: billing_plans_update
       responses:
         '200':
           description: Plan updated
@@ -927,7 +927,7 @@ paths:
       tags:
         - billing
     put:
-      operationId: billing_subscriptions_update
+      operationId: billing_subscriptions_replace
       responses:
         '200':
           description: 'Subscription updated.'
@@ -958,7 +958,7 @@ paths:
       tags:
         - billing
     patch:
-      operationId: billing_subscriptions_partial_update
+      operationId: billing_subscriptions_update
       responses:
         '200':
           description: 'Subscription updated.'
@@ -1107,7 +1107,7 @@ paths:
       tags:
         - hosts
     put:
-      operationId: hosts_update
+      operationId: hosts_replace
       responses:
         '200':
           description: 'DockerHost updated.'
@@ -1138,7 +1138,7 @@ paths:
       tags:
         - hosts
     patch:
-      operationId: hosts_partial_update
+      operationId: hosts_update
       responses:
         '200':
           description: DockerHost updated
@@ -1292,7 +1292,7 @@ paths:
       tags:
         - projects
     put:
-      operationId: projects_update
+      operationId: projects_replace
       responses:
         '200':
           description: 'Project updated.'
@@ -1323,7 +1323,7 @@ paths:
       tags:
         - projects
     patch:
-      operationId: projects_partial_update
+      operationId: projects_update
       responses:
         '200':
           description: Project updated
@@ -1482,7 +1482,7 @@ paths:
       tags:
         - projects
     put:
-      operationId: projects_collaborators_update
+      operationId: projects_collaborators_replace
       responses:
         '200':
           description: Collaborator updated
@@ -1522,7 +1522,7 @@ paths:
       tags:
         - projects
     patch:
-      operationId: projects_collaborators_partial_update
+      operationId: projects_collaborators_update
       responses:
         '200':
           description: Collaborator updated
@@ -1712,7 +1712,7 @@ paths:
       tags:
         - projects
     put:
-      operationId: projects_project_files_update
+      operationId: projects_project_files_replace
       responses:
         '200':
           description: 'ProjectFile updated'
@@ -1764,7 +1764,7 @@ paths:
       tags:
         - projects
     patch:
-      operationId: projects_project_files_partial_update
+      operationId: projects_project_files_update
       responses:
         '200':
           description: 'ProjectFile updated.'
@@ -1954,7 +1954,7 @@ paths:
       tags:
         - projects
     put:
-      operationId: projects_servers_update
+      operationId: projects_servers_replace
       responses:
         '200':
           description: 'Server updated.'
@@ -1990,7 +1990,7 @@ paths:
       tags:
         - projects
     patch:
-      operationId: projects_servers_partial_update
+      operationId: projects_servers_update
       responses:
         '200':
           description: Server updated
@@ -2085,7 +2085,7 @@ paths:
         - projects
   '/{namespace}/projects/{project_id}/servers/{id}/start/':
     post:
-      operationId: projects_servers_start_create
+      operationId: projects_servers_start
       responses:
         '201':
           description: 'Server started.'
@@ -2112,7 +2112,7 @@ paths:
         - projects
   '/{namespace}/projects/{project_id}/servers/{id}/stop/':
     post:
-      operationId: projects_servers_stop_create
+      operationId: projects_servers_stop
       responses:
         '201':
           description: 'Server stopped.'
@@ -2139,7 +2139,7 @@ paths:
         - projects
   '/{namespace}/projects/{project_id}/servers/{id}/terminate/':
     post:
-      operationId: projects_servers_terminate_create
+      operationId: projects_servers_terminate
       responses:
         '201':
           description: 'Sercer terminated.'
@@ -2281,7 +2281,7 @@ paths:
       tags:
         - projects
     put:
-      operationId: projects_servers_run-stats_update
+      operationId: projects_servers_run-stats_replace
       responses:
         '200':
           description: 'ServerRunStatistics updated.'
@@ -2322,7 +2322,7 @@ paths:
       tags:
         - projects
     patch:
-      operationId: projects_servers_run-stats_partial_update
+      operationId: projects_servers_run-stats_update
       responses:
         '200':
           description: 'ServerRunStatistics updated.'
@@ -2516,7 +2516,7 @@ paths:
       tags:
         - projects
     put:
-      operationId: projects_servers_ssh-tunnels_update
+      operationId: projects_servers_ssh-tunnels_replace
       responses:
         '200':
           description: SshTunnel updated
@@ -2557,7 +2557,7 @@ paths:
       tags:
         - projects
     patch:
-      operationId: projects_servers_ssh-tunnels_partial_update
+      operationId: projects_servers_ssh-tunnels_update
       responses:
         '200':
           description: ' SSH Tunnel updated.'
@@ -2751,7 +2751,7 @@ paths:
       tags:
         - projects
     put:
-      operationId: projects_servers_stats_update
+      operationId: projects_servers_stats_replace
       responses:
         '200':
           description: ServerStatistics updated
@@ -2792,7 +2792,7 @@ paths:
       tags:
         - projects
     patch:
-      operationId: projects_servers_stats_partial_update
+      operationId: projects_servers_stats_update
       responses:
         '200':
           description: 'ServerStatistics updated.'
@@ -2941,7 +2941,7 @@ paths:
         - projects
   '/{namespace}/search/':
     get:
-      operationId: search_list
+      operationId: search
       responses:
         '200':
           description: 'Search list.'
@@ -3055,7 +3055,7 @@ paths:
       tags:
         - servers
     put:
-      operationId: servers_options_resources_update
+      operationId: servers_options_resources_replace
       responses:
         '200':
           description: EnvironmentResource updated
@@ -3090,7 +3090,7 @@ paths:
       tags:
         - servers
     patch:
-      operationId: servers_options_resources_partial_update
+      operationId: servers_options_resources_update
       responses:
         '200':
           description: 'Environment resource updated.'
@@ -3249,7 +3249,7 @@ paths:
       tags:
         - service
     put:
-      operationId: service_trigger_update
+      operationId: service_trigger_replace
       responses:
         '200':
           description: 'ServerAction updated.'
@@ -3289,7 +3289,7 @@ paths:
       tags:
         - service
     patch:
-      operationId: service_trigger_partial_update
+      operationId: service_trigger_update
       responses:
         '200':
           description: 'Server action updated.'
@@ -3358,7 +3358,7 @@ paths:
         - service
   '/{namespace}/service/{server_id}/trigger/{id}/call/':
     post:
-      operationId: service_trigger_call_create
+      operationId: service_trigger_call
       responses:
         '201':
           description: 'Call Trigger'
@@ -3470,7 +3470,7 @@ paths:
       tags:
         - triggers
     put:
-      operationId: triggers_update
+      operationId: triggers_replace
       responses:
         '200':
           description: 'Trigger updated.'
@@ -3506,7 +3506,7 @@ paths:
       tags:
         - triggers
     patch:
-      operationId: triggers_partial_update
+      operationId: triggers_update
       responses:
         '200':
           description: Trigger updated
@@ -3645,7 +3645,7 @@ paths:
       tags:
         - users
     put:
-      operationId: users_update
+      operationId: users_replace
       responses:
         '200':
           description: User updated
@@ -3671,7 +3671,7 @@ paths:
       tags:
         - users
     patch:
-      operationId: users_partial_update
+      operationId: users_update
       responses:
         '200':
           description: 'User updated.'
@@ -3735,7 +3735,7 @@ paths:
         - users
   '/users/{user_id}/api-key/reset/':
     post:
-      operationId: users_api-key_reset_create
+      operationId: users_api-key_reset
       responses:
         '201':
           description: 'Reset Api Key'
@@ -3837,7 +3837,7 @@ paths:
       tags:
         - users
     put:
-      operationId: users_emails_update
+      operationId: users_emails_replace
       responses:
         '200':
           description: Email updated
@@ -3868,7 +3868,7 @@ paths:
       tags:
         - users
     patch:
-      operationId: users_emails_partial_update
+      operationId: users_emails_update
       responses:
         '200':
           description: Email updated
@@ -4012,7 +4012,7 @@ paths:
       tags:
         - users
     put:
-      operationId: users_integrations_update
+      operationId: users_integrations_replace
       responses:
         '200':
           description: 'Integration updated.'
@@ -4043,7 +4043,7 @@ paths:
       tags:
         - users
     patch:
-      operationId: users_integrations_partial_update
+      operationId: users_integrations_update
       responses:
         '200':
           description: Integration updated
@@ -4117,7 +4117,7 @@ paths:
         - users
   '/users/{user_id}/ssh-key/reset/':
     post:
-      operationId: users_ssh-key_reset_create
+      operationId: users_ssh-key_reset
       responses:
         '201':
           description: 'Reset SSH Key successfully.'
