@@ -1,11 +1,12 @@
-language: bash
+language: node_js
+node_js:
+  - "8"
 
 before_script:
-  # For unit tests, specifically asserts
-  - curl -L "https://storage.googleapis.com/google-code-archive-downloads/v2/code.google.com/shunit2/shunit2-2.1.6.tgz" | tar zx
+  - npm -g i swagger-cli
 
 script:
-  - bash config/api-spec_validation_test.sh
+  - swagger validate tbs_swagger.yml
 
 notifications:
   slack: 3blades:KldxDQGEKcL1NMrpOgv71Xdh
