@@ -48,6 +48,19 @@ consumes:
 produces:
   - application/json
   - text/html
+securityDefinitions:
+  jwt:
+    description: |
+      A valid JSON Web Token (JWT) must be passed for all operations except for those in the `/auth` route. A JWT can be retrieved from the `/auth/jwt-token-auth` endpoint.
+
+      The following syntax is required:
+
+        Authorization: JWT <token>
+    type: apiKey
+    name: Authorization
+    in: header
+security:
+  - jwt: []
 paths:
   /actions/:
     get:
@@ -133,6 +146,7 @@ paths:
       summary: 'Get JSON Web Token (JWT)'
       tags:
         - auth
+      security: []
   /auth/jwt-token-refresh/:
     post:
       operationId: auth_jwt-token-refresh
@@ -156,6 +170,7 @@ paths:
         - application/json
       tags:
         - auth
+      security: []
   /auth/jwt-token-verify/:
     post:
       operationId: auth_jwt-token-verify
@@ -179,6 +194,7 @@ paths:
         - application/json
       tags:
         - auth
+      security: []
   /auth/register/:
     post:
       operationId: auth_register
@@ -202,6 +218,7 @@ paths:
         - application/json
       tags:
         - auth
+      security: []
   /auth/simple-token-auth/:
     post:
       operationId: auth_simple-token-auth
@@ -224,6 +241,7 @@ paths:
       summary: 'Create simple JWT'
       tags:
         - auth
+      security: []
   '/{namespace}/billing/cards/':
     get:
       operationId: billing_cards_list
