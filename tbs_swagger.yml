@@ -38,7 +38,7 @@ info:
       wss://ws.api.3blades.ai/
 
     The Stream API requires the same authentication mechanism as the REST API.
-host: staging-api.3blades.ai
+host: dev-api.3blades.ai
 basePath: /v1
 schemes:
   - https
