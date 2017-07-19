@@ -4968,6 +4968,7 @@ definitions:
       - name
       - cpu
       - memory
+      - active
   EnvironmentResourceError:
     type: object
     properties:
@@ -5241,6 +5242,7 @@ definitions:
       interval:
         description: 'Plan interval.'
         type: string
+        enum: [day, week, month, year]
       interval_count:
         description: 'Number of intervals.'
         type: integer
@@ -5352,6 +5354,7 @@ definitions:
         description: 'Array of project collaborators.'
         items:
           type: string
+          enum: [read_project, write_project]
     required:
       - name
   ProjectData:
@@ -5537,7 +5540,8 @@ definitions:
         description: 'Server configuration option. Values are jupyter, restful and cron.'
       status:
         type: string
-        description: 'Server status, such as Running or Stopped.'
+        enum: [Pending, Running, Error]
+        description: 'Server status, such as Running or Error.'
       connected:
         type: array
         description: 'Array that represents what other servers the server is connected to.'
