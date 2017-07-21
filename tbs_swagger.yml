@@ -3659,7 +3659,7 @@ paths:
       responses:
         '200':
           description: 'User retrieved.'
-          example:
+          examples:
             application/json: {"id":"66949654-1f75-4c6f-a5c5-e3572eae6527","username":"johnDoe","email":"johndoe@email.com","first_name":"John","last_name":"Doe","profile":{"avatar_url":"http://example.com/","bio":"I like tests","url":"http://about.me/myprofile","location":"Atlanta, GA","company":"3Blades","timezone":"America/New_York"}}
           schema:
             $ref: '#/definitions/User'
