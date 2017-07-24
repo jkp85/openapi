@@ -4655,9 +4655,9 @@ definitions:
           priviledges by default. Permissions are write and read.
         items:
           type: string
-        enum:
-          - write_project
-          - read_project
+          enum:
+            - write_project
+            - read_project
   CollaboratorData:
     type: object
     properties:
@@ -5397,7 +5397,9 @@ definitions:
         description: 'Array of project collaborators.'
         items:
           type: string
-          enum: [read_project, write_project]
+          enum:
+            - read_project
+            - write_project
     required:
       - name
   ProjectData:
