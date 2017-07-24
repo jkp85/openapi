@@ -195,7 +195,7 @@ paths:
           in: body
           schema:
             $ref: '#/definitions/VerifyJSONWebTokenData'
-      summary: 'Validate SON Web Token (JWT)'
+      summary: 'Validate JSON Web Token (JWT)'
       description: 'Checks veraciy of token.'
       consumes:
         - application/json
