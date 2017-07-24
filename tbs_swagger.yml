@@ -5,12 +5,14 @@ info:
   description: |-
     # Introduction
 
-    3Blades currently offers a HTTP REST API and a Websocket Stream API which are used by both the Web UI and the CLI. This API documentation contains all API operations currently supported in the platform and provides examples of how to execute them using our Command Line Interface (CLI), Python SDK and Go SDK.
+    3Blades currently offers a **HTTP REST API** and a **Websocket Stream API** which are used by both the Web UI and the CLI. This API documentation contains all API operations currently supported in the platform and provides examples of how to execute them using our Command Line Interface (CLI), Python SDK and Go SDK.
 
     # Authentication
 
-    In order to be able to make requests to the 3Blades API, you should first obtain an JWT (API authentication token) for your account. You many obtain a valid JWT by authenticating to the RESTful authentication endpoint with a valid user id and password. Once you obtain a valid JWT, then you must add it to the
-    request header using the `Authorization` key. The value should be `Bearer` + `<token value>`.
+    In order to be able to make requests to the 3Blades API, you should first obtain an JWT (API authentication token) for your account using the `/auth/` endpoint. You may obtain a valid JWT by authenticating to the RESTful authentication endpoint with a valid user id and password. Once you obtain a valid JWT, then you must add it to the
+    **request header** using the `Authorization` key. The value should be `Bearer` + `<token value>`.
+
+    > Code samples *do not* include headers. Add `Content-Type` and `Authorization` headers to your code. The interactive API prompts the user to add their valid JWT token after clicking on the `Try It` option. `Content-Type` header is included automatically.
 
     # RESTful API
 
@@ -50,6 +52,8 @@ consumes:
 produces:
   - application/json
   - text/html
+x-headers:
+  - Content-Type: application/json
 x-samples-languages: ['curl', 'python', 'javascript', 'node', 'ruby', 'php', 'go', 'csharp', 'java', 'swift']
 securityDefinitions:
   jwt:
@@ -1679,7 +1683,7 @@ paths:
         - name: file
           required: true
           in: formData
-          description: 'File to send, to create new file.'
+          description: 'File to send, to create new file. Note: this parameter is only used with form data.'
           type: file
         - name: public
           required: false
@@ -1698,6 +1702,7 @@ paths:
           type: string
       consumes:
         - multipart/form-data
+        - application/json
       summary: 'Create project files'
       tags:
         - projects
