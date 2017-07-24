@@ -139,6 +139,8 @@ paths:
           description: 'JWT created'
           schema:
             $ref: '#/definitions/JWT'
+          examples:
+            application/json: { "token" : "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiYWRtaW4iOnRydWV9.TJVA95OrM7E2cBab30RMHrHDcEfxjoYZgeFONFh7HgQ" }
         '400':
           description: 'Invalid data supplied'
           schema:
@@ -188,6 +190,8 @@ paths:
             $ref: '#/definitions/VerifyJSONWebToken'
         '400':
           description: 'Invalid data supplied'
+          examples:
+            application/json: { "token" : "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiYWRtaW4iOnRydWV9.TJVA95OrM7E2cBab30RMHrHDcEfxjoYZgeFONFh7HgQ" }
           schema:
             $ref: '#/definitions/VerifyJSONWebTokenError'
       parameters:
@@ -208,6 +212,8 @@ paths:
       responses:
         '201':
           description: 'User created'
+          examples:
+            application/json: {"id":"536686d7-0096-4c72-a4c3-5d710a361a0a","username":"username","email":"user@email.com","first_name":"John","last_name":"Doe","profile":{"avatar_url":"http://example.com/","bio":"I like tests","url":"http://about.me/myprofile","location":"Atlanta, GA","company":"3Blades","timezone":"America/New_York"}}
           schema:
             $ref: '#/definitions/User'
         '400':
@@ -3595,6 +3601,8 @@ paths:
       responses:
         '200':
           description: User list
+          examples:
+            application/json: [ {"id":"66949654-1f75-4c6f-a5c5-e3572eae6527","username":"johnDoe","email":"johndoe@email.com","first_name":"John","last_name":"Doe","profile":{"avatar_url":"http://example.com/","bio":"I like tests","url":"http://about.me/myprofile","location":"Atlanta, GA","company":"3Blades","timezone":"America/New_York"}} ]
           schema:
             type: array
             items:
@@ -3633,6 +3641,8 @@ paths:
       responses:
         '201':
           description: User created
+          examples:
+            application/json: {"id":"66949654-1f75-4c6f-a5c5-e3572eae6527","username":"johnDoe","email":"johndoe@email.com","first_name":"John","last_name":"Doe","profile":{"avatar_url":"http://example.com/","bio":"I like tests","url":"http://about.me/myprofile","location":"Atlanta, GA","company":"3Blades","timezone":"America/New_York"}}
           schema:
             $ref: '#/definitions/User'
         '400':
@@ -3655,6 +3665,8 @@ paths:
       responses:
         '200':
           description: 'User retrieved.'
+          examples:
+            application/json: {"id":"66949654-1f75-4c6f-a5c5-e3572eae6527","username":"johnDoe","email":"johndoe@email.com","first_name":"John","last_name":"Doe","profile":{"avatar_url":"http://example.com/","bio":"I like tests","url":"http://about.me/myprofile","location":"Atlanta, GA","company":"3Blades","timezone":"America/New_York"}}
           schema:
             $ref: '#/definitions/User'
         '404':
@@ -3701,6 +3713,8 @@ paths:
       responses:
         '200':
           description: 'User updated.'
+          examples:
+            application/json: {"id":"78713790-4113-4bf3-845f-ee707740b593","username":"0vyRQOAUd0","email":"runB@email.com","first_name":"John","last_name":"Doe","profile":{"avatar_url":"http://example.com/","bio":"Data updated with patch","url":"http://about.me/myprofile","location":"Atlanta, GA","company":"3Blades","timezone":"America/New_York"}}
           schema:
             $ref: '#/definitions/User'
         '400':
@@ -3782,6 +3796,10 @@ paths:
       responses:
         '200':
           description: Email list
+          examples:
+            application/json: []
+
+
           schema:
             type: array
             items:
@@ -3815,6 +3833,9 @@ paths:
       responses:
         '201':
           description: Email created
+          examples:
+            application/json: {"id": "383e0d16-2052-4196-95b8-d9d73ed043a9","address": "post@email.com","public": true,"unsubscribed": false}
+
           schema:
             $ref: '#/definitions/Email'
         '400':
@@ -3842,6 +3863,8 @@ paths:
       responses:
         '200':
           description: Email retrieved
+          examples:
+            application/json: {"id": "383e0d16-2052-4196-95b8-d9d73ed043a9","address": "post@email.com","public": true,"unsubscribed": false}
           schema:
             $ref: '#/definitions/Email'
         '404':
@@ -3867,6 +3890,8 @@ paths:
       responses:
         '200':
           description: Email updated
+          examples:
+            application/json: {"id":"383e0d16-2052-4196-95b8-d9d73ed043a9","address":"put@email.com","public":false,"unsubscribed":true}
           schema:
             $ref: '#/definitions/Email'
         '400':
@@ -3898,6 +3923,8 @@ paths:
       responses:
         '200':
           description: Email updated
+          examples:
+            application/json: {"id":"383e0d16-2052-4196-95b8-d9d73ed043a9","address":"patch@email.com","public":false,"unsubscribed":false}
           schema:
             $ref: '#/definitions/Email'
         '400':
@@ -3957,6 +3984,8 @@ paths:
       responses:
         '200':
           description: 'Integration list.'
+          examples:
+            application/json: []
           schema:
             type: array
             items:
@@ -3990,6 +4019,8 @@ paths:
       responses:
         '201':
           description: Integration created
+          examples:
+            appplication/json: {"id":"a4eed33d-80d7-401b-bdc1-f77349aac9a6","provider":"github","extra_data":{"fooPost":"hello world with post"}}
           schema:
             $ref: '#/definitions/Integration'
         '400':
@@ -4017,6 +4048,8 @@ paths:
       responses:
         '200':
           description: 'Integration retrieved.'
+          examples:
+            application/json: {"id":"a4eed33d-80d7-401b-bdc1-f77349aac9a6","provider":"github","extra_data":{"fooPost":"hello world with post"}}
           schema:
             $ref: '#/definitions/Integration'
         '404':
@@ -4042,6 +4075,8 @@ paths:
       responses:
         '200':
           description: 'Integration updated.'
+          examples:
+            application/json: {"id":"a4eed33d-80d7-401b-bdc1-f77349aac9a6","provider":"aws","extra_data":{"fooPut":"hello world with put"}}
           schema:
             $ref: '#/definitions/Integration'
         '400':
@@ -4073,6 +4108,8 @@ paths:
       responses:
         '200':
           description: Integration updated
+          examples:
+            application/json: {"id":"a4eed33d-80d7-401b-bdc1-f77349aac9a6","provider":"google","extra_data":{"fooPatch":"hello world with patch"}}
           schema:
             $ref: '#/definitions/Integration'
         '400':
@@ -4185,7 +4222,7 @@ definitions:
         description: 'User agent that action is related to.'
       start_date:
         type: string
-        description: 'Action dat and time start.'
+        description: 'Action date and time start.'
       end_date:
         type: string
         description: 'Action needs to end before a certain date and time.'
