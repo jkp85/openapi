@@ -9,15 +9,16 @@ info:
 
     # Authentication
 
-    In order to be able to make requests to the 3Blades API, you should first obtain an JWT (API authentication token) for your account. You many obtain a valid JWT by authenticating to the RESTful authentication endpoint with a valid user id and password.
+    In order to be able to make requests to the 3Blades API, you should first obtain an JWT (API authentication token) for your account. You many obtain a valid JWT by authenticating to the RESTful authentication endpoint with a valid user id and password. Once you obtain a valid JWT, then you must add it to the
+    request header using the `Authorization` key. The value should be `Bearer` + `<token value>`.
 
     # RESTful API
 
     The 3Blades REST API is reachable through the following hostname:
 
-    https://api.3blades.ai/v1
+    https://api.3blades.ai/
 
-    All requests should be sent to this endpoint using basic authentication using a valid authentication token.
+    All requests should be sent to this endpoint using basic authentication using a valid authentication token. All endpoints are versioned except for the auth endpoints.
 
     ## Namespaced Endpoints
 
@@ -38,8 +39,8 @@ info:
       wss://ws.api.3blades.ai/
 
     The Stream API requires the same authentication mechanism as the REST API.
+
 host: dev-api.3blades.ai
-basePath: /v1
 schemes:
   - https
 consumes:
@@ -57,14 +58,14 @@ securityDefinitions:
 
       The following syntax is required:
 
-        Authorization: JWT <token>
+        Authorization: Bearer <token>
     type: apiKey
     name: Authorization
     in: header
 security:
   - jwt: []
 paths:
-  /actions/:
+  /v1/actions/:
     get:
       operationId: actions_list
       responses:
@@ -108,7 +109,7 @@ paths:
       summary: 'Get actions'
       tags:
         - actions
-  '/actions/{id}/cancel/':
+  '/v1/actions/{id}/cancel/':
     post:
       operationId: actions_cancel
       responses:
@@ -244,7 +245,7 @@ paths:
       tags:
         - auth
       security: []
-  '/{namespace}/billing/cards/':
+  '/v1/{namespace}/billing/cards/':
     get:
       operationId: billing_cards_list
       responses:
@@ -304,7 +305,7 @@ paths:
         - application/json
       tags:
         - billing
-  '/{namespace}/billing/cards/{id}/':
+  '/v1/{namespace}/billing/cards/{id}/':
     get:
       operationId: billing_cards_read
       responses:
@@ -419,7 +420,7 @@ paths:
       summary: 'Delete a credit card'
       tags:
         - billing
-  '/{namespace}/billing/customers/':
+  '/v1/{namespace}/billing/customers/':
     get:
       operationId: billing_customers_list
       responses:
@@ -479,7 +480,7 @@ paths:
       summary: 'Create new customer'
       tags:
         - billing
-  '/{namespace}/billing/customers/{id}/':
+  '/v1/{namespace}/billing/customers/{id}/':
     get:
       operationId: billing_customers_read
       responses:
@@ -594,7 +595,7 @@ paths:
       summary: 'Delete a customer'
       tags:
         - billing
-  '/{namespace}/billing/invoices/':
+  '/v1/{namespace}/billing/invoices/':
     get:
       operationId: billing_invoices_list
       responses:
@@ -628,7 +629,7 @@ paths:
       summary: 'Get invoices'
       tags:
         - billing
-  '/{namespace}/billing/invoices/{id}/':
+  '/v1/{namespace}/billing/invoices/{id}/':
     get:
       operationId: billing_invoices_read
       responses:
@@ -654,7 +655,7 @@ paths:
       summary: 'Get an invoice'
       tags:
         - billing
-  '/{namespace}/billing/plans/':
+  '/v1/{namespace}/billing/plans/':
     get:
       operationId: billing_plans_list
       responses:
@@ -714,7 +715,7 @@ paths:
       summary: 'Create a billing plan'
       tags:
         - billing
-  '/{namespace}/billing/plans/{id}/':
+  '/v1/{namespace}/billing/plans/{id}/':
     get:
       operationId: billing_plans_read
       responses:
@@ -829,7 +830,7 @@ paths:
       summary: 'Delete a billing plan'
       tags:
         - billing
-  '/{namespace}/billing/subscription_required/':
+  '/v1/{namespace}/billing/subscription_required/':
     get:
       operationId: billing_subscription_required_list
       responses:
@@ -860,7 +861,7 @@ paths:
       summary: 'Require subscription for an account.'
       tags:
         - billing
-  '/{namespace}/billing/subscriptions/':
+  '/v1/{namespace}/billing/subscriptions/':
     get:
       operationId: billing_subscriptions_list
       responses:
@@ -920,7 +921,7 @@ paths:
       summary: 'Create a new subscription'
       tags:
         - billing
-  '/{namespace}/billing/subscriptions/{id}/':
+  '/v1/{namespace}/billing/subscriptions/{id}/':
     get:
       operationId: billing_subscriptions_read
       responses:
@@ -1035,7 +1036,7 @@ paths:
       summary: 'Delete a subscription'
       tags:
         - billing
-  '/{namespace}/hosts/':
+  '/v1/{namespace}/hosts/':
     get:
       operationId: hosts_list
       responses:
@@ -1100,7 +1101,7 @@ paths:
       summary: 'Create a new host'
       tags:
         - hosts
-  '/{namespace}/hosts/{id}/':
+  '/v1/{namespace}/hosts/{id}/':
     get:
       operationId: hosts_read
       responses:
@@ -1215,7 +1216,7 @@ paths:
       summary: 'Delete a host'
       tags:
         - hosts
-  '/{namespace}/projects/':
+  '/v1/{namespace}/projects/':
     get:
       operationId: projects_list
       responses:
@@ -1285,7 +1286,7 @@ paths:
       summary: 'Create a new project'
       tags:
         - projects
-  '/{namespace}/projects/{id}/':
+  '/v1/{namespace}/projects/{id}/':
     get:
       operationId: projects_read
       responses:
@@ -1400,7 +1401,7 @@ paths:
       summary: 'Delete a project'
       tags:
         - projects
-  '/{namespace}/projects/{project_id}/collaborators/':
+  '/v1/{namespace}/projects/{project_id}/collaborators/':
     get:
       operationId: projects_collaborators_list
       responses:
@@ -1470,7 +1471,7 @@ paths:
       summary: 'Create project collaborators'
       tags:
         - projects
-  '/{namespace}/projects/{project_id}/collaborators/{id}/':
+  '/v1/{namespace}/projects/{project_id}/collaborators/{id}/':
     get:
       operationId: projects_collaborators_read
       responses:
@@ -1609,7 +1610,7 @@ paths:
       summary: 'Delete a project collaborator'
       tags:
         - projects
-  '/{namespace}/projects/{project_id}/project_files/':
+  '/v1/{namespace}/projects/{project_id}/project_files/':
     get:
       operationId: projects_project_files_list
       responses:
@@ -1700,7 +1701,7 @@ paths:
       summary: 'Create project files'
       tags:
         - projects
-  '/{namespace}/projects/{project_id}/project_files/{id}/':
+  '/v1/{namespace}/projects/{project_id}/project_files/{id}/':
     get:
       operationId: projects_project_files_read
       responses:
@@ -1867,7 +1868,7 @@ paths:
       summary: 'Delete a project file'
       tags:
         - projects
-  '/{namespace}/projects/{project_id}/servers/':
+  '/v1/{namespace}/projects/{project_id}/servers/':
     get:
       operationId: projects_servers_list
       responses:
@@ -1942,7 +1943,7 @@ paths:
       summary: 'Create a new server'
       tags:
         - projects
-  '/{namespace}/projects/{project_id}/servers/{id}/':
+  '/v1/{namespace}/projects/{project_id}/servers/{id}/':
     get:
       operationId: projects_servers_read
       responses:
@@ -2077,7 +2078,7 @@ paths:
       summary: 'Delete a server'
       tags:
         - projects
-  '/{namespace}/projects/{project_id}/servers/{id}/is-allowed/':
+  '/v1/{namespace}/projects/{project_id}/servers/{id}/is-allowed/':
     get:
       operationId: projects_servers_is-allowed_list
       responses:
@@ -2103,7 +2104,7 @@ paths:
       description: 'Checks if user is allowed to access restful server'
       tags:
         - projects
-  '/{namespace}/projects/{project_id}/servers/{id}/start/':
+  '/v1/{namespace}/projects/{project_id}/servers/{id}/start/':
     post:
       operationId: projects_servers_start
       responses:
@@ -2130,7 +2131,7 @@ paths:
       summary: 'Start a server'
       tags:
         - projects
-  '/{namespace}/projects/{project_id}/servers/{id}/stop/':
+  '/v1/{namespace}/projects/{project_id}/servers/{id}/stop/':
     post:
       operationId: projects_servers_stop
       responses:
@@ -2157,7 +2158,7 @@ paths:
       summary: 'Stop a server'
       tags:
         - projects
-  '/{namespace}/projects/{project_id}/servers/{id}/terminate/':
+  '/v1/{namespace}/projects/{project_id}/servers/{id}/terminate/':
     post:
       operationId: projects_servers_terminate
       responses:
@@ -2184,7 +2185,7 @@ paths:
       summary: 'Delete a server'
       tags:
         - projects
-  '/{namespace}/projects/{project_id}/servers/{server_id}/run-stats/':
+  '/v1/{namespace}/projects/{project_id}/servers/{server_id}/run-stats/':
     get:
       operationId: projects_servers_run-stats_list
       responses:
@@ -2264,7 +2265,7 @@ paths:
         - application/json
       tags:
         - projects
-  '/{namespace}/projects/{project_id}/servers/{server_id}/run-stats/{id}/':
+  '/v1/{namespace}/projects/{project_id}/servers/{server_id}/run-stats/{id}/':
     get:
       operationId: projects_servers_run-stats_read
       responses:
@@ -2419,7 +2420,7 @@ paths:
       summary: "Delete a server's statistics"
       tags:
         - projects
-  '/{namespace}/projects/{project_id}/servers/{server_id}/ssh-tunnels/':
+  '/v1/{namespace}/projects/{project_id}/servers/{server_id}/ssh-tunnels/':
     get:
       operationId: projects_servers_ssh-tunnels_list
       responses:
@@ -2499,7 +2500,7 @@ paths:
       summary: "Create SSH Tunnel associated to a server"
       tags:
         - projects
-  '/{namespace}/projects/{project_id}/servers/{server_id}/ssh-tunnels/{id}/':
+  '/v1/{namespace}/projects/{project_id}/servers/{server_id}/ssh-tunnels/{id}/':
     get:
       operationId: projects_servers_ssh-tunnels_read
       responses:
@@ -2654,7 +2655,7 @@ paths:
       summary: "Delete an SSH Tunnel associated to a server"
       tags:
         - projects
-  '/{namespace}/projects/{project_id}/servers/{server_id}/stats/':
+  '/v1/{namespace}/projects/{project_id}/servers/{server_id}/stats/':
     get:
       operationId: projects_servers_stats_list
       responses:
@@ -2734,7 +2735,7 @@ paths:
       summary: "Create server statistics"
       tags:
         - projects
-  '/{namespace}/projects/{project_id}/servers/{server_id}/stats/{id}/':
+  '/v1/{namespace}/projects/{project_id}/servers/{server_id}/stats/{id}/':
     get:
       operationId: projects_servers_stats_read
       responses:
@@ -2889,7 +2890,7 @@ paths:
       summary: "Delete a server's statistics"
       tags:
         - projects
-  '/{namespace}/projects/{project_id}/synced-resources/':
+  '/v1/{namespace}/projects/{project_id}/synced-resources/':
     get:
       operationId: projects_synced-resources_list
       responses:
@@ -2959,7 +2960,7 @@ paths:
       summary: "Create a new synched resource"
       tags:
         - projects
-  '/{namespace}/search/':
+  '/v1/{namespace}/search/':
     get:
       operationId: search
       responses:
@@ -2988,7 +2989,7 @@ paths:
       summary: "Get a search results"
       tags:
         - search
-  '/{namespace}/servers/options/resources/':
+  '/v1/{namespace}/servers/options/resources/':
     get:
       operationId: servers_options_resources_list
       responses:
@@ -3048,7 +3049,7 @@ paths:
       summary: "Create a new resource"
       tags:
         - servers
-  '/{namespace}/servers/options/resources/{id}/':
+  '/v1/{namespace}/servers/options/resources/{id}/':
     get:
       operationId: servers_options_resources_read
       responses:
@@ -3167,7 +3168,7 @@ paths:
       summary: "Delete a resource by id"
       tags:
         - servers
-  '/{namespace}/service/{server_id}/trigger/':
+  '/v1/{namespace}/service/{server_id}/trigger/':
     get:
       operationId: service_trigger_list
       responses:
@@ -3237,7 +3238,7 @@ paths:
       summary: "Create a new server trigger"
       tags:
         - service
-  '/{namespace}/service/{server_id}/trigger/{id}/':
+  '/v1/{namespace}/service/{server_id}/trigger/{id}/':
     get:
       operationId: service_trigger_read
       responses:
@@ -3376,7 +3377,7 @@ paths:
       summary: "Delete a server trigger"
       tags:
         - service
-  '/{namespace}/service/{server_id}/trigger/{id}/call/':
+  '/v1/{namespace}/service/{server_id}/trigger/{id}/call/':
     post:
       operationId: service_trigger_call
       responses:
@@ -3403,7 +3404,7 @@ paths:
       summary: "Call a trigger"
       tags:
         - service
-  '/{namespace}/triggers/':
+  '/v1/{namespace}/triggers/':
     get:
       operationId: triggers_list
       responses:
@@ -3463,7 +3464,7 @@ paths:
       summary: "Create a new trigger"
       tags:
         - triggers
-  '/{namespace}/triggers/{id}/':
+  '/v1/{namespace}/triggers/{id}/':
     get:
       operationId: triggers_read
       responses:
@@ -3583,7 +3584,7 @@ paths:
       summary: "Delete a trigger"
       tags:
         - triggers
-  /users/profiles/:
+  /v1/users/profiles/:
     get:
       operationId: users_list
       responses:
@@ -3643,7 +3644,7 @@ paths:
       summary: "Create new user"
       tags:
         - users
-  '/users/profiles/{id}/':
+  '/v1/users/profiles/{id}/':
     get:
       operationId: users_read
       responses:
@@ -3738,7 +3739,7 @@ paths:
       summary: "Delete a user"
       tags:
         - users
-  '/users/{user_id}/api-key/':
+  '/v1/users/{user_id}/api-key/':
     get:
       operationId: users_api-key_list
       responses:
@@ -3753,7 +3754,7 @@ paths:
       summary: "Retrieve account's API key"
       tags:
         - users
-  '/users/{user_id}/api-key/reset/':
+  '/v1/users/{user_id}/api-key/reset/':
     post:
       operationId: users_api-key_reset
       responses:
@@ -3770,7 +3771,7 @@ paths:
       summary: "Reset a user's API key"
       tags:
         - users
-  '/users/{user_id}/emails/':
+  '/v1/users/{user_id}/emails/':
     get:
       operationId: users_emails_list
       responses:
@@ -3830,7 +3831,7 @@ paths:
       summary: "Create an email address"
       tags:
         - users
-  '/users/{user_id}/emails/{email_id}/':
+  '/v1/users/{user_id}/emails/{email_id}/':
     get:
       operationId: users_emails_read
       responses:
@@ -3945,7 +3946,7 @@ paths:
       summary: "Delete an email address"
       tags:
         - users
-  '/users/{user_id}/integrations/':
+  '/v1/users/{user_id}/integrations/':
     get:
       operationId: users_integrations_list
       responses:
@@ -4005,7 +4006,7 @@ paths:
       summary: "Create a new integration"
       tags:
         - users
-  '/users/{user_id}/integrations/{id}/':
+  '/v1/users/{user_id}/integrations/{id}/':
     get:
       operationId: users_integrations_read
       responses:
@@ -4120,7 +4121,7 @@ paths:
       summary: "Delete an integration"
       tags:
         - users
-  '/users/{user_id}/ssh-key/':
+  '/v1/users/{user_id}/ssh-key/':
     get:
       operationId: users_ssh-key_list
       responses:
@@ -4135,7 +4136,7 @@ paths:
       summary: "Retrieve an SSH key"
       tags:
         - users
-  '/users/{user_id}/ssh-key/reset/':
+  '/v1/users/{user_id}/ssh-key/reset/':
     post:
       operationId: users_ssh-key_reset
       responses:
