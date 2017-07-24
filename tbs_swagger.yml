@@ -194,7 +194,7 @@ paths:
           in: body
           schema:
             $ref: '#/definitions/VerifyJSONWebTokenData'
-      summary: 'Validate SON Web Token (JWT)'
+      summary: 'Validate JSON Web Token (JWT)'
       description: 'Checks veraciy of token.'
       consumes:
         - application/json
@@ -208,7 +208,7 @@ paths:
         '201':
           description: 'User created'
           examples:
-            application/json: {"id":"536686d7-0096-4c72-a4c3-5d710a361a0a","username":"username","email":"user@email.com","first_name":"John","last_name":"Doe","profile":{"avatar_url":"http://example.com/","bio":"I like tests","url":"http://about.me/myprofile","location":"Atlanta, GA","company":"3Blades","timezone":"America/New_York"}}
+            application/json: {"id":"536686d7-0096-4c72-a4c3-5d710a361a0a","username":"johndoe","email":"user@email.com","first_name":"John","last_name":"Doe","profile":{"avatar_url":"http://example.com/","bio":"I like tests","url":"http://about.me/myprofile","location":"Atlanta, GA","company":"3Blades","timezone":"America/New_York"}}
           schema:
             $ref: '#/definitions/User'
         '400':
@@ -256,6 +256,8 @@ paths:
       responses:
         '200':
           description: 'Card list'
+          examples:
+            application/json: []
           schema:
             type: array
             items:
@@ -289,6 +291,8 @@ paths:
       responses:
         '201':
           description: 'Card created'
+          examples:
+            application/json: {"name": "John Doe","address_line1": "3423 Piedmont Rd NE","address_line2": null,"address_city": "Atlanta","address_state": "Georgia","address_zip": "30305","address_country": "United States","exp_month": 1,"exp_year": 2019,"id": "4126086e-525a-4027-b9e7-ae8de47210b2","customer": "7e102c7b-55cd-49a0-9b23-58865eba1cc3","address_line1_check": "pass","address_zip_check": "pass","brand": "Visa","cvc_check": null,"last4": "4242","fingerprint": "WpZ4zQymdmF5LhbH","funding": "credit","stripe_id": "card_1Aj8HuLUHPUzUsaQlDbaXjzA","created": "2017-07-24T15:16:07.995380Z"}
           schema:
             $ref: '#/definitions/Card'
         '400':
@@ -316,6 +320,8 @@ paths:
       responses:
         '200':
           description: 'Card retrieved.'
+          examples:
+            application/json: {"name": "John Doe","address_line1": "3423 Piedmont Rd NE","address_line2": null,"address_city": "Atlanta","address_state": "Georgia","address_zip": "30305","address_country": "United States","exp_month": 1,"exp_year": 2019,"id": "4126086e-525a-4027-b9e7-ae8de47210b2","customer": "7e102c7b-55cd-49a0-9b23-58865eba1cc3","address_line1_check": "pass","address_zip_check": "pass","brand": "Visa","cvc_check": null,"last4": "4242","fingerprint": "WpZ4zQymdmF5LhbH","funding": "credit","stripe_id": "card_1Aj8HuLUHPUzUsaQlDbaXjzA","created": "2017-07-24T15:16:07.995380Z"}
           schema:
             $ref: '#/definitions/Card'
         '404':
@@ -341,6 +347,8 @@ paths:
       responses:
         '200':
           description: 'Card updated'
+          examples:
+            application/json: {"name": "John Doe","address_line1": "3423 Piedmont Rd NE","address_line2": null,"address_city": "Atlanta","address_state": "Georgia","address_zip": "30305","address_country": "United States","exp_month": 1,"exp_year": 2027,"id": "4126086e-525a-4027-b9e7-ae8de47210b2","customer": "7e102c7b-55cd-49a0-9b23-58865eba1cc3","address_line1_check": "pass","address_zip_check": "pass","brand": "Visa","cvc_check": null,"last4": "4242","fingerprint": "WpZ4zQymdmF5LhbH","funding": "credit","stripe_id": "card_1Aj8HuLUHPUzUsaQlDbaXjzA","created": "2017-07-24T15:16:07.995380Z"}
           schema:
             $ref: '#/definitions/Card'
         '400':
@@ -372,6 +380,8 @@ paths:
       responses:
         '200':
           description: 'Card updated'
+          examples:
+            application/json: {"name": "John Doe","address_line1": "3423 Piedmont Rd NE","address_line2": null,"address_city": "Atlanta","address_state": "Georgia","address_zip": "30305","address_country": "United States","exp_month": 1,"exp_year": 2025,"id": "4126086e-525a-4027-b9e7-ae8de47210b2","customer": "7e102c7b-55cd-49a0-9b23-58865eba1cc3","address_line1_check": "pass","address_zip_check": "pass","brand": "Visa","cvc_check": null,"last4": "4242","fingerprint": "WpZ4zQymdmF5LhbH","funding": "credit","stripe_id": "card_1Aj8HuLUHPUzUsaQlDbaXjzA","created": "2017-07-24T15:16:10.806003Z"}
           schema:
             $ref: '#/definitions/Card'
         '400':
@@ -431,6 +441,8 @@ paths:
       responses:
         '200':
           description: 'Customer list.'
+          examples:
+            appliation/json: []
           schema:
             type: array
             items:
@@ -464,6 +476,8 @@ paths:
       responses:
         '201':
           description: Customer created
+          examples:
+            application/json: {"id":"db3a7c07-0189-4d8d-8b5d-09cd89fe33cc","stripe_id":"cus_B5ItVKoQw02KWP","created":"2017-07-24T15:15:47Z","metadata":{},"livemode":false,"account_balance":0,"currency":"usd","last_invoice_sync":null,"user":"f4d8e907-091c-40dd-aaa2-fdaaa9de9037","default_source":null}
           schema:
             $ref: '#/definitions/Customer'
         '400':
@@ -491,6 +505,8 @@ paths:
       responses:
         '200':
           description: 'Customer retrieved.'
+          examples:
+            application/json: {"id":"db3a7c07-0189-4d8d-8b5d-09cd89fe33cc","stripe_id":"cus_B5ItVKoQw02KWP","created":"2017-07-24T15:15:47Z","metadata":{},"livemode":false,"account_balance":0,"currency":"usd","last_invoice_sync":null,"user":"f4d8e907-091c-40dd-aaa2-fdaaa9de9037","default_source":null}
           schema:
             $ref: '#/definitions/Customer'
         '404':
@@ -516,6 +532,8 @@ paths:
       responses:
         '200':
           description: 'Customer updated'
+          examples:
+            application/json: {"id": "db3a7c07-0189-4d8d-8b5d-09cd89fe33cc","stripe_id": "cus_B5ItVKoQw02KWP","created": "2017-07-24T15:15:47Z","metadata": {},"livemode": false,"account_balance": 1,"currency": "usd","last_invoice_sync": null,"user": "f4d8e907-091c-40dd-aaa2-fdaaa9de9037","default_source": null}
           schema:
             $ref: '#/definitions/Customer'
         '400':
@@ -547,6 +565,8 @@ paths:
       responses:
         '200':
           description: 'Customer updated'
+          examples:
+            application/json: {"id": "db3a7c07-0189-4d8d-8b5d-09cd89fe33cc","stripe_id": "cus_B5ItVKoQw02KWP","created": "2017-07-24T15:15:47Z","metadata": {},"livemode": false,"account_balance": 2,"currency": "usd","last_invoice_sync": null,"user": "f4d8e907-091c-40dd-aaa2-fdaaa9de9037","default_source": null}
           schema:
             $ref: '#/definitions/Customer'
         '400':
@@ -606,6 +626,8 @@ paths:
       responses:
         '200':
           description: 'Invoice list.'
+          examples:
+            application/json: []
           schema:
             type: array
             items:
@@ -666,6 +688,8 @@ paths:
       responses:
         '200':
           description: 'Plan list.'
+          examples:
+            application/json: [{"id": "d5791ab3-aefb-45af-80fc-2c7a166d78eb","stripe_id": "post_billing_plan","created": "2017-07-24T15:46:39Z","metadata": {},"livemode": false,"amount": 20,"currency": "usd","interval": "year","interval_count": 1,"name": "patch_billing_plan","statement_descriptor": null,"trial_period_days": 7},{"id": "256fd63a-9d6b-48d2-8ff5-f56eaf54c59b","stripe_id": "post_billing_plan_2","created": "2017-07-24T15:46:48Z","metadata": {},"livemode": false,"amount": 20,"currency": "usd","interval": "week","interval_count": 52,"name": "post_billing_plan_2","statement_descriptor": null,"trial_period_days": 7},{"id": "5915a2ae-12f5-4927-bb26-3b0609228791","stripe_id": "post_billing_plan_3","created": "2017-07-24T15:46:52Z","metadata": {},"livemode": false,"amount": 20,"currency": "usd","interval": "month","interval_count": 12,"name": "post_billing_plan_3","statement_descriptor": null,"trial_period_days": 7}]
           schema:
             type: array
             items:
@@ -699,6 +723,8 @@ paths:
       responses:
         '201':
           description: Plan created
+          examples:
+            application/json: {"id": "d5791ab3-aefb-45af-80fc-2c7a166d78eb","stripe_id": "post_billing_plan","created": "2017-07-24T15:46:39Z","metadata": {},"livemode": false,"amount": 20,"currency": "usd","interval": "year","interval_count": 1,"name": "post_billing_plan","statement_descriptor": null,"trial_period_days": 7}
           schema:
             $ref: '#/definitions/Plan'
         '400':
@@ -726,6 +752,8 @@ paths:
       responses:
         '200':
           description: Plan retrieved
+          examples:
+            application/json: {"id": "d5791ab3-aefb-45af-80fc-2c7a166d78eb","stripe_id": "post_billing_plan","created": "2017-07-24T15:46:39Z","metadata": {},"livemode": false,"amount": 20,"currency": "usd","interval": "year","interval_count": 1,"name": "post_billing_plan","statement_descriptor": null,"trial_period_days": 7}
           schema:
             $ref: '#/definitions/Plan'
         '404':
@@ -782,6 +810,8 @@ paths:
       responses:
         '200':
           description: Plan updated
+          examples:
+            application/json: {"id": "d5791ab3-aefb-45af-80fc-2c7a166d78eb","stripe_id": "post_billing_plan","created": "2017-07-24T15:46:39Z","metadata": {},"livemode": false,"amount": 20,"currency": "usd","interval": "year","interval_count": 1,"name": "patch_billing_plan","statement_descriptor": null,"trial_period_days": 7}
           schema:
             $ref: '#/definitions/Plan'
         '400':
@@ -872,6 +902,8 @@ paths:
       responses:
         '200':
           description: 'Subscription list.'
+          examples:
+            application/json: {"id": "579208c3-4f5c-4b5d-baa3-309a06db681c","plan": "efb36cb0-0ef2-4af3-ae5d-10d9ae73845d","stripe_id": "sub_B5KyO9BZ6lUNPP","created": "2017-07-24T17:25:04Z","livemode": false,"application_fee_percent": null,"cancel_at_period_end": false,"canceled_at": null,"current_period_start": "2017-07-24T17:25:04Z","current_period_end": "2017-07-31T17:25:04Z","start": "2017-07-24T17:25:04Z","ended_at": null,"quantity": 1,"status": "trialing","trial_start": "2017-07-24T17:25:04Z","trial_end": "2017-07-31T17:25:04Z"}
           schema:
             type: array
             items:
@@ -905,6 +937,8 @@ paths:
       responses:
         '201':
           description: Subscription created
+          examples:
+            application/json: {"id": "579208c3-4f5c-4b5d-baa3-309a06db681c","plan": "efb36cb0-0ef2-4af3-ae5d-10d9ae73845d","stripe_id": "sub_B5KyO9BZ6lUNPP","created": "2017-07-24T17:25:04Z","livemode": false,"application_fee_percent": null,"cancel_at_period_end": false,"canceled_at": null,"current_period_start": "2017-07-24T17:25:04Z","current_period_end": "2017-07-31T17:25:04Z","start": "2017-07-24T17:25:04Z","ended_at": null,"quantity": 1,"status": "trialing","trial_start": "2017-07-24T17:25:04Z","trial_end": "2017-07-31T17:25:04Z"}
           schema:
             $ref: '#/definitions/Subscription'
         '400':
@@ -932,6 +966,8 @@ paths:
       responses:
         '200':
           description: 'Subscription retrieved.'
+          examples:
+            application/json: {"id": "579208c3-4f5c-4b5d-baa3-309a06db681c","plan": "efb36cb0-0ef2-4af3-ae5d-10d9ae73845d","stripe_id": "sub_B5KyO9BZ6lUNPP","created": "2017-07-24T17:25:04Z","livemode": false,"application_fee_percent": null,"cancel_at_period_end": false,"canceled_at": null,"current_period_start": "2017-07-24T17:25:04Z","current_period_end": "2017-07-31T17:25:04Z","start": "2017-07-24T17:25:04Z","ended_at": null,"quantity": 1,"status": "trialing","trial_start": "2017-07-24T17:25:04Z","trial_end": "2017-07-31T17:25:04Z"}
           schema:
             $ref: '#/definitions/Subscription'
         '404':
@@ -957,6 +993,8 @@ paths:
       responses:
         '200':
           description: 'Subscription updated.'
+          examples:
+            application/json: {"id": "579208c3-4f5c-4b5d-baa3-309a06db681c","plan": "9a25f718-2bf1-48ea-94f2-c79045da20f7","stripe_id": "sub_B5KyO9BZ6lUNPP","created": "2017-07-24T17:25:04Z","livemode": false,"application_fee_percent": null,"cancel_at_period_end": false,"canceled_at": null,"current_period_start": "2017-07-24T17:25:04Z","current_period_end": "2017-07-31T17:25:04Z","start": "2017-07-24T17:25:04Z","ended_at": null,"quantity": 1,"status": "trialing","trial_start": "2017-07-24T17:25:04Z","trial_end": "2017-07-31T17:25:04Z"}
           schema:
             $ref: '#/definitions/Subscription'
         '400':
@@ -988,6 +1026,8 @@ paths:
       responses:
         '200':
           description: 'Subscription updated.'
+          examples:
+            application/json: {"id": "579208c3-4f5c-4b5d-baa3-309a06db681c","plan": "9775af77-9641-4e73-ac8b-6bd37adc016e","stripe_id": "sub_B5KyO9BZ6lUNPP","created": "2017-07-24T17:25:04Z","livemode": false,"application_fee_percent": null,"cancel_at_period_end": false,"canceled_at": null,"current_period_start": "2017-07-24T17:25:04Z","current_period_end": "2017-07-31T17:25:04Z","start": "2017-07-24T17:25:04Z","ended_at": null,"quantity": 1,"status": "trialing","trial_start": "2017-07-24T17:25:04Z","trial_end": "2017-07-31T17:25:04Z"}
           schema:
             $ref: '#/definitions/Subscription'
         '400':
@@ -1227,6 +1267,8 @@ paths:
       responses:
         '200':
           description: 'Project list.'
+          examples:
+            application/json: []
           schema:
             type: array
             items:
@@ -1270,6 +1312,8 @@ paths:
       responses:
         '201':
           description: Project created
+          examples:
+            application/json: {"id": "79cadd17-5738-4f02-8377-68e67d3eee18","name": "myProject","description": "Project created by me","private": false,"last_updated": "2017-07-24T14:54:38.797878Z","owner": "johndoe","collaborators": ["johndoe"]}
           schema:
             $ref: '#/definitions/Project'
         '400':
@@ -1297,6 +1341,8 @@ paths:
       responses:
         '200':
           description: 'Project retrieved.'
+          examples:
+            application/json: {"id": "79cadd17-5738-4f02-8377-68e67d3eee18","name": "myProject","description": "Project created by me","private": false,"last_updated": "2017-07-24T14:54:38.797878Z","owner": "johndoe","collaborators": ["johndoe"]}
           schema:
             $ref: '#/definitions/Project'
         '404':
@@ -1322,6 +1368,8 @@ paths:
       responses:
         '200':
           description: 'Project updated.'
+          examples:
+            application/json: {"id": "79cadd17-5738-4f02-8377-68e67d3eee18","name": "myProject","description": "My project updated by me using PUT","private": true,"last_updated": "2017-07-24T14:54:43.225603Z","owner": "johndoe","collaborators": ["johndoe"]}
           schema:
             $ref: '#/definitions/Project'
         '400':
@@ -1353,6 +1401,8 @@ paths:
       responses:
         '200':
           description: Project updated
+          examples:
+            application/json: {"id": "79cadd17-5738-4f02-8377-68e67d3eee18","name": "myProject","description": "My project updated by me using PATCH","private": true,"last_updated": "2017-07-24T14:54:43.225603Z","owner": "johndoe","collaborators": ["johndoe"]}
           schema:
             $ref: '#/definitions/Project'
         '400':
@@ -1412,6 +1462,8 @@ paths:
       responses:
         '200':
           description: 'Collaborator list.'
+          examples:
+            application/json: [{"id": "42946cd9-2fb6-4764-944b-e107b972dd97","owner": true,"joined": "2017-07-24T14:54:38.819171Z","username": "johndoe","email": "johndoe@example.com","first_name": "John","last_name": "Doe","permissions": ["read_project","write_project"]}]
           schema:
             type: array
             items:
@@ -1450,6 +1502,8 @@ paths:
       responses:
         '201':
           description: 'Collaborator created.'
+          examples:
+            application/json: {"id": "ef4d3a93-ae36-428c-b00f-5805b496ed95","owner": false,"joined": "2017-07-24T14:54:49.205912Z","username": "collaborator","email": "collaborator@examples.com","first_name": "John","last_name": "Doe","permissions": ["read_project","write_project"]}
           schema:
             $ref: '#/definitions/Collaborator'
         '400':
@@ -1482,6 +1536,8 @@ paths:
       responses:
         '200':
           description: 'Collaborator retrieved.'
+          examples:
+            application/json: {"id": "ef4d3a93-ae36-428c-b00f-5805b496ed95","owner": false,"joined": "2017-07-24T14:54:49.205912Z","username": "collaborator","email": "collaborator@3blades.ai","first_name": "John","last_name": "Doe","permissions": ["read_project","write_project"]}
           schema:
             $ref: '#/definitions/Collaborator'
         '404':
@@ -1621,6 +1677,8 @@ paths:
       responses:
         '200':
           description: ProjectFile list
+          examples:
+            application/json: []
           schema:
             type: array
             items:
@@ -1664,6 +1722,8 @@ paths:
       responses:
         '201':
           description: ProjectFile created
+          examples:
+            application/json: [{"id": "592ac8da-dbf5-4654-9127-8df9ba9280a3","project": "79cadd17-5738-4f02-8377-68e67d3eee18","file": "http://dev-api.3blades.ai/media/johndoe/79cadd17-5738-4f02-8377-68e67d3eee18/foo","public": false,"name": "myfile","path": "","content": null}]
           schema:
             $ref: '#/definitions/ProjectFile'
         '400':
@@ -1712,6 +1772,8 @@ paths:
       responses:
         '200':
           description: 'ProjectFile retrieved'
+          examples:
+            application/json: [{"id": "592ac8da-dbf5-4654-9127-8df9ba9280a3","project": "79cadd17-5738-4f02-8377-68e67d3eee18","file": "http://dev-api.3blades.ai/media/johndoe/79cadd17-5738-4f02-8377-68e67d3eee18/myfile","public": false,"name": "myfile","path": "","content": null}]
           schema:
             $ref: '#/definitions/ProjectFile'
         '404':
@@ -1742,6 +1804,8 @@ paths:
       responses:
         '200':
           description: 'ProjectFile updated'
+          examples:
+            application/json: {"id": "592ac8da-dbf5-4654-9127-8df9ba9280a3","project": "79cadd17-5738-4f02-8377-68e67d3eee18","file": "/media/johndoe/79cadd17-5738-4f02-8377-68e67d3eee18/myfile","public": false,"name": "myfile","path": "","content": null}
           schema:
             $ref: '#/definitions/ProjectFile'
         '400':
@@ -1794,6 +1858,8 @@ paths:
       responses:
         '200':
           description: 'ProjectFile updated.'
+          examples:
+            application/json: {"id": "592ac8da-dbf5-4654-9127-8df9ba9280a3","project": "79cadd17-5738-4f02-8377-68e67d3eee18","file": "/media/johndoe/79cadd17-5738-4f02-8377-68e67d3eee18/myfile","public": false,"name": "foo","path": "","content": null}
           schema:
             $ref: '#/definitions/ProjectFile'
         '400':
@@ -1879,6 +1945,8 @@ paths:
       responses:
         '200':
           description: 'Server list.'
+          examples:
+            application/json: []
           schema:
             type: array
             items:
@@ -1922,6 +1990,8 @@ paths:
       responses:
         '201':
           description: 'Server created.'
+          examples:
+            application/json: {"id": "768f6eef-d07b-40ce-bce1-0dcce5bfbfc3","name": "testPostServer","created_at": "2017-07-24T13:41:57.089722Z","image_name": "","environment_resources": "d16e2091-7596-481b-a50f-285812beb98c","startup_script": "","config": {"type": "jupyter"},"status": "Stopped","connected": [],"host": null,"endpoint": "https://dev-api.3blades.ai/v1/johndoe/projects/d56271ef-eea7-44ad-8d46-828a288c7a3d/servers/768f6eef-d07b-40ce-bce1-0dcce5bfbfc3/endpoint/jupyter/tree","logs_url": "wss://dev-api.3blades.ai/v1/johndoe/projects/d56271ef-eea7-44ad-8d46-828a288c7a3d/servers/768f6eef-d07b-40ce-bce1-0dcce5bfbfc3/logs/","status_url": "wss://dev-api.3blades.ai/v1/johndoe/projects/d56271ef-eea7-44ad-8d46-828a288c7a3d/servers/768f6eef-d07b-40ce-bce1-0dcce5bfbfc3/status/"}
           schema:
             $ref: '#/definitions/Server'
         '400':
@@ -1954,6 +2024,8 @@ paths:
       responses:
         '200':
           description: 'Server retrieved.'
+          examples:
+            application/json: {"id": "768f6eef-d07b-40ce-bce1-0dcce5bfbfc3","name": "testPostServer","created_at": "2017-07-24T13:41:57.089722Z","image_name": "","environment_resources": "d16e2091-7596-481b-a50f-285812beb98c","startup_script": "","config": {"type": "jupyter"},"status": "Stopped","connected": [],"host": null,"endpoint": "https://dev-api.3blades.ai/v1/johndoe/projects/d56271ef-eea7-44ad-8d46-828a288c7a3d/servers/768f6eef-d07b-40ce-bce1-0dcce5bfbfc3/endpoint/jupyter/tree","logs_url": "wss://dev-api.3blades.ai/v1/johndoe/projects/d56271ef-eea7-44ad-8d46-828a288c7a3d/servers/768f6eef-d07b-40ce-bce1-0dcce5bfbfc3/logs/","status_url": "wss://dev-api.3blades.ai/v1/johndoe/projects/d56271ef-eea7-44ad-8d46-828a288c7a3d/servers/768f6eef-d07b-40ce-bce1-0dcce5bfbfc3/status/"}
           schema:
             $ref: '#/definitions/Server'
         '404':
@@ -1984,6 +2056,8 @@ paths:
       responses:
         '200':
           description: 'Server updated.'
+          examples:
+            application/json: {"id": "768f6eef-d07b-40ce-bce1-0dcce5bfbfc3","name": "testPutServer","created_at": "2017-07-24T13:41:57.089722Z","image_name": "","environment_resources": "d16e2091-7596-481b-a50f-285812beb98c","startup_script": "","config": {"type": "jupyter"},"status": "Stopped","connected": [],"host": null,"endpoint": "https://dev-api.3blades.ai/v1/johndoe/projects/d56271ef-eea7-44ad-8d46-828a288c7a3d/servers/768f6eef-d07b-40ce-bce1-0dcce5bfbfc3/endpoint/jupyter/tree","logs_url": "wss://dev-api.3blades.ai/v1/johndoe/projects/d56271ef-eea7-44ad-8d46-828a288c7a3d/servers/768f6eef-d07b-40ce-bce1-0dcce5bfbfc3/logs/","status_url": "wss://dev-api.3blades.ai/v1/johndoe/projects/d56271ef-eea7-44ad-8d46-828a288c7a3d/servers/768f6eef-d07b-40ce-bce1-0dcce5bfbfc3/status/"}
           schema:
             $ref: '#/definitions/Server'
         '400':
@@ -2020,6 +2094,9 @@ paths:
       responses:
         '200':
           description: Server updated
+          examples:
+            application/json:
+              {"id": "768f6eef-d07b-40ce-bce1-0dcce5bfbfc3","name": "testPatchServer","created_at": "2017-07-24T13:41:57.089722Z","image_name": "","environment_resources": "d16e2091-7596-481b-a50f-285812beb98c","startup_script": "","config": {"type": "jupyter"},"status": "Stopped","connected": [],"host": null,"endpoint": "https://dev-api.3blades.ai/v1/johndoe/projects/d56271ef-eea7-44ad-8d46-828a288c7a3d/servers/768f6eef-d07b-40ce-bce1-0dcce5bfbfc3/endpoint/jupyter/tree","logs_url": "wss://dev-api.3blades.ai/v1/johndoe/projects/d56271ef-eea7-44ad-8d46-828a288c7a3d/servers/768f6eef-d07b-40ce-bce1-0dcce5bfbfc3/logs/","status_url": "wss://dev-api.3blades.ai/v1/johndoe/projects/d56271ef-eea7-44ad-8d46-828a288c7a3d/servers/768f6eef-d07b-40ce-bce1-0dcce5bfbfc3/status/"}
           schema:
             $ref: '#/definitions/Server'
         '400':
@@ -2196,6 +2273,8 @@ paths:
       responses:
         '200':
           description: 'Server run statistics list.'
+          examples:
+            application/json: {"duration": null,"runs": 0,"start": null,"stop": null}
           schema:
             type: array
             items:
@@ -2239,6 +2318,8 @@ paths:
       responses:
         '201':
           description: 'ServerRunStatistics created.'
+          examples:
+            application/json: {"id": "7d55fca5-2ba3-4af4-95ab-26dc141e6bfc","start": "2017-07-24T13:42:14.883820Z","stop": null,"exit_code": null,"size": null,"stacktrace": ""}
           schema:
             $ref: '#/definitions/ServerRunStatistics'
         '400':
@@ -2431,6 +2512,8 @@ paths:
       responses:
         '200':
           description: SshTunnel list
+          examples:
+            application/json: []
           schema:
             type: array
             items:
@@ -2666,6 +2749,8 @@ paths:
       responses:
         '200':
           description: 'ServerStatistics list.'
+          examples:
+            appplication/json: {"server_time": null,"start": null,"stop": null}
           schema:
             type: array
             items:
@@ -2709,6 +2794,8 @@ paths:
       responses:
         '201':
           description: ServerStatistics created
+          examples:
+            application/json: {"id": "cc45123f-8dac-4338-8c0b-b6fedf18d0e7","start": null,"stop": null,"size": null}
           schema:
             $ref: '#/definitions/ServerStatistics'
         '400':
@@ -3000,6 +3087,8 @@ paths:
       responses:
         '200':
           description: 'Environment resource list.'
+          examples:
+            application/json: []
           schema:
             type: array
             items:
@@ -3033,6 +3122,8 @@ paths:
       responses:
         '201':
           description: EnvironmentResource created
+          examples:
+            application/json: {"id": "2f4a5830-169d-4111-b913-e68c7b94fdbe","name": "myResource","cpu": 1,"memory": 512,"active": true}
           schema:
             $ref: '#/definitions/EnvironmentResource'
         '400':
@@ -3060,6 +3151,8 @@ paths:
       responses:
         '200':
           description: 'Environment resource retrieved.'
+          examples:
+            application/json: {"id": "2f4a5830-169d-4111-b913-e68c7b94fdbe","name": "myResource","cpu": 1,"memory": 512,"active": true}
           schema:
             $ref: '#/definitions/EnvironmentResource'
         '404':
@@ -3085,6 +3178,8 @@ paths:
       responses:
         '200':
           description: EnvironmentResource updated
+          examples:
+            application/json: {"id": "b673c7ab-65ad-4d6e-859e-0483eea86ad6","name": "myResourceWithPut","cpu": 1,"memory": 512,"active": true}
           schema:
             $ref: '#/definitions/EnvironmentResource'
         '400':
@@ -3120,6 +3215,8 @@ paths:
       responses:
         '200':
           description: 'Environment resource updated.'
+          examples:
+            application/json: {"id": "b673c7ab-65ad-4d6e-859e-0483eea86ad6","name": "myResourceWithPatch","cpu": 1,"memory": 512,"active": true}
           schema:
             $ref: '#/definitions/EnvironmentResource'
         '400':
@@ -3179,6 +3276,8 @@ paths:
       responses:
         '200':
           description: ServerAction list
+          examples:
+            application/json: []
           schema:
             type: array
             items:
@@ -3217,6 +3316,8 @@ paths:
       responses:
         '201':
           description: 'Server action created.'
+          examples:
+            application/json: {"id": "19938b2c-17f6-46ed-a506-f5b196853951","name": "serverStartPost","operation": "start","url": "/v1/johndoe/service/ed81aac7-835d-4702-a58e-4eeda89d4a5a/trigger/19938b2c-17f6-46ed-a506-f5b196853951/call/"}
           schema:
             $ref: '#/definitions/ServerAction'
         '400':
@@ -3249,6 +3350,8 @@ paths:
       responses:
         '200':
           description: 'Server action retrieved.'
+          examples:
+            application/json: {"id": "19938b2c-17f6-46ed-a506-f5b196853951","name": "serverStartPost","operation": "start","url": "/v1/johndoe/service/ed81aac7-835d-4702-a58e-4eeda89d4a5a/trigger/19938b2c-17f6-46ed-a506-f5b196853951/call/"}
           schema:
             $ref: '#/definitions/ServerAction'
         '404':
@@ -3279,6 +3382,8 @@ paths:
       responses:
         '200':
           description: 'ServerAction updated.'
+          examples:
+            application/json: {"id": "19938b2c-17f6-46ed-a506-f5b196853951","name": "serverStartPut","operation": "start","url": "/v1/johndoe/service/ed81aac7-835d-4702-a58e-4eeda89d4a5a/trigger/19938b2c-17f6-46ed-a506-f5b196853951/call/"}
           schema:
             $ref: '#/definitions/ServerAction'
         '400':
@@ -3319,6 +3424,9 @@ paths:
       responses:
         '200':
           description: 'Server action updated.'
+          examples:
+            application/json: {"id": "19938b2c-17f6-46ed-a506-f5b196853951","name": "serverStartPatch","operation": "start","url": "/v1/johndoe/service/ed81aac7-835d-4702-a58e-4eeda89d4a5a/trigger/19938b2c-17f6-46ed-a506-f5b196853951/call/"}
+
           schema:
             $ref: '#/definitions/ServerAction'
         '400':
@@ -3388,6 +3496,8 @@ paths:
       responses:
         '201':
           description: 'Call Trigger'
+          examples:
+            application/json: {"message": "OK"}
         '400':
           description: 'Invalid data supplied'
       parameters:
@@ -3596,7 +3706,7 @@ paths:
         '200':
           description: User list
           examples:
-            application/json: [ {"id":"66949654-1f75-4c6f-a5c5-e3572eae6527","username":"johnDoe","email":"johndoe@email.com","first_name":"John","last_name":"Doe","profile":{"avatar_url":"http://example.com/","bio":"I like tests","url":"http://about.me/myprofile","location":"Atlanta, GA","company":"3Blades","timezone":"America/New_York"}} ]
+            application/json: [ {"id":"66949654-1f75-4c6f-a5c5-e3572eae6527","username":"johndoe","email":"johndoe@email.com","first_name":"John","last_name":"Doe","profile":{"avatar_url":"http://example.com/","bio":"I like tests","url":"http://about.me/myprofile","location":"Atlanta, GA","company":"3Blades","timezone":"America/New_York"}}, {"id":"66949654-1f75-4c6f-a5c5-e3572eae6527","username":"janedoe","email":"janedoe@email.com","first_name":"John","last_name":"Doe","profile":{"avatar_url":"http://example.com/","bio":"I like tests","url":"http://about.me/myprofile","location":"Atlanta, GA","company":"3Blades","timezone":"America/New_York"}} ]
           schema:
             type: array
             items:
@@ -3636,7 +3746,7 @@ paths:
         '201':
           description: User created
           examples:
-            application/json: {"id":"66949654-1f75-4c6f-a5c5-e3572eae6527","username":"johnDoe","email":"johndoe@email.com","first_name":"John","last_name":"Doe","profile":{"avatar_url":"http://example.com/","bio":"I like tests","url":"http://about.me/myprofile","location":"Atlanta, GA","company":"3Blades","timezone":"America/New_York"}}
+            application/json: {"id":"66949654-1f75-4c6f-a5c5-e3572eae6527","username":"johndoe","email":"johndoe@email.com","first_name":"John","last_name":"Doe","profile":{"avatar_url":"http://example.com/","bio":"I like tests","url":"http://about.me/myprofile","location":"Atlanta, GA","company":"3Blades","timezone":"America/New_York"}}
           schema:
             $ref: '#/definitions/User'
         '400':
@@ -3660,7 +3770,7 @@ paths:
         '200':
           description: 'User retrieved.'
           examples:
-            application/json: {"id":"66949654-1f75-4c6f-a5c5-e3572eae6527","username":"johnDoe","email":"johndoe@email.com","first_name":"John","last_name":"Doe","profile":{"avatar_url":"http://example.com/","bio":"I like tests","url":"http://about.me/myprofile","location":"Atlanta, GA","company":"3Blades","timezone":"America/New_York"}}
+            application/json: {"id":"66949654-1f75-4c6f-a5c5-e3572eae6527","username":"johndoe","email":"johndoe@email.com","first_name":"John","last_name":"Doe","profile":{"avatar_url":"http://example.com/","bio":"I like tests","url":"http://about.me/myprofile","location":"Atlanta, GA","company":"3Blades","timezone":"America/New_York"}}
           schema:
             $ref: '#/definitions/User'
         '404':
@@ -3708,7 +3818,7 @@ paths:
         '200':
           description: 'User updated.'
           examples:
-            application/json: {"id":"78713790-4113-4bf3-845f-ee707740b593","username":"0vyRQOAUd0","email":"runB@email.com","first_name":"John","last_name":"Doe","profile":{"avatar_url":"http://example.com/","bio":"Data updated with patch","url":"http://about.me/myprofile","location":"Atlanta, GA","company":"3Blades","timezone":"America/New_York"}}
+            application/json: {"id":"66949654-1f75-4c6f-a5c5-e3572eae6527","username":"johndoe","email":"runB@email.com","first_name":"John","last_name":"Doe","profile":{"avatar_url":"http://example.com/","bio":"Data updated with patch","url":"http://about.me/myprofile","location":"Atlanta, GA","company":"3Blades","timezone":"America/New_York"}}
           schema:
             $ref: '#/definitions/User'
         '400':
@@ -4163,6 +4273,8 @@ paths:
       responses:
         '200':
           description: 'SSH Key.'
+          examples:
+            application/json: {"key":"ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQCqadyIPIEOF4M7SDoI+MHnAj6q2CY2j62Eg0sNbBbjnuekxnhSWVVKPte+NVtK4MWIyw3wnCCzTjwe0p2pQpMqxjqnCAkBPGhOjrRWTvV54hHTihBxiAEmXqbaBg5e6SaXcqP1OajWYzDqhts4ISer0uymzi0hW65At5i5k87Xu9HSM/Q0ySVJGm0rMuDCIoaTIeQdTkAI9ww/cmOM7uvIDO0OJv2xai9xLB9APVq8zCtqWdivMaqo2waPDT/I9bwtSZxRsnRMakGmj3CWvciHv13UsGlbB7nTeDKX0eyQl/5SADLO0bU+hY/8BpRjjtdq57Pqn/Xyw22YarDkG74gjLG5GBFZkBxcpENoUtCUyE2bhBT4x9yXlTeycMBTopGtzTfIHrJtIgNCFMhg9LbK4IKP/1pLj8SrVaQ9/k/QkxmDFoqfwdGd3AWOghMCAbAB7KaDKrj/XBf/KgTd8ZozjvkTzu2YRf4o3DebxRJipPQumrH3iXX5Kfe9lBWkR7Smewwp2XZrdgBeXN/54hd+Ic3upi528IGzEzu3/xtLT/e7kLi1QH7CVVN1sskZkIRr7aukw4YiVWgVOAlqKzJEoE/BPZSOA0NlgG0h37ZmyhdY1VqtoD+Vnj7Qh272PlTB14ndEVTqGuZhsCSxIhXev+METZ6XezK5n1VQeHGveQ=="}
       parameters:
         - name: user_id
           required: true
@@ -4178,6 +4290,8 @@ paths:
       responses:
         '201':
           description: 'Reset SSH Key successfully.'
+          examples:
+            application/json: {"key":"ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDhMvg2+n2yNu0H2Hg8uiXfQtAid0WGRigNckb5J0T9GFINmqkYalI/AsWZbl4UfNMviD73h9xowUx+d7s2vB3E8bFxB9OWM22eLSp8fnbuhdI5mKBflq0jr6ms1cR/SD3YsbZ9sX6BqycQrjjYYl7WLM9rgec6b+EYyr/6nbDH/wql06TrNl6LUNkqI+YIqjRvqMeNEY9ux3sB+f46FRKO683u/cRCcp1eWAYf1ByYupIGREbQFLxhYv/NcKD8uIo7DRAuutwHKGOgnAl4WGUVsT5dplhaDYKlDTf2iMiJ+QDT25QABdrkHcIsu5D21AIdH3FI5UQnnu4unyEA77IDLp2EwKRr9k1XQc1o3zQ61+9Gm7Rt80WWgRsnhmshvAIDNcBv1+82kmA9jyeUf3M7KoRJLk6nIbZ1NwoVCX0VF3lRIB0Hvm/dL7Rpk8m/hE0SIIWIGaXbOT4ANFj+TxcF1Mfk7C3/T5/AYLHcq9ocYFKe4Q3Jv7tuHm600edpUfORdpCpjytcKStza07dRDa+OU577r6a1zHMrEMh8oEUtVO5pC1+EaRijTVaOR62DoarHdxJ23Ctk44o0JZfzj9VoVaAwVAhL1aT3pAQxQlWiTKpmYaHUYUp9SRJhyeFr/gpeIGTydKdawkh9Mz8KMlnu1GUolDDuOvSnvidzWaEaw=="}
         '400':
           description: 'Invalid data supplied.'
       parameters:
