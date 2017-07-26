@@ -186,12 +186,12 @@ paths:
       responses:
         '201':
           description: 'VerifyJSONWebToken created'
+          examples:
+            application/json: { "token" : "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiYWRtaW4iOnRydWV9.TJVA95OrM7E2cBab30RMHrHDcEfxjoYZgeFONFh7HgQ" }
           schema:
             $ref: '#/definitions/VerifyJSONWebToken'
         '400':
           description: 'Invalid data supplied'
-          examples:
-            application/json: { "token" : "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiYWRtaW4iOnRydWV9.TJVA95OrM7E2cBab30RMHrHDcEfxjoYZgeFONFh7HgQ" }
           schema:
             $ref: '#/definitions/VerifyJSONWebTokenError'
       parameters:
@@ -5052,7 +5052,7 @@ definitions:
         type: string
         description: 'Name of third party service.'
       extra_data:
-        type: string
+        type: object
         description: 'Extra data necessary for synchronization.'
     required:
       - provider
