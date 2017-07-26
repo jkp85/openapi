@@ -2272,11 +2272,11 @@ paths:
       operationId: projects_servers_run-stats_list
       responses:
         '200':
-          description: 'Server run statistics list.'
+          description: 'Server run statistics.'
           examples:
             application/json: {"duration": null,"runs": 0,"start": null,"stop": null}
           schema:
-            type: array
+            type: object
             items:
               $ref: '#/definitions/ServerRunStatistics'
       parameters:
@@ -2748,11 +2748,11 @@ paths:
       operationId: projects_servers_stats_list
       responses:
         '200':
-          description: 'ServerStatistics list.'
+          description: 'Server statistics.'
           examples:
             appplication/json: {"server_time": null,"start": null,"stop": null}
           schema:
-            type: array
+            type: object
             items:
               $ref: '#/definitions/ServerStatistics'
       parameters:
