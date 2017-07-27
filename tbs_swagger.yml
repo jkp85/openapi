@@ -6355,8 +6355,38 @@ definitions:
         type: string
         description: 'Object ID Unique identifer in UUID format.'
       action_name:
-        type: string
+        type: array
         description: 'Name for trigger action.'
+        items:
+          type: string
+          enum:
+            - refresh-jwt
+            - verify-jwt
+            - environmentresource-list
+            - environmentresource-detail
+            - dockerhost-list
+            - dockerhost-detail
+            - project-list
+            - project-detail
+            - trigger-list
+            - trigger-detail
+            - server-list
+            - server-detail
+            - projectfile-list
+            - projectfile-detail
+            - sshtunnel-list
+            - sshtunnel-detail
+            - serverrunstatistics-list
+            - serverrunstatistics-detail
+            - serverstatistics-list
+            - serverstatistics-detail
+            - collaborator-list
+            - collaborator-detail
+            - reset_ssh_key
+            - reset_api_key
+            - server-trigger-call
+            - server-start
+            - server-terminate
     required:
       - method
       - action_name
