@@ -6366,33 +6366,51 @@ definitions:
         items:
           type: string
           enum:
-            - refresh-jwt
-            - verify-jwt
-            - environmentresource-list
-            - environmentresource-detail
-            - dockerhost-list
-            - dockerhost-detail
-            - project-list
-            - project-detail
-            - trigger-list
-            - trigger-detail
-            - server-list
-            - server-detail
-            - projectfile-list
-            - projectfile-detail
-            - sshtunnel-list
-            - sshtunnel-detail
-            - serverrunstatistics-list
-            - serverrunstatistics-detail
-            - serverstatistics-list
-            - serverstatistics-detail
-            - collaborator-list
+            - action-cancel
+            - action-detail
+            - action-list
+            - api_key
+            - avatar
             - collaborator-detail
-            - reset_ssh_key
+            - collaborator-list
+            - dockerhost-detail
+            - dockerhost-list
+            - email-detail
+            - email-list
+            - environmentresource-detail
+            - environmentresource-list
+            - obtain-jwt
+            - project-detail
+            - project-list
+            - projectfile-detail
+            - projectfile-list
+            - refresh-jwt
+            - register
             - reset_api_key
-            - server-trigger-call
+            - reset_ssh_key
+            - search
+            - send-slack-message
+            - server-detail
+            - server-list
             - server-start
             - server-terminate
+            - server-trigger-call
+            - serverrunstatistics-detail
+            - serverrunstatistics-list
+            - serverstatistics-detail
+            - serverstatistics-list
+            - ssh_key
+            - sshtunnel-detail
+            - sshtunnel-list
+            - stripe-invoice
+            - subscription-required
+            - trigger-detail
+            - trigger-list
+            - user-detail
+            - user-list
+            - usersocialauth-detail
+            - usersocialauth-list
+            - verify-jwt
     required:
       - method
       - action_name
