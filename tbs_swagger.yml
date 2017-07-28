@@ -6344,8 +6344,16 @@ definitions:
         type: object
         description: 'Object that represents trigger action payload.'
       method:
-        type: string
+        type: array
         description: 'Method for trigger action, such as POST.'
+        items:
+          type: string
+          enum:
+            - POST
+            - GET
+            - PUT
+            - PATCH
+            - DELETE
       model:
         type: string
         description: 'Trigger action model.'
