@@ -3898,6 +3898,85 @@ paths:
       summary: "Reset a user's API key"
       tags:
         - users
+  '/v1/users/{user_id}/avatar/':
+    post:
+      operationId: user_avatar_set
+      responses:
+        '201':
+          description: 'Added user avatar'
+          schema:
+            $ref: '#/definitions/User'
+        '400':
+          description: 'Invalid data supplied'
+      parameters:
+        - name: user_id
+          required: true
+          in: path
+          description: 'User unique identifier expressed as UUID.'
+          type: string
+      consumes:
+        - multipart/form-data
+      summary: "Add user avatar"
+      tags:
+        - users
+    get:
+      operationId: user_avatar_get
+      responses:
+        '200':
+          description: 'User avatar'
+      parameters:
+        - name: user_id
+          required: true
+          in: path
+          description: 'User unique identifier expressed as UUID.'
+          type: string
+      summary: "Retrieve user's avatar"
+      tags:
+        - users
+    patch:
+      operationId: user_avatar_update
+      responses:
+        '200':
+          description: 'Avatar updated.'
+          schema:
+            $ref: '#/definitions/User'
+        '400':
+          description: 'Invalid data supplied.'
+          schema:
+            $ref: '#/definitions/UserError'
+        '404':
+          description: 'Avatar not found.'
+          schema:
+            $ref: '#/definitions/NotFound'
+      parameters:
+        - name: user_id
+          required: true
+          in: path
+          description: 'User unique identifier expressed as UUID.'
+          type: string
+      consumes:
+        - multipart/form-data
+      summary: 'Update a project file'
+      tags:
+        - users
+    delete:
+      operationId: user_avatar_delete
+      responses:
+        '204':
+          description: 'Avatar deleted'
+        '404':
+          description: 'Avatar not found'
+          schema:
+            $ref: '#/definitions/NotFound'
+      parameters:
+        - name: user_id
+          required: true
+          in: path
+          description: 'User unique identifier expressed as UUID.'
+          type: string
+      summary: 'Delete avatar'
+      tags:
+        - users
   '/v1/users/{user_id}/emails/':
     get:
       operationId: users_emails_list
@@ -3906,8 +3985,6 @@ paths:
           description: Email list
           examples:
             application/json: []
-
-
           schema:
             type: array
             items:
@@ -6541,6 +6618,10 @@ definitions:
   UserProfile:
     type: object
     properties:
+      avatar:
+        type: string
+        format: byte
+        description: "Avatar image"
       avatar_url:
         type: string
         description: "URL where user's avatar is located."
@@ -6559,6 +6640,44 @@ definitions:
       timezone:
         type: string
         description: "User's time zone."
+  UserProfileError:
+    type: object
+    properties:
+      non_field_errors:
+        type: array
+        description: 'Errors not connected to any field.'
+        items:
+          type: string
+      avatar_url:
+        type: array
+        description: 'Avatar field errors.'
+        items:
+          type: string
+      bio:
+        type: array
+        description: 'Bio field errors.'
+        items:
+          type: string
+      url:
+        type: array
+        description: 'URL field errors.'
+        items:
+          type: string
+      location:
+        type: array
+        description: 'Location field errors.'
+        items:
+          type: string
+      company:
+        type: array
+        description: 'Company field errors.'
+        items:
+          type: string
+      timezone:
+        type: array
+        description: 'Timezone field errors.'
+        items:
+          type: string
   User:
     type: object
     properties:
@@ -6567,6 +6686,9 @@ definitions:
         description: 'User unique identifier, expressed as UUID.'
       username:
         type: string
+        pattern: '[a-z0-9]{6,64}'
+        minLength: 6
+        maxLength: 64
         description: 'Required. 150 characters or fewer. Letters, digits and @/./+/-/_ only.'
       email:
         type: string
@@ -6580,6 +6702,7 @@ definitions:
       profile:
         type: object
         description: 'User profile information.'
+        $ref: '#/definitions/UserProfile'
     required:
       - username
       - profile
@@ -6647,43 +6770,7 @@ definitions:
         items:
           type: string
       profile:
-        type: object
-        properties:
-          non_field_errors:
-            type: array
-            description: 'Errors not connected to any field.'
-            items:
-              type: string
-          avatar_url:
-            type: array
-            description: 'Avatar field errors.'
-            items:
-              type: string
-          bio:
-            type: array
-            description: 'Bio field errors.'
-            items:
-              type: string
-          url:
-            type: array
-            description: 'URL field errors.'
-            items:
-              type: string
-          location:
-            type: array
-            description: 'Location field errors.'
-            items:
-              type: string
-          company:
-            type: array
-            description: 'Company field errors.'
-            items:
-              type: string
-          timezone:
-            type: array
-            description: 'Timezone field errors.'
-            items:
-              type: string
+        $ref: '#/definitions/UserProfileError'
   VerifyJSONWebToken:
     type: object
     properties:
