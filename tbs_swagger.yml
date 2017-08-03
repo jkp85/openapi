@@ -1,16 +1,15 @@
 swagger: '2.0'
 info:
   title: 3blades API
-  version: "1.2"
+  version: "2.0"
   description: |-
     # Introduction
 
-    3Blades currently offers a **HTTP REST API** and a **Websocket Stream API** which are used by both the Web UI and the CLI. This API documentation contains all API operations currently supported in the platform and provides examples of how to execute them using our Command Line Interface (CLI), Python SDK and Go SDK.
+    3Blades currently offers a **HTTP REST API** which is used by both the Web UI and the CLI Tools. This API documentation contains all API operations currently supported in the platform and provides examples of how to execute them using our Command Line Interface (CLI), Python SDK and Go SDK.
 
     # Authentication
 
-    In order to be able to make requests to the 3Blades API, you should first obtain an JWT (API authentication token) for your account using the `/auth/` endpoint. You may obtain a valid JWT by authenticating to the RESTful authentication endpoint with a valid user id and password. Once you obtain a valid JWT, then you must add it to the
-    **request header** using the `Authorization` key. The value should be `Bearer` + `<token value>`.
+    In order to make requests to the 3Blades API, you will need a JSON Web Token (JWT) for your account. Generate a JWT by providing a valid username and password to the `/auth/jwt-token-auth/` endpoint. Once you generate your JWT, include the `Authorization` header in each API request. The value of the `Authorization` header should be in the following format: `Bearer YOURJWT`.
 
     > Code samples *do not* include headers. Add `Content-Type` and `Authorization` headers to your code. The interactive API prompts the user to add their valid JWT token after clicking on the `Try It` option. `Content-Type` header is included automatically.
 
@@ -34,15 +33,7 @@ info:
 
     If you are using namespaces with the 3Blades CLI, set them by changing the value of the TBS_NAMESPACE environment variable. In `*nix` environments you can `eval $(tbs env --namespace foo/myproject)` into your namespace. For more information please view [CLI Tools README](https://github.com/3blades/cli-tools).
 
-    # Stream API
-
-    The 3Blades Stream API is reachable through the following hostname:
-
-      wss://ws.api.3blades.ai/
-
-    The Stream API requires the same authentication mechanism as the REST API.
-
-host: dev-api.3blades.ai
+host: api.3blades.ai
 schemes:
   - https
 consumes:
@@ -67,68 +58,6 @@ securityDefinitions:
 security:
   - jwt: []
 paths:
-  /v1/actions/:
-    get:
-      operationId: actions_list
-      responses:
-        '200':
-          description: Action list
-          schema:
-            type: array
-            items:
-              $ref: '#/definitions/Action'
-      parameters:
-        - name: limit
-          required: false
-          in: query
-          description: 'Limit actions.'
-          type: string
-        - name: offset
-          required: false
-          in: query
-          description: 'Offest items when retrieving actions.'
-          type: string
-        - name: state
-          required: false
-          in: query
-          description: 'Set state when retrieving actions.'
-          type: string
-        - name: start_date
-          required: false
-          in: query
-          description: 'Start date and time when retrieving actions.'
-          type: string
-        - name: end_date
-          required: false
-          in: query
-          description: 'End date and time when retrieving actions.'
-          type: string
-        - name: ordering
-          required: false
-          in: query
-          description: 'Oder items when retrieving actions.'
-          type: string
-      summary: 'Get actions'
-      tags:
-        - actions
-  '/v1/actions/{id}/cancel/':
-    post:
-      operationId: actions_cancel
-      responses:
-        '201':
-          description: 'Cancel action.'
-        '400':
-          description: 'Invalid action id supplied.'
-      parameters:
-        - name: id
-          required: true
-          in: path
-          description: 'Action unique identifier.'
-          type: string
-      summary: 'Cancel action using id.'
-      description: 'Cancel an action object by UUID.'
-      tags:
-        - actions
   /auth/jwt-token-auth/:
     post:
       operationId: auth_jwt-token-auth
@@ -144,7 +73,7 @@ paths:
           schema:
             $ref: '#/definitions/JWTError'
       parameters:
-        - name: data
+        - name: jwt_data
           in: body
           schema:
             $ref: '#/definitions/JWTData'
@@ -167,7 +96,7 @@ paths:
           schema:
             $ref: '#/definitions/RefreshJSONWebTokenError'
       parameters:
-        - name: data
+        - name: refreshjwt_data
           in: body
           schema:
             $ref: '#/definitions/RefreshJSONWebTokenData'
@@ -193,7 +122,7 @@ paths:
           schema:
             $ref: '#/definitions/VerifyJSONWebTokenError'
       parameters:
-        - name: data
+        - name: verifyjwt_data
           in: body
           schema:
             $ref: '#/definitions/VerifyJSONWebTokenData'
@@ -219,7 +148,7 @@ paths:
           schema:
             $ref: '#/definitions/UserError'
       parameters:
-        - name: data
+        - name: user_data
           in: body
           schema:
             $ref: '#/definitions/UserData'
@@ -243,7 +172,7 @@ paths:
           schema:
             $ref: '#/definitions/AuthTokenError'
       parameters:
-        - name: data
+        - name: auth_token_data
           in: body
           schema:
             $ref: '#/definitions/AuthTokenData'
@@ -308,7 +237,7 @@ paths:
           in: path
           description: 'User or team name.'
           type: string
-        - name: data
+        - name: card_data
           in: body
           schema:
             $ref: '#/definitions/CardData'
@@ -369,7 +298,7 @@ paths:
           in: path
           description: ''
           type: string
-        - name: data
+        - name: card_data
           in: body
           schema:
             $ref: '#/definitions/CardData'
@@ -406,7 +335,7 @@ paths:
           in: path
           description: 'Card unique identifier.'
           type: string
-        - name: data
+        - name: card_data
           in: body
           schema:
             $ref: '#/definitions/CardData'
@@ -493,7 +422,7 @@ paths:
           in: path
           description: 'User or team name.'
           type: string
-        - name: data
+        - name: customer_data
           in: body
           schema:
             $ref: '#/definitions/CustomerData'
@@ -554,7 +483,7 @@ paths:
           in: path
           description: 'Customer unique identifier.'
           type: string
-        - name: data
+        - name: customer_data
           in: body
           schema:
             $ref: '#/definitions/CustomerData'
@@ -591,7 +520,7 @@ paths:
           in: path
           description: 'Customer unique id expressed as UUID.'
           type: string
-        - name: data
+        - name: customer_data
           in: body
           schema:
             $ref: '#/definitions/CustomerData'
@@ -740,7 +669,7 @@ paths:
           in: path
           description: 'User or team name.'
           type: string
-        - name: data
+        - name: plan_data
           in: body
           schema:
             $ref: '#/definitions/PlanData'
@@ -799,7 +728,7 @@ paths:
           in: path
           description: 'Plan unique identifier expressed as UUID.'
           type: string
-        - name: data
+        - name: plan_data
           in: body
           schema:
             $ref: '#/definitions/PlanData'
@@ -836,7 +765,7 @@ paths:
           in: path
           description: 'Plan unique identifier expressed as UUID.'
           type: string
-        - name: data
+        - name: plan_data
           in: body
           schema:
             $ref: '#/definitions/PlanData'
@@ -954,7 +883,7 @@ paths:
           in: path
           description: 'User or team name.'
           type: string
-        - name: data
+        - name: subscription_data
           in: body
           schema:
             $ref: '#/definitions/SubscriptionData'
@@ -1015,7 +944,7 @@ paths:
           in: path
           description: 'Subscription identifier expressed as UUID.'
           type: string
-        - name: data
+        - name: subscription_data
           in: body
           schema:
             $ref: '#/definitions/SubscriptionData'
@@ -1052,7 +981,7 @@ paths:
           in: path
           description: 'Subscription identifier expressed as UUID.'
           type: string
-        - name: data
+        - name: subscription_data
           in: body
           schema:
             $ref: '#/definitions/SubscriptionData'
@@ -1140,7 +1069,7 @@ paths:
           in: path
           description: 'User or team name.'
           type: string
-        - name: data
+        - name: dockerhost_data
           in: body
           schema:
             $ref: '#/definitions/DockerHostData'
@@ -1197,7 +1126,7 @@ paths:
           in: path
           description: ''
           type: string
-        - name: data
+        - name: dockerhost_data
           in: body
           schema:
             $ref: '#/definitions/DockerHostData'
@@ -1232,7 +1161,7 @@ paths:
           in: path
           description: ''
           type: string
-        - name: data
+        - name: dockerhost_data
           in: body
           schema:
             $ref: '#/definitions/DockerHostData'
@@ -1329,7 +1258,7 @@ paths:
           in: path
           description: 'User or team name.'
           type: string
-        - name: data
+        - name: project_data
           in: body
           schema:
             $ref: '#/definitions/ProjectData'
@@ -1390,7 +1319,7 @@ paths:
           in: path
           description: 'Project unique identifier expressed as UUID.'
           type: string
-        - name: data
+        - name: project_data
           in: body
           schema:
             $ref: '#/definitions/ProjectData'
@@ -1427,7 +1356,7 @@ paths:
           in: path
           description: 'Project unique identifier expressed as UUID.'
           type: string
-        - name: data
+        - name: project_data
           in: body
           schema:
             $ref: '#/definitions/ProjectData'
@@ -1524,7 +1453,7 @@ paths:
           in: path
           description: 'User or team name.'
           type: string
-        - name: data
+        - name: collaborator_data
           in: body
           schema:
             $ref: '#/definitions/CollaboratorData'
@@ -1597,7 +1526,7 @@ paths:
           in: path
           description: 'Collaborator unique identifier expressed as UUID.'
           type: string
-        - name: data
+        - name: collaborator_data
           in: body
           schema:
             $ref: '#/definitions/CollaboratorData'
@@ -1637,7 +1566,7 @@ paths:
           in: path
           description: ''
           type: string
-        - name: data
+        - name: collaborator_data
           in: body
           schema:
             $ref: '#/definitions/CollaboratorError'
@@ -1995,7 +1924,7 @@ paths:
         '201':
           description: 'Server created.'
           examples:
-            application/json: {"id": "768f6eef-d07b-40ce-bce1-0dcce5bfbfc3","name": "testPostServer","created_at": "2017-07-24T13:41:57.089722Z","image_name": "","environment_resources": "d16e2091-7596-481b-a50f-285812beb98c","startup_script": "","config": {"type": "jupyter"},"status": "Stopped","connected": [],"host": null,"endpoint": "https://dev-api.3blades.ai/v1/johndoe/projects/d56271ef-eea7-44ad-8d46-828a288c7a3d/servers/768f6eef-d07b-40ce-bce1-0dcce5bfbfc3/endpoint/jupyter/tree","logs_url": "wss://dev-api.3blades.ai/v1/johndoe/projects/d56271ef-eea7-44ad-8d46-828a288c7a3d/servers/768f6eef-d07b-40ce-bce1-0dcce5bfbfc3/logs/","status_url": "wss://dev-api.3blades.ai/v1/johndoe/projects/d56271ef-eea7-44ad-8d46-828a288c7a3d/servers/768f6eef-d07b-40ce-bce1-0dcce5bfbfc3/status/"}
+            application/json: {"id": "768f6eef-d07b-40ce-bce1-0dcce5bfbfc3","name": "testPostServer","created_at": "2017-07-24T13:41:57.089722Z","image_name": "","server_size": "d16e2091-7596-481b-a50f-285812beb98c","startup_script": "","config": {"type": "jupyter"},"status": "Stopped","connected": [],"host": null,"endpoint": "https://dev-api.3blades.ai/v1/johndoe/projects/d56271ef-eea7-44ad-8d46-828a288c7a3d/servers/768f6eef-d07b-40ce-bce1-0dcce5bfbfc3/endpoint/jupyter/tree","logs_url": "wss://dev-api.3blades.ai/v1/johndoe/projects/d56271ef-eea7-44ad-8d46-828a288c7a3d/servers/768f6eef-d07b-40ce-bce1-0dcce5bfbfc3/logs/","status_url": "wss://dev-api.3blades.ai/v1/johndoe/projects/d56271ef-eea7-44ad-8d46-828a288c7a3d/servers/768f6eef-d07b-40ce-bce1-0dcce5bfbfc3/status/"}
           schema:
             $ref: '#/definitions/Server'
         '400':
@@ -2013,7 +1942,7 @@ paths:
           in: path
           description: 'User or team name.'
           type: string
-        - name: data
+        - name: server_data
           in: body
           schema:
             $ref: '#/definitions/ServerData'
@@ -2029,7 +1958,7 @@ paths:
         '200':
           description: 'Server retrieved.'
           examples:
-            application/json: {"id": "768f6eef-d07b-40ce-bce1-0dcce5bfbfc3","name": "testPostServer","created_at": "2017-07-24T13:41:57.089722Z","image_name": "","environment_resources": "d16e2091-7596-481b-a50f-285812beb98c","startup_script": "","config": {"type": "jupyter"},"status": "Stopped","connected": [],"host": null,"endpoint": "https://dev-api.3blades.ai/v1/johndoe/projects/d56271ef-eea7-44ad-8d46-828a288c7a3d/servers/768f6eef-d07b-40ce-bce1-0dcce5bfbfc3/endpoint/jupyter/tree","logs_url": "wss://dev-api.3blades.ai/v1/johndoe/projects/d56271ef-eea7-44ad-8d46-828a288c7a3d/servers/768f6eef-d07b-40ce-bce1-0dcce5bfbfc3/logs/","status_url": "wss://dev-api.3blades.ai/v1/johndoe/projects/d56271ef-eea7-44ad-8d46-828a288c7a3d/servers/768f6eef-d07b-40ce-bce1-0dcce5bfbfc3/status/"}
+            application/json: {"id": "768f6eef-d07b-40ce-bce1-0dcce5bfbfc3","name": "testPostServer","created_at": "2017-07-24T13:41:57.089722Z","image_name": "","server_size": "d16e2091-7596-481b-a50f-285812beb98c","startup_script": "","config": {"type": "jupyter"},"status": "Stopped","connected": [],"host": null,"endpoint": "https://dev-api.3blades.ai/v1/johndoe/projects/d56271ef-eea7-44ad-8d46-828a288c7a3d/servers/768f6eef-d07b-40ce-bce1-0dcce5bfbfc3/endpoint/jupyter/tree","logs_url": "wss://dev-api.3blades.ai/v1/johndoe/projects/d56271ef-eea7-44ad-8d46-828a288c7a3d/servers/768f6eef-d07b-40ce-bce1-0dcce5bfbfc3/logs/","status_url": "wss://dev-api.3blades.ai/v1/johndoe/projects/d56271ef-eea7-44ad-8d46-828a288c7a3d/servers/768f6eef-d07b-40ce-bce1-0dcce5bfbfc3/status/"}
           schema:
             $ref: '#/definitions/Server'
         '404':
@@ -2061,7 +1990,7 @@ paths:
         '200':
           description: 'Server updated.'
           examples:
-            application/json: {"id": "768f6eef-d07b-40ce-bce1-0dcce5bfbfc3","name": "testPutServer","created_at": "2017-07-24T13:41:57.089722Z","image_name": "","environment_resources": "d16e2091-7596-481b-a50f-285812beb98c","startup_script": "","config": {"type": "jupyter"},"status": "Stopped","connected": [],"host": null,"endpoint": "https://dev-api.3blades.ai/v1/johndoe/projects/d56271ef-eea7-44ad-8d46-828a288c7a3d/servers/768f6eef-d07b-40ce-bce1-0dcce5bfbfc3/endpoint/jupyter/tree","logs_url": "wss://dev-api.3blades.ai/v1/johndoe/projects/d56271ef-eea7-44ad-8d46-828a288c7a3d/servers/768f6eef-d07b-40ce-bce1-0dcce5bfbfc3/logs/","status_url": "wss://dev-api.3blades.ai/v1/johndoe/projects/d56271ef-eea7-44ad-8d46-828a288c7a3d/servers/768f6eef-d07b-40ce-bce1-0dcce5bfbfc3/status/"}
+            application/json: {"id": "768f6eef-d07b-40ce-bce1-0dcce5bfbfc3","name": "testPutServer","created_at": "2017-07-24T13:41:57.089722Z","image_name": "","server_size": "d16e2091-7596-481b-a50f-285812beb98c","startup_script": "","config": {"type": "jupyter"},"status": "Stopped","connected": [],"host": null,"endpoint": "https://dev-api.3blades.ai/v1/johndoe/projects/d56271ef-eea7-44ad-8d46-828a288c7a3d/servers/768f6eef-d07b-40ce-bce1-0dcce5bfbfc3/endpoint/jupyter/tree","logs_url": "wss://dev-api.3blades.ai/v1/johndoe/projects/d56271ef-eea7-44ad-8d46-828a288c7a3d/servers/768f6eef-d07b-40ce-bce1-0dcce5bfbfc3/logs/","status_url": "wss://dev-api.3blades.ai/v1/johndoe/projects/d56271ef-eea7-44ad-8d46-828a288c7a3d/servers/768f6eef-d07b-40ce-bce1-0dcce5bfbfc3/status/"}
           schema:
             $ref: '#/definitions/Server'
         '400':
@@ -2084,7 +2013,7 @@ paths:
           in: path
           description: 'Server unique identifier expressed as UUID.'
           type: string
-        - name: data
+        - name: server_data
           in: body
           schema:
             $ref: '#/definitions/ServerData'
@@ -2100,7 +2029,7 @@ paths:
           description: Server updated
           examples:
             application/json:
-              {"id": "768f6eef-d07b-40ce-bce1-0dcce5bfbfc3","name": "testPatchServer","created_at": "2017-07-24T13:41:57.089722Z","image_name": "","environment_resources": "d16e2091-7596-481b-a50f-285812beb98c","startup_script": "","config": {"type": "jupyter"},"status": "Stopped","connected": [],"host": null,"endpoint": "https://dev-api.3blades.ai/v1/johndoe/projects/d56271ef-eea7-44ad-8d46-828a288c7a3d/servers/768f6eef-d07b-40ce-bce1-0dcce5bfbfc3/endpoint/jupyter/tree","logs_url": "wss://dev-api.3blades.ai/v1/johndoe/projects/d56271ef-eea7-44ad-8d46-828a288c7a3d/servers/768f6eef-d07b-40ce-bce1-0dcce5bfbfc3/logs/","status_url": "wss://dev-api.3blades.ai/v1/johndoe/projects/d56271ef-eea7-44ad-8d46-828a288c7a3d/servers/768f6eef-d07b-40ce-bce1-0dcce5bfbfc3/status/"}
+              {"id": "768f6eef-d07b-40ce-bce1-0dcce5bfbfc3","name": "testPatchServer","created_at": "2017-07-24T13:41:57.089722Z","image_name": "","server_size": "d16e2091-7596-481b-a50f-285812beb98c","startup_script": "","config": {"type": "jupyter"},"status": "Stopped","connected": [],"host": null,"endpoint": "https://dev-api.3blades.ai/v1/johndoe/projects/d56271ef-eea7-44ad-8d46-828a288c7a3d/servers/768f6eef-d07b-40ce-bce1-0dcce5bfbfc3/endpoint/jupyter/tree","logs_url": "wss://dev-api.3blades.ai/v1/johndoe/projects/d56271ef-eea7-44ad-8d46-828a288c7a3d/servers/768f6eef-d07b-40ce-bce1-0dcce5bfbfc3/logs/","status_url": "wss://dev-api.3blades.ai/v1/johndoe/projects/d56271ef-eea7-44ad-8d46-828a288c7a3d/servers/768f6eef-d07b-40ce-bce1-0dcce5bfbfc3/status/"}
           schema:
             $ref: '#/definitions/Server'
         '400':
@@ -2127,7 +2056,7 @@ paths:
           in: path
           description: 'Server unique identifier expressed as UUID.'
           type: string
-        - name: data
+        - name: server_data
           in: body
           schema:
             $ref: '#/definitions/ServerData'
@@ -2249,7 +2178,7 @@ paths:
       operationId: projects_servers_terminate
       responses:
         '201':
-          description: 'Sercer terminated.'
+          description: 'Server terminated.'
         '400':
           description: 'Invalid data supplied.'
       parameters:
@@ -2346,7 +2275,7 @@ paths:
           in: path
           description: 'User or team name.'
           type: string
-        - name: data
+        - name: serverrunstats_data
           in: body
           schema:
             $ref: '#/definitions/ServerRunStatisticsData'
@@ -2423,7 +2352,7 @@ paths:
           in: path
           description: 'Server run statistics expressed as UUID.'
           type: string
-        - name: data
+        - name: serverrunstats_data
           in: body
           schema:
             $ref: '#/definitions/ServerRunStatisticsData'
@@ -2468,7 +2397,7 @@ paths:
           in: path
           description: 'Server run statistics unique identifier expressed as UUID.'
           type: string
-        - name: data
+        - name: serverrunstats_data
           in: body
           schema:
             $ref: '#/definitions/ServerRunStatisticsData'
@@ -2526,7 +2455,7 @@ paths:
         - name: server_id
           required: true
           in: path
-          description: 'Sercer unique identifier expressed as UUID.'
+          description: 'Server unique identifier expressed as UUID.'
           type: string
         - name: project_id
           required: true
@@ -2583,7 +2512,7 @@ paths:
           in: path
           description: 'User or team name.'
           type: string
-        - name: data
+        - name: sshtunnel_data
           in: body
           schema:
             $ref: '#/definitions/SshTunnelData'
@@ -2660,7 +2589,7 @@ paths:
           in: path
           description: 'SSH tunnel unique identifier expressed as UUID.'
           type: string
-        - name: data
+        - name: sshtunnel_data
           in: body
           schema:
             $ref: '#/definitions/SshTunnelData'
@@ -2705,7 +2634,7 @@ paths:
           in: path
           description: ''
           type: string
-        - name: data
+        - name: sshtunnel_data
           in: body
           schema:
             $ref: '#/definitions/SshTunnelData'
@@ -2727,7 +2656,7 @@ paths:
         - name: server_id
           required: true
           in: path
-          description: 'Sercer unique identifier expressed as UUID.'
+          description: 'Server unique identifier expressed as UUID.'
           type: string
         - name: project_id
           required: true
@@ -2822,7 +2751,7 @@ paths:
           in: path
           description: 'User or team name.'
           type: string
-        - name: data
+        - name: serverstats_data
           in: body
           schema:
             $ref: '#/definitions/ServerStatisticsData'
@@ -2862,7 +2791,7 @@ paths:
         - name: id
           required: true
           in: path
-          description: 'Sercer statistics unique identifier expressed as UUID.'
+          description: 'Server statistics unique identifier expressed as UUID.'
           type: string
       summary: "Retrieve a server's statistics"
       tags:
@@ -2899,7 +2828,7 @@ paths:
           in: path
           description: 'Server statistics unique identifier expressed as UUID.'
           type: string
-        - name: data
+        - name: serverstats_data
           in: body
           schema:
             $ref: '#/definitions/ServerStatisticsData'
@@ -2944,7 +2873,7 @@ paths:
           in: path
           description: 'Server statistics unique identifier expressed as UUID.'
           type: string
-        - name: data
+        - name: serverstats_data
           in: body
           schema:
             $ref: '#/definitions/ServerStatisticsData'
@@ -2986,17 +2915,24 @@ paths:
       summary: "Delete a server's statistics"
       tags:
         - projects
-  '/v1/{namespace}/projects/{project_id}/synced-resources/':
+  '/v1/{namespace}/projects/{project_id}/servers/{server_id}/trigger/':
     get:
-      operationId: projects_synced-resources_list
+      operationId: service_trigger_list
       responses:
         '200':
-          description: 'Synced resource list.'
+          description: ServerAction list
+          examples:
+            application/json: []
           schema:
             type: array
             items:
-              $ref: '#/definitions/SyncedResource'
+              $ref: '#/definitions/ServerAction'
       parameters:
+        - name: server_id
+          required: true
+          in: path
+          description: 'Server unique identifier expressed as UUID.'
+          type: string
         - name: project_id
           required: true
           in: path
@@ -3010,50 +2946,224 @@ paths:
         - name: limit
           required: false
           in: query
-          description: 'Limit when getting items.'
+          description: 'Limit when getting triggers.'
           type: string
         - name: offset
           required: false
           in: query
-          description: 'Offset when getting items.'
+          description: 'Offset when getting triggers.'
           type: string
         - name: ordering
           required: false
           in: query
-          description: 'Ordering when getting items.'
+          description: 'Ordering when getting triggers.'
           type: string
-      summary: "Retrieve synched resources"
+      summary: "Retrieve server triggers"
       tags:
         - projects
     post:
-      operationId: projects_synced-resources_create
+      operationId: service_trigger_create
       responses:
         '201':
-          description: 'SyncedResource created.'
+          description: 'Server action created.'
+          examples:
+            application/json: {"id": "19938b2c-17f6-46ed-a506-f5b196853951","name": "serverStartPost","operation": "start","url": "/v1/johndoe/service/ed81aac7-835d-4702-a58e-4eeda89d4a5a/trigger/19938b2c-17f6-46ed-a506-f5b196853951/call/"}
           schema:
-            $ref: '#/definitions/SyncedResource'
+            $ref: '#/definitions/ServerAction'
         '400':
-          description: 'Invalid data supplied.'
+          description: Invalid data supplied
           schema:
-            $ref: '#/definitions/SyncedResourceError'
+            $ref: '#/definitions/ServerActionError'
       parameters:
+        - name: server_id
+          required: true
+          in: path
+          description: 'Server unique identifier expressed as UUID.'
+          type: string
         - name: project_id
           required: true
           in: path
-          description: 'Project unique identifier.'
+          description: 'Project unique identifier expressed as UUID.'
           type: string
         - name: namespace
           required: true
           in: path
           description: 'User or team name.'
           type: string
-        - name: data
+        - name: server_action
           in: body
+          description: 'Server action.'
           schema:
-            $ref: '#/definitions/SyncedResourceData'
+            $ref: '#/definitions/ServerAction'
       consumes:
         - application/json
-      summary: "Create a new synched resource"
+      summary: "Create a new server trigger"
+      tags:
+        - projects
+  '/v1/{namespace}/projects/{project_id}/servers/{server_id}/trigger/{id}/':
+    get:
+      operationId: service_trigger_read
+      responses:
+        '200':
+          description: 'Server action retrieved.'
+          examples:
+            application/json: {"id": "19938b2c-17f6-46ed-a506-f5b196853951","name": "serverStartPost","operation": "start","url": "/v1/johndoe/service/ed81aac7-835d-4702-a58e-4eeda89d4a5a/trigger/19938b2c-17f6-46ed-a506-f5b196853951/call/"}
+          schema:
+            $ref: '#/definitions/ServerAction'
+        '404':
+          description: 'ServerAction not found.'
+          schema:
+            $ref: '#/definitions/NotFound'
+      parameters:
+        - name: server_id
+          required: true
+          in: path
+          description: 'Server unique identifier expressed as UUID.'
+          type: string
+        - name: project_id
+          required: true
+          in: path
+          description: 'Project unique identifier expressed as UUID.'
+          type: string
+        - name: namespace
+          required: true
+          in: path
+          description: 'User or team name.'
+          type: string
+        - name: id
+          required: true
+          in: path
+          description: 'Trigger identifier expressed as UUID.'
+          type: string
+      summary: "Get a server trigger"
+      tags:
+        - projects
+    put:
+      operationId: service_trigger_replace
+      responses:
+        '200':
+          description: 'ServerAction updated.'
+          examples:
+            application/json: {"id": "19938b2c-17f6-46ed-a506-f5b196853951","name": "serverStartPut","operation": "start","url": "/v1/johndoe/service/ed81aac7-835d-4702-a58e-4eeda89d4a5a/trigger/19938b2c-17f6-46ed-a506-f5b196853951/call/"}
+          schema:
+            $ref: '#/definitions/ServerAction'
+        '400':
+          description: 'Invalid data supplied.'
+          schema:
+            $ref: '#/definitions/TriggerError'
+        '404':
+          description: 'Server action not found.'
+          schema:
+            $ref: '#/definitions/NotFound'
+      parameters:
+        - name: server_id
+          required: true
+          in: path
+          description: 'Server unique identifier expressed as UUID.'
+          type: string
+        - name: project_id
+          required: true
+          in: path
+          description: 'Project unique identifier expressed as UUID.'
+          type: string
+        - name: namespace
+          required: true
+          in: path
+          description: 'User or team name.'
+          type: string
+        - name: id
+          required: true
+          in: path
+          description: 'Trigger identifier expressed as UUID.'
+          type: string
+        - name: server_action
+          in: body
+          schema:
+            $ref: '#/definitions/ServerAction'
+      consumes:
+        - application/json
+      summary: "Replace a server trigger"
+      tags:
+        - projects
+    patch:
+      operationId: service_trigger_update
+      responses:
+        '200':
+          description: 'Server action updated.'
+          examples:
+            application/json: {"id": "19938b2c-17f6-46ed-a506-f5b196853951","name": "serverStartPatch","operation": "start","url": "/v1/johndoe/service/ed81aac7-835d-4702-a58e-4eeda89d4a5a/trigger/19938b2c-17f6-46ed-a506-f5b196853951/call/"}
+
+          schema:
+            $ref: '#/definitions/ServerAction'
+        '400':
+          description: 'Invalid data supplied'
+          schema:
+            $ref: '#/definitions/ServerActionError'
+        '404':
+          description: 'Server action not found.'
+          schema:
+            $ref: '#/definitions/NotFound'
+      parameters:
+        - name: server_id
+          required: true
+          in: path
+          description: 'Server unique identifier expressed as UUID.'
+          type: string
+        - name: project_id
+          required: true
+          in: path
+          description: 'Project unique identifier expressed as UUID.'
+          type: string
+        - name: namespace
+          required: true
+          in: path
+          description: 'User or team name.'
+          type: string
+        - name: id
+          required: true
+          in: path
+          description: 'Trigger identifier expressed as UUID.'
+          type: string
+        - name: server_action
+          in: body
+          schema:
+            $ref: '#/definitions/ServerAction'
+      consumes:
+        - application/json
+      summary: "Update a server trigger"
+      tags:
+        - projects
+    delete:
+      operationId: service_trigger_delete
+      responses:
+        '204':
+          description: 'ServerAction deleted'
+        '404':
+          description: 'ServerAction not found'
+          schema:
+            $ref: '#/definitions/NotFound'
+      parameters:
+        - name: server_id
+          required: true
+          in: path
+          description: 'Server unique identifier expressed as UUID.'
+          type: string
+        - name: project_id
+          required: true
+          in: path
+          description: 'Project unique identifier expressed as UUID.'
+          type: string
+        - name: namespace
+          required: true
+          in: path
+          description: 'User or team name.'
+          type: string
+        - name: id
+          required: true
+          in: path
+          description: 'Trigger identifier expressed as UUID.'
+          type: string
+      summary: "Delete a server trigger"
       tags:
         - projects
   '/v1/{namespace}/search/':
@@ -3085,24 +3195,19 @@ paths:
       summary: "Get a search results"
       tags:
         - search
-  '/v1/{namespace}/servers/options/resources/':
+  '/v1/servers/options/server-size/':
     get:
-      operationId: servers_options_resources_list
+      operationId: servers_options_sizes_list
       responses:
         '200':
-          description: 'Environment resource list.'
+          description: 'Server size list.'
           examples:
             application/json: []
           schema:
             type: array
             items:
-              $ref: '#/definitions/EnvironmentResource'
+              $ref: '#/definitions/ServerSize'
       parameters:
-        - name: namespace
-          required: true
-          in: path
-          description: 'User or team name.'
-          type: string
         - name: limit
           required: false
           in: query
@@ -3118,38 +3223,33 @@ paths:
           in: query
           description: 'Set order when retrieving items.'
           type: string
-      summary: "Retrieve available resources"
+      summary: "Retrieve available server sizes"
       tags:
         - servers
     post:
-      operationId: servers_options_resources_create
+      operationId: servers_options_server_size_create
       responses:
         '201':
-          description: EnvironmentResource created
+          description: 'ServerSize created. This operation is available only to super users.'
           examples:
             application/json: {"id": "2f4a5830-169d-4111-b913-e68c7b94fdbe","name": "myResource","cpu": 1,"memory": 512,"active": true}
           schema:
-            $ref: '#/definitions/EnvironmentResource'
+            $ref: '#/definitions/ServerSize'
         '400':
           description: Invalid data supplied
           schema:
-            $ref: '#/definitions/EnvironmentResourceError'
+            $ref: '#/definitions/ServerSizeError'
       parameters:
-        - name: namespace
-          required: true
-          in: path
-          description: 'User or team name.'
-          type: string
-        - name: data
+        - name: serversize_data
           in: body
           schema:
-            $ref: '#/definitions/EnvironmentResourceData'
+            $ref: '#/definitions/ServerSizeData'
       consumes:
         - application/json
-      summary: "Create a new resource"
+      summary: "Create a new server size item"
       tags:
         - servers
-  '/v1/{namespace}/servers/options/resources/{id}/':
+  '/v1/servers/options/server-size/{id}/':
     get:
       operationId: servers_options_resources_read
       responses:
@@ -3158,551 +3258,102 @@ paths:
           examples:
             application/json: {"id": "2f4a5830-169d-4111-b913-e68c7b94fdbe","name": "myResource","cpu": 1,"memory": 512,"active": true}
           schema:
-            $ref: '#/definitions/EnvironmentResource'
+            $ref: '#/definitions/ServerSize'
         '404':
           description: 'Environment resource not found.'
           schema:
             $ref: '#/definitions/NotFound'
       parameters:
-        - name: namespace
-          required: true
-          in: path
-          description: 'User or team name.'
-          type: string
         - name: id
           required: true
           in: path
-          description: 'Resource unique identifier expressed as UUID.'
+          description: 'Server size unique identifier expressed as UUID.'
           type: string
-      summary: "Get a resource by id"
+      summary: "Get a server size by id"
       tags:
         - servers
     put:
-      operationId: servers_options_resources_replace
+      operationId: servers_options_server_size_replace
       responses:
         '200':
-          description: EnvironmentResource updated
+          description: 'Server size replaced. This operation is available only to super users.'
           examples:
             application/json: {"id": "b673c7ab-65ad-4d6e-859e-0483eea86ad6","name": "myResourceWithPut","cpu": 1,"memory": 512,"active": true}
           schema:
-            $ref: '#/definitions/EnvironmentResource'
+            $ref: '#/definitions/ServerSize'
         '400':
           description: 'Invalid data supplied.'
           schema:
-            $ref: '#/definitions/EnvironmentResourceError'
+            $ref: '#/definitions/ServerSizeError'
         '404':
-          description: EnvironmentResource not found
+          description: ServerSize not found
           schema:
             $ref: '#/definitions/NotFound'
       parameters:
-        - name: namespace
-          required: true
-          in: path
-          description: 'User or team name.'
-          type: string
         - name: id
           required: true
           in: path
-          description: 'Environment resource unique identifier expressed as UUID.'
+          description: 'Server size unique identifier expressed as UUID.'
           type: string
-        - name: data
+        - name: serversize_data
           in: body
           schema:
-            $ref: '#/definitions/EnvironmentResourceData'
+            $ref: '#/definitions/ServerSizeData'
       consumes:
         - application/json
-      summary: "Replace a resource by id"
+      summary: "Replace a server size by id"
       tags:
         - servers
     patch:
-      operationId: servers_options_resources_update
+      operationId: servers_options_server_size_update
       responses:
         '200':
-          description: 'Environment resource updated.'
+          description: 'Server size updated. This operation is available only to super users.'
           examples:
-            application/json: {"id": "b673c7ab-65ad-4d6e-859e-0483eea86ad6","name": "myResourceWithPatch","cpu": 1,"memory": 512,"active": true}
+            application/json: {"id": "b673c7ab-65ad-4d6e-859e-0483eea86ad6","name": "myServerSizeWithPatch","cpu": 1,"memory": 512,"active": true}
           schema:
-            $ref: '#/definitions/EnvironmentResource'
+            $ref: '#/definitions/ServerSize'
         '400':
           description: 'Invalid data supplied.'
           schema:
-            $ref: '#/definitions/EnvironmentResourceError'
+            $ref: '#/definitions/ServerSizeError'
         '404':
-          description: 'Environment resource not found.'
+          description: 'Server size not found.'
           schema:
             $ref: '#/definitions/NotFound'
       parameters:
-        - name: namespace
-          required: true
-          in: path
-          description: 'User or team name.'
-          type: string
         - name: id
           required: true
           in: path
-          description: 'Environment resource unique identifier expressed as UUID.'
+          description: 'Server size unique identifier expressed as UUID.'
           type: string
-        - name: data
+        - name: serversize_data
           in: body
           schema:
-            $ref: '#/definitions/EnvironmentResourceData'
+            $ref: '#/definitions/ServerSizeData'
       consumes:
         - application/json
-      summary: "Update a resource by id"
+      summary: "Update a server size by id"
       tags:
         - servers
     delete:
-      operationId: servers_options_resources_delete
+      operationId: servers_options_server_size_delete
       responses:
         '204':
-          description: 'EnvironmentResource deleted.'
+          description: 'Server size deleted. This operation is available only to super users'
         '404':
-          description: 'EnvironmentResource not found.'
+          description: 'ServerSize not found.'
           schema:
             $ref: '#/definitions/NotFound'
       parameters:
-        - name: namespace
-          required: true
-          in: path
-          description: 'User or team name.'
-          type: string
         - name: id
           required: true
           in: path
-          description: 'Environment resource unique identifier expressed as UUID.'
+          description: 'Server size unique identifier expressed as UUID.'
           type: string
-      summary: "Delete a resource by id"
+      summary: "Delete a server size by id"
       tags:
         - servers
-  '/v1/{namespace}/service/{server_id}/trigger/':
-    get:
-      operationId: service_trigger_list
-      responses:
-        '200':
-          description: ServerAction list
-          examples:
-            application/json: []
-          schema:
-            type: array
-            items:
-              $ref: '#/definitions/ServerAction'
-      parameters:
-        - name: server_id
-          required: true
-          in: path
-          description: 'Server unique identifier expressed as UUID.'
-          type: string
-        - name: namespace
-          required: true
-          in: path
-          description: 'User or team name.'
-          type: string
-        - name: limit
-          required: false
-          in: query
-          description: 'Limit when getting triggers.'
-          type: string
-        - name: offset
-          required: false
-          in: query
-          description: 'Offset when getting triggers.'
-          type: string
-        - name: ordering
-          required: false
-          in: query
-          description: 'Ordering when getting triggers.'
-          type: string
-      summary: "Retrieve server triggers"
-      tags:
-        - service
-    post:
-      operationId: service_trigger_create
-      responses:
-        '201':
-          description: 'Server action created.'
-          examples:
-            application/json: {"id": "19938b2c-17f6-46ed-a506-f5b196853951","name": "serverStartPost","operation": "start","url": "/v1/johndoe/service/ed81aac7-835d-4702-a58e-4eeda89d4a5a/trigger/19938b2c-17f6-46ed-a506-f5b196853951/call/"}
-          schema:
-            $ref: '#/definitions/ServerAction'
-        '400':
-          description: Invalid data supplied
-          schema:
-            $ref: '#/definitions/ServerActionError'
-      parameters:
-        - name: server_id
-          required: true
-          in: path
-          description: 'Server unique identifier expressed as UUID.'
-          type: string
-        - name: namespace
-          required: true
-          in: path
-          description: 'User or team name.'
-          type: string
-        - name: data
-          in: body
-          schema:
-            $ref: '#/definitions/ServerActionData'
-      consumes:
-        - application/json
-      summary: "Create a new server trigger"
-      tags:
-        - service
-  '/v1/{namespace}/service/{server_id}/trigger/{id}/':
-    get:
-      operationId: service_trigger_read
-      responses:
-        '200':
-          description: 'Server action retrieved.'
-          examples:
-            application/json: {"id": "19938b2c-17f6-46ed-a506-f5b196853951","name": "serverStartPost","operation": "start","url": "/v1/johndoe/service/ed81aac7-835d-4702-a58e-4eeda89d4a5a/trigger/19938b2c-17f6-46ed-a506-f5b196853951/call/"}
-          schema:
-            $ref: '#/definitions/ServerAction'
-        '404':
-          description: 'ServerAction not found.'
-          schema:
-            $ref: '#/definitions/NotFound'
-      parameters:
-        - name: server_id
-          required: true
-          in: path
-          description: 'Server unique identifier expressed as UUID.'
-          type: string
-        - name: namespace
-          required: true
-          in: path
-          description: 'User or team name.'
-          type: string
-        - name: id
-          required: true
-          in: path
-          description: 'Trigger identifier expressed as UUID.'
-          type: string
-      summary: "Get a server trigger"
-      tags:
-        - service
-    put:
-      operationId: service_trigger_replace
-      responses:
-        '200':
-          description: 'ServerAction updated.'
-          examples:
-            application/json: {"id": "19938b2c-17f6-46ed-a506-f5b196853951","name": "serverStartPut","operation": "start","url": "/v1/johndoe/service/ed81aac7-835d-4702-a58e-4eeda89d4a5a/trigger/19938b2c-17f6-46ed-a506-f5b196853951/call/"}
-          schema:
-            $ref: '#/definitions/ServerAction'
-        '400':
-          description: 'Invalid data supplied.'
-          schema:
-            $ref: '#/definitions/TriggerError'
-        '404':
-          description: 'Server action not found.'
-          schema:
-            $ref: '#/definitions/NotFound'
-      parameters:
-        - name: server_id
-          required: true
-          in: path
-          description: 'Server unique identifier expressed as UUID.'
-          type: string
-        - name: namespace
-          required: true
-          in: path
-          description: 'User or team name.'
-          type: string
-        - name: id
-          required: true
-          in: path
-          description: 'Trigger identifier expressed as UUID.'
-          type: string
-        - name: data
-          in: body
-          schema:
-            $ref: '#/definitions/ServerActionData'
-      consumes:
-        - application/json
-      summary: "Replace a server trigger"
-      tags:
-        - service
-    patch:
-      operationId: service_trigger_update
-      responses:
-        '200':
-          description: 'Server action updated.'
-          examples:
-            application/json: {"id": "19938b2c-17f6-46ed-a506-f5b196853951","name": "serverStartPatch","operation": "start","url": "/v1/johndoe/service/ed81aac7-835d-4702-a58e-4eeda89d4a5a/trigger/19938b2c-17f6-46ed-a506-f5b196853951/call/"}
-
-          schema:
-            $ref: '#/definitions/ServerAction'
-        '400':
-          description: 'Invalid data supplied'
-          schema:
-            $ref: '#/definitions/ServerActionError'
-        '404':
-          description: 'Server action not found.'
-          schema:
-            $ref: '#/definitions/NotFound'
-      parameters:
-        - name: server_id
-          required: true
-          in: path
-          description: 'Server unique identifier expressed as UUID.'
-          type: string
-        - name: namespace
-          required: true
-          in: path
-          description: 'User or team name.'
-          type: string
-        - name: id
-          required: true
-          in: path
-          description: 'Trigger identifier expressed as UUID.'
-          type: string
-        - name: data
-          in: body
-          schema:
-            $ref: '#/definitions/ServerActionData'
-      consumes:
-        - application/json
-      summary: "Update a server trigger"
-      tags:
-        - service
-    delete:
-      operationId: service_trigger_delete
-      responses:
-        '204':
-          description: 'ServerAction deleted'
-        '404':
-          description: 'ServerAction not found'
-          schema:
-            $ref: '#/definitions/NotFound'
-      parameters:
-        - name: server_id
-          required: true
-          in: path
-          description: 'Server unique identifier expressed as UUID.'
-          type: string
-        - name: namespace
-          required: true
-          in: path
-          description: 'User or team name.'
-          type: string
-        - name: id
-          required: true
-          in: path
-          description: 'Trigger identifier expressed as UUID.'
-          type: string
-      summary: "Delete a server trigger"
-      tags:
-        - service
-  '/v1/{namespace}/service/{server_id}/trigger/{id}/call/':
-    post:
-      operationId: service_trigger_call
-      responses:
-        '201':
-          description: 'Call Trigger'
-          examples:
-            application/json: {"message": "OK"}
-        '400':
-          description: 'Invalid data supplied'
-      parameters:
-        - name: server_id
-          required: true
-          in: path
-          description: 'Server identifier expressed as UUID.'
-          type: string
-        - name: namespace
-          required: true
-          in: path
-          description: 'User or team name.'
-          type: string
-        - name: id
-          required: true
-          in: path
-          description: 'Trigger identifier expressed as UUID.'
-          type: string
-      summary: "Call a trigger"
-      tags:
-        - service
-  '/v1/{namespace}/triggers/':
-    get:
-      operationId: triggers_list
-      responses:
-        '200':
-          description: 'Trigger list.'
-          schema:
-            type: array
-            items:
-              $ref: '#/definitions/Trigger'
-      parameters:
-        - name: namespace
-          required: true
-          in: path
-          description: 'User or team name.'
-          type: string
-        - name: limit
-          required: false
-          in: query
-          description: 'Limit values returned.'
-          type: string
-        - name: offset
-          required: false
-          in: query
-          description: 'Offset list of values returned.'
-          type: string
-        - name: ordering
-          required: false
-          in: query
-          description: 'Order list of values returned.'
-          type: string
-      summary: "Retrieve account triggers"
-      tags:
-        - triggers
-    post:
-      operationId: triggers_create
-      responses:
-        '201':
-          description: Trigger created
-          schema:
-            $ref: '#/definitions/Trigger'
-        '400':
-          description: Invalid data supplied
-          schema:
-            $ref: '#/definitions/TriggerError'
-      parameters:
-        - name: namespace
-          required: true
-          in: path
-          description: 'User or team name.'
-          type: string
-        - name: data
-          in: body
-          schema:
-            $ref: '#/definitions/TriggerData'
-      consumes:
-        - application/json
-      summary: "Create a new trigger"
-      tags:
-        - triggers
-  '/v1/{namespace}/triggers/{id}/':
-    get:
-      operationId: triggers_read
-      responses:
-        '200':
-          description: Trigger retrieved
-          schema:
-            $ref: '#/definitions/Trigger'
-        '404':
-          description: Trigger not found
-          schema:
-            $ref: '#/definitions/NotFound'
-      parameters:
-        - name: namespace
-          required: true
-          in: path
-          description: 'User or team name.'
-          type: string
-        - name: id
-          required: true
-          in: path
-          description: 'Trigger identifier expressed as UUID.'
-          type: string
-      summary: "Get a trigger"
-      tags:
-        - triggers
-    put:
-      operationId: triggers_replace
-      responses:
-        '200':
-          description: 'Trigger updated.'
-          schema:
-            $ref: '#/definitions/Trigger'
-        '400':
-          description: 'Invalid data supplied.'
-          schema:
-            $ref: '#/definitions/TriggerError'
-        '404':
-          description: Trigger not found
-          schema:
-            $ref: '#/definitions/NotFound'
-      parameters:
-        - name: namespace
-          required: true
-          in: path
-          description: 'User or team name.'
-          type: string
-        - name: id
-          required: true
-          in: path
-          description: 'Trigger unique identifier expressed as UUID.'
-          type: string
-        - name: data
-          description: 'Trigger action data.'
-          in: body
-          schema:
-            $ref: '#/definitions/TriggerData'
-      consumes:
-        - application/json
-      summary: "Replace a trigger"
-      tags:
-        - triggers
-    patch:
-      operationId: triggers_update
-      responses:
-        '200':
-          description: Trigger updated
-          schema:
-            $ref: '#/definitions/Trigger'
-        '400':
-          description: Invalid data supplied
-          schema:
-            $ref: '#/definitions/TriggerError'
-        '404':
-          description: Trigger not found
-          schema:
-            $ref: '#/definitions/NotFound'
-      parameters:
-        - name: namespace
-          required: true
-          in: path
-          description: 'User or team name.'
-          type: string
-        - name: id
-          required: true
-          in: path
-          description: 'Trigger '
-          type: string
-        - name: data
-          in: body
-          schema:
-            $ref: '#/definitions/TriggerData'
-      consumes:
-        - application/json
-      summary: "Update a trigger"
-      tags:
-        - triggers
-    delete:
-      operationId: triggers_delete
-      responses:
-        '204':
-          description: 'Trigger deleted.'
-        '404':
-          description: 'Trigger not found.'
-          schema:
-            $ref: '#/definitions/NotFound'
-      parameters:
-        - name: namespace
-          required: true
-          in: path
-          description: 'User or team name.'
-          type: string
-        - name: id
-          required: true
-          in: path
-          description: 'Trigger unique identifier expressed as UUID.'
-          type: string
-      summary: "Delete a trigger"
-      tags:
-        - triggers
   /v1/users/profiles/:
     get:
       operationId: users_list
@@ -3758,7 +3409,7 @@ paths:
           schema:
             $ref: '#/definitions/UserError'
       parameters:
-        - name: data
+        - name: user_data
           in: body
           schema:
             $ref: '#/definitions/UserData'
@@ -3807,7 +3458,7 @@ paths:
           in: path
           description: 'User unique identifier expressed as UUID.'
           type: string
-        - name: data
+        - name: user_data
           in: body
           schema:
             $ref: '#/definitions/UserData'
@@ -3839,7 +3490,7 @@ paths:
           in: path
           description: 'User unique identifier expressed as UUID.'
           type: string
-        - name: data
+        - name: user_data
           in: body
           schema:
             $ref: '#/definitions/UserData'
@@ -3898,6 +3549,85 @@ paths:
       summary: "Reset a user's API key"
       tags:
         - users
+  '/v1/users/{user_id}/avatar/':
+    post:
+      operationId: user_avatar_set
+      responses:
+        '201':
+          description: 'Added user avatar'
+          schema:
+            $ref: '#/definitions/User'
+        '400':
+          description: 'Invalid data supplied'
+      parameters:
+        - name: user_id
+          required: true
+          in: path
+          description: 'User unique identifier expressed as UUID.'
+          type: string
+      consumes:
+        - multipart/form-data
+      summary: "Add user avatar"
+      tags:
+        - users
+    get:
+      operationId: user_avatar_get
+      responses:
+        '200':
+          description: 'User avatar'
+      parameters:
+        - name: user_id
+          required: true
+          in: path
+          description: 'User unique identifier expressed as UUID.'
+          type: string
+      summary: "Retrieve user's avatar"
+      tags:
+        - users
+    patch:
+      operationId: user_avatar_update
+      responses:
+        '200':
+          description: 'Avatar updated.'
+          schema:
+            $ref: '#/definitions/User'
+        '400':
+          description: 'Invalid data supplied.'
+          schema:
+            $ref: '#/definitions/UserError'
+        '404':
+          description: 'Avatar not found.'
+          schema:
+            $ref: '#/definitions/NotFound'
+      parameters:
+        - name: user_id
+          required: true
+          in: path
+          description: 'User unique identifier expressed as UUID.'
+          type: string
+      consumes:
+        - multipart/form-data
+      summary: 'Update a project file'
+      tags:
+        - users
+    delete:
+      operationId: user_avatar_delete
+      responses:
+        '204':
+          description: 'Avatar deleted'
+        '404':
+          description: 'Avatar not found'
+          schema:
+            $ref: '#/definitions/NotFound'
+      parameters:
+        - name: user_id
+          required: true
+          in: path
+          description: 'User unique identifier expressed as UUID.'
+          type: string
+      summary: 'Delete avatar'
+      tags:
+        - users
   '/v1/users/{user_id}/emails/':
     get:
       operationId: users_emails_list
@@ -3906,8 +3636,6 @@ paths:
           description: Email list
           examples:
             application/json: []
-
-
           schema:
             type: array
             items:
@@ -3956,7 +3684,7 @@ paths:
           in: path
           description: 'User unique identifier expressed as UUID.'
           type: string
-        - name: data
+        - name: email_data
           in: body
           schema:
             $ref: '#/definitions/EmailData'
@@ -4017,7 +3745,7 @@ paths:
           in: path
           description: 'User unique identifier expressed as UUID.'
           type: string
-        - name: data
+        - name: email_data
           in: body
           schema:
             $ref: '#/definitions/EmailData'
@@ -4054,7 +3782,7 @@ paths:
           in: path
           description: 'User unique identifier expressed as UUID.'
           type: string
-        - name: data
+        - name: email_data
           in: body
           schema:
             $ref: '#/definitions/EmailData'
@@ -4084,191 +3812,6 @@ paths:
           description: 'User unique identifier expressed as UUID.'
           type: string
       summary: "Delete an email address"
-      tags:
-        - users
-  '/v1/users/{user_id}/integrations/':
-    get:
-      operationId: users_integrations_list
-      responses:
-        '200':
-          description: 'Integration list.'
-          examples:
-            application/json: []
-          schema:
-            type: array
-            items:
-              $ref: '#/definitions/Integration'
-      parameters:
-        - name: user_id
-          required: true
-          in: path
-          description: 'User unique identifier expressed as UUID.'
-          type: string
-        - name: limit
-          required: false
-          in: query
-          description: 'Limit number of integrations.'
-          type: string
-        - name: offset
-          required: false
-          in: query
-          description: 'Offset when getting integrations list.'
-          type: string
-        - name: ordering
-          required: false
-          in: query
-          description: 'Ordering of integrations when getting integrations list.'
-          type: string
-      summary: "Obtain list of integrations"
-      tags:
-        - users
-    post:
-      operationId: users_integrations_create
-      responses:
-        '201':
-          description: Integration created
-          examples:
-            appplication/json: {"id":"a4eed33d-80d7-401b-bdc1-f77349aac9a6","provider":"github","extra_data":{"fooPost":"hello world with post"}}
-          schema:
-            $ref: '#/definitions/Integration'
-        '400':
-          description: Invalid data supplied
-          schema:
-            $ref: '#/definitions/IntegrationError'
-      parameters:
-        - name: user_id
-          required: true
-          in: path
-          description: 'User unique identifier expressed as UUID.'
-          type: string
-        - name: data
-          in: body
-          schema:
-            $ref: '#/definitions/IntegrationData'
-      consumes:
-        - application/json
-      summary: "Create a new integration"
-      tags:
-        - users
-  '/v1/users/{user_id}/integrations/{id}/':
-    get:
-      operationId: users_integrations_read
-      responses:
-        '200':
-          description: 'Integration retrieved.'
-          examples:
-            application/json: {"id":"a4eed33d-80d7-401b-bdc1-f77349aac9a6","provider":"github","extra_data":{"fooPost":"hello world with post"}}
-          schema:
-            $ref: '#/definitions/Integration'
-        '404':
-          description: 'Integration not found.'
-          schema:
-            $ref: '#/definitions/NotFound'
-      parameters:
-        - name: id
-          required: true
-          in: path
-          description: 'Integration unique identifier expressed as UUID.'
-          type: string
-        - name: user_id
-          required: true
-          in: path
-          description: 'User unique identifier expressed as UUID.'
-          type: string
-      summary: "Get an integration"
-      tags:
-        - users
-    put:
-      operationId: users_integrations_replace
-      responses:
-        '200':
-          description: 'Integration updated.'
-          examples:
-            application/json: {"id":"a4eed33d-80d7-401b-bdc1-f77349aac9a6","provider":"aws","extra_data":{"fooPut":"hello world with put"}}
-          schema:
-            $ref: '#/definitions/Integration'
-        '400':
-          description: 'Invalid data supplied.'
-          schema:
-            $ref: '#/definitions/IntegrationError'
-      parameters:
-        - name: id
-          required: true
-          in: path
-          description: 'Integrations unique identifier expressed as UUID.'
-          type: string
-        - name: user_id
-          required: true
-          in: path
-          description: 'User unique identifier expressed as UUID.'
-          type: string
-        - name: data
-          in: body
-          schema:
-            $ref: '#/definitions/IntegrationData'
-      consumes:
-        - application/json
-      summary: "Replace an integration"
-      tags:
-        - users
-    patch:
-      operationId: users_integrations_update
-      responses:
-        '200':
-          description: Integration updated
-          examples:
-            application/json: {"id":"a4eed33d-80d7-401b-bdc1-f77349aac9a6","provider":"google","extra_data":{"fooPatch":"hello world with patch"}}
-          schema:
-            $ref: '#/definitions/Integration'
-        '400':
-          description: Invalid data supplied
-          schema:
-            $ref: '#/definitions/IntegrationError'
-        '404':
-          description: Integration not found
-          schema:
-            $ref: '#/definitions/NotFound'
-      parameters:
-        - name: id
-          required: true
-          in: path
-          description: 'Integration unique identifier expressed as UUID.'
-          type: string
-        - name: user_id
-          required: true
-          in: path
-          description: 'User unique identifier expressed as UUID.'
-          type: string
-        - name: data
-          in: body
-          schema:
-            $ref: '#/definitions/IntegrationData'
-      consumes:
-        - application/json
-      summary: "Update an integration"
-      tags:
-        - users
-    delete:
-      operationId: users_integrations_delete
-      responses:
-        '204':
-          description: Integration deleted
-        '404':
-          description: Integration not found
-          schema:
-            $ref: '#/definitions/NotFound'
-      parameters:
-        - name: id
-          required: true
-          in: path
-          description: 'Integration unique identifier expressed as UUID.'
-          type: string
-        - name: user_id
-          required: true
-          in: path
-          description: 'User unique identifier expressed as UUID.'
-          type: string
-      summary: "Delete an integration"
       tags:
         - users
   '/v1/users/{user_id}/ssh-key/':
@@ -5079,124 +4622,6 @@ definitions:
         description: 'Unsubscribed field errors.'
         items:
           type: string
-  EnvironmentResource:
-    type: object
-    properties:
-      id:
-        type: string
-        description: 'Environment resource unique identifier.'
-      name:
-        type: string
-        description: 'Environment resource name.'
-      cpu:
-        type: integer
-        description: |
-          CPU availability, equivalent to --cpus=<value>. For example if a host has
-          2 CPU's, then a value of 1.5 would be limit the container to using all of the
-          first CPU and half of the second CPU.
-      memory:
-        type: integer
-        description: 'Memory restriction for container.'
-      active:
-        type: boolean
-        description: 'States whether the environment resource is active, or not.'
-    required:
-      - name
-      - cpu
-      - memory
-  EnvironmentResourceData:
-    type: object
-    properties:
-      name:
-        description: 'Resource name.'
-        type: string
-      cpu:
-        description: 'CPU set for resource.'
-        type: integer
-      memory:
-        description: 'Memory set for resource.'
-        type: integer
-      active:
-        description: 'Active or not active.'
-        type: boolean
-    required:
-      - name
-      - cpu
-      - memory
-      - active
-  EnvironmentResourceError:
-    type: object
-    properties:
-      non_field_errors:
-        type: array
-        description: 'Errors not connected to any field.'
-        items:
-          type: string
-      id:
-        type: array
-        description: 'Id field errors.'
-        items:
-          type: string
-      name:
-        type: array
-        description: 'Name field errors.'
-        items:
-          type: string
-      cpu:
-        type: array
-        description: 'CPU field errors.'
-        items:
-          type: string
-      memory:
-        type: array
-        description: 'Memory field errors.'
-        items:
-          type: string
-      active:
-        type: array
-        description: 'Active field errors.'
-        items:
-          type: string
-  Integration:
-    type: object
-    properties:
-      provider:
-        type: string
-        description: 'Name of third party service.'
-      extra_data:
-        type: object
-        description: 'Extra data necessary for synchronization.'
-    required:
-      - provider
-  IntegrationData:
-    type: object
-    properties:
-      provider:
-        description: 'Provider object for integration.'
-        type: string
-      extra_data:
-        description: 'Extra data to syncronize.'
-        type: string
-    required:
-      - provider
-  IntegrationError:
-    type: object
-    properties:
-      non_field_errors:
-        type: array
-        description: 'Errors not connected to any field.'
-        items:
-          type: string
-      provider:
-        type: array
-        description: 'Provider field errors.'
-        items:
-          type: string
-      extra_data:
-        type: array
-        description: 'Extra data field errors.'
-        items:
-          type: string
   Invoice:
     type: object
     properties:
@@ -5686,9 +5111,9 @@ definitions:
         type: string
         description: |
           Server image source, such as 3blades/tensorflow-notebook.
-      environment_resources:
+      server_size:
         type: string
-        description: 'Environment resources used by server when launched.'
+        description: 'Server size used when launching server.'
       startup_script:
         type: string
         description: 'Optional startup script to use when launching server.'
@@ -5713,10 +5138,12 @@ definitions:
         description: 'Server endpoint path.'
       logs_url:
         type: string
-        description: 'URL that streams stdout and stderr logs of server.'
+        description: |
+          A WebSocket URL for streaming stdout and stderr logs from the server.
       status_url:
         type: string
-        description: 'URL that confirms server status.'
+        description: |
+          A WebSocket URL for listening to server status changes.
     required:
       - name
   ServerData:
@@ -5728,8 +5155,8 @@ definitions:
       image_name:
         description: 'Image name.'
         type: string
-      environment_resources:
-        description: 'Environment resources name.'
+      server_size:
+        description: 'Server size name.'
         type: string
       startup_script:
         description: 'Startup script to run when launching server.'
@@ -5775,9 +5202,9 @@ definitions:
         description: 'image_name field errors.'
         items:
           type: string
-      environment_resources:
+      server_size:
         type: array
-        description: 'environment_resources field errors.'
+        description: 'server_size field errors.'
         items:
           type: string
       startup_script:
@@ -5830,17 +5257,16 @@ definitions:
         type: string
         description: 'Name for server action.'
       operation:
-        type: string
-        description: 'Operation of server action.'
-  ServerActionData:
-    type: object
-    properties:
-      name:
-        description: 'Server action name.'
-        type: string
-      operation:
-        description: 'Server operation.'
-        type: string
+        description: |
+          'Manage server state. Starting a server changes state from Starting to
+          Running. Terminating a server changes state from Running to Terminated.
+          If the action results in Error, status will change to Error.'
+        type: array
+        items:
+          type: string
+          enum:
+            - START
+            - TERMINATE
   ServerActionError:
     type: object
     properties:
@@ -5939,6 +5365,84 @@ definitions:
       stacktrace:
         type: array
         description: 'stacktrace field errors.'
+        items:
+          type: string
+  ServerSize:
+    type: object
+    properties:
+      id:
+        type: string
+        description: 'Server size unique identifier.'
+      name:
+        type: string
+        description: 'Server size name.'
+      cpu:
+        type: integer
+        description: |
+          CPU availability, equivalent to --cpus=<value>. For example if a host has
+          2 CPU's, then a value of 1.5 would be limit the container to using all of the
+          first CPU and half of the second CPU.
+      memory:
+        type: integer
+        description: 'Memory restriction for container.'
+      active:
+        type: boolean
+        description: 'States whether the Server size is active, or not.'
+    required:
+      - name
+      - cpu
+      - memory
+  ServerSizeData:
+    type: object
+    properties:
+      name:
+        description: 'Server size name.'
+        type: string
+      cpu:
+        description: 'CPU set for server size.'
+        type: integer
+      memory:
+        description: 'Memory set for server size.'
+        type: integer
+      active:
+        description: 'Active or not active.'
+        type: boolean
+    required:
+      - name
+      - cpu
+      - memory
+      - active
+  ServerSizeError:
+    type: object
+    properties:
+      non_field_errors:
+        type: array
+        description: 'Errors not connected to any field.'
+        items:
+          type: string
+      id:
+        type: array
+        description: 'Id field errors.'
+        items:
+          type: string
+      name:
+        type: array
+        description: 'Name field errors.'
+        items:
+          type: string
+      cpu:
+        type: array
+        description: 'CPU field errors.'
+        items:
+          type: string
+      memory:
+        type: array
+        description: 'Memory field errors.'
+        items:
+          type: string
+      active:
+        type: array
+        description: 'Active field errors.'
         items:
           type: string
   ServerStatistics:
@@ -6263,59 +5767,6 @@ definitions:
         description: trial_end field errors
         items:
           type: string
-  SyncedResource:
-    type: object
-    properties:
-      folder:
-        type: string
-        description: 'Folder for synced resource destination/source.'
-      settings:
-        type: object
-        description: 'Object that represents settings for synced resources.'
-      provider:
-        type: string
-        description: 'Name of provider that resource is synced with.'
-    required:
-      - folder
-      - provider
-  SyncedResourceData:
-    type: object
-    properties:
-      folder:
-        description: 'Folder to sync.'
-        type: string
-      settings:
-        description: 'Sync settins.'
-        type: object
-      provider:
-        description: 'Provider name.'
-        type: string
-    required:
-      - folder
-      - provider
-  SyncedResourceError:
-    type: object
-    properties:
-      non_field_errors:
-        type: array
-        description: Errors not connected to any field
-        items:
-          type: string
-      folder:
-        type: array
-        description: folder field errors
-        items:
-          type: string
-      settings:
-        type: array
-        description: settings field errors
-        items:
-          type: string
-      provider:
-        type: array
-        description: provider field errors
-        items:
-          type: string
   Trigger:
     type: object
     properties:
@@ -6366,51 +5817,8 @@ definitions:
         items:
           type: string
           enum:
-            - action-cancel
-            - action-detail
-            - action-list
-            - api_key
-            - avatar
-            - collaborator-detail
-            - collaborator-list
-            - dockerhost-detail
-            - dockerhost-list
-            - email-detail
-            - email-list
-            - environmentresource-detail
-            - environmentresource-list
-            - obtain-jwt
-            - project-detail
-            - project-list
-            - projectfile-detail
-            - projectfile-list
-            - refresh-jwt
-            - register
-            - reset_api_key
-            - reset_ssh_key
-            - search
-            - send-slack-message
-            - server-detail
-            - server-list
-            - server-start
-            - server-terminate
-            - server-trigger-call
-            - serverrunstatistics-detail
-            - serverrunstatistics-list
-            - serverstatistics-detail
-            - serverstatistics-list
-            - ssh_key
-            - sshtunnel-detail
-            - sshtunnel-list
-            - stripe-invoice
-            - subscription-required
-            - trigger-detail
-            - trigger-list
-            - user-detail
-            - user-list
-            - usersocialauth-detail
-            - usersocialauth-list
-            - verify-jwt
+            - START
+            - TERMINATE
     required:
       - method
       - action_name
@@ -6541,6 +5949,10 @@ definitions:
   UserProfile:
     type: object
     properties:
+      avatar:
+        type: string
+        format: byte
+        description: "Avatar image"
       avatar_url:
         type: string
         description: "URL where user's avatar is located."
@@ -6559,6 +5971,44 @@ definitions:
       timezone:
         type: string
         description: "User's time zone."
+  UserProfileError:
+    type: object
+    properties:
+      non_field_errors:
+        type: array
+        description: 'Errors not connected to any field.'
+        items:
+          type: string
+      avatar_url:
+        type: array
+        description: 'Avatar field errors.'
+        items:
+          type: string
+      bio:
+        type: array
+        description: 'Bio field errors.'
+        items:
+          type: string
+      url:
+        type: array
+        description: 'URL field errors.'
+        items:
+          type: string
+      location:
+        type: array
+        description: 'Location field errors.'
+        items:
+          type: string
+      company:
+        type: array
+        description: 'Company field errors.'
+        items:
+          type: string
+      timezone:
+        type: array
+        description: 'Timezone field errors.'
+        items:
+          type: string
   User:
     type: object
     properties:
@@ -6567,6 +6017,9 @@ definitions:
         description: 'User unique identifier, expressed as UUID.'
       username:
         type: string
+        pattern: '[a-z0-9]{6,64}'
+        minLength: 6
+        maxLength: 64
         description: 'Required. 150 characters or fewer. Letters, digits and @/./+/-/_ only.'
       email:
         type: string
@@ -6580,6 +6033,7 @@ definitions:
       profile:
         type: object
         description: 'User profile information.'
+        $ref: '#/definitions/UserProfile'
     required:
       - username
       - profile
@@ -6602,6 +6056,7 @@ definitions:
         description: 'User password.'
         type: string
       profile:
+        type: object
         description: 'User profile information is required, although attribute values may be empty.'
         $ref: '#/definitions/UserProfile'
     required:
@@ -6647,43 +6102,7 @@ definitions:
         items:
           type: string
       profile:
-        type: object
-        properties:
-          non_field_errors:
-            type: array
-            description: 'Errors not connected to any field.'
-            items:
-              type: string
-          avatar_url:
-            type: array
-            description: 'Avatar field errors.'
-            items:
-              type: string
-          bio:
-            type: array
-            description: 'Bio field errors.'
-            items:
-              type: string
-          url:
-            type: array
-            description: 'URL field errors.'
-            items:
-              type: string
-          location:
-            type: array
-            description: 'Location field errors.'
-            items:
-              type: string
-          company:
-            type: array
-            description: 'Company field errors.'
-            items:
-              type: string
-          timezone:
-            type: array
-            description: 'Timezone field errors.'
-            items:
-              type: string
+        $ref: '#/definitions/UserProfileError'
   VerifyJSONWebToken:
     type: object
     properties:
