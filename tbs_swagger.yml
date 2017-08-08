@@ -32,7 +32,6 @@ info:
     ## Namespaced Endpoints in the 3Blades CLI
 
     If you are using namespaces with the 3Blades CLI, set them by changing the value of the TBS_NAMESPACE environment variable. In `*nix` environments you can `eval $(tbs env --namespace foo/myproject)` into your namespace. For more information please view [CLI Tools README](https://github.com/3blades/cli-tools).
-
 host: api.3blades.ai
 schemes:
   - https
@@ -367,191 +366,6 @@ paths:
       summary: 'Delete a credit card'
       tags:
         - billing
-  '/v1/{namespace}/billing/customers/':
-    get:
-      operationId: billing_customers_list
-      responses:
-        '200':
-          description: 'Customer list.'
-          examples:
-            appliation/json: []
-          schema:
-            type: array
-            items:
-              $ref: '#/definitions/Customer'
-      parameters:
-        - name: namespace
-          required: true
-          in: path
-          description: 'User or team name.'
-          type: string
-        - name: limit
-          required: false
-          in: query
-          description: 'Limit for getting list of items.'
-          type: string
-        - name: offset
-          required: false
-          in: query
-          description: 'Offset when getting items.'
-          type: string
-        - name: ordering
-          required: false
-          in: query
-          description: 'Ordering when getting items.'
-          type: string
-      summary: 'Get customers'
-      tags:
-        - billing
-    post:
-      operationId: billing_customers_create
-      responses:
-        '201':
-          description: Customer created
-          examples:
-            application/json: {"id":"db3a7c07-0189-4d8d-8b5d-09cd89fe33cc","stripe_id":"cus_B5ItVKoQw02KWP","created":"2017-07-24T15:15:47Z","metadata":{},"livemode":false,"account_balance":0,"currency":"usd","last_invoice_sync":null,"user":"f4d8e907-091c-40dd-aaa2-fdaaa9de9037","default_source":null}
-          schema:
-            $ref: '#/definitions/Customer'
-        '400':
-          description: 'Invalid data supplied'
-          schema:
-            $ref: '#/definitions/CustomerError'
-      parameters:
-        - name: namespace
-          required: true
-          in: path
-          description: 'User or team name.'
-          type: string
-        - name: customer_data
-          in: body
-          schema:
-            $ref: '#/definitions/CustomerData'
-      consumes:
-        - application/json
-      summary: 'Create new customer'
-      tags:
-        - billing
-  '/v1/{namespace}/billing/customers/{id}/':
-    get:
-      operationId: billing_customers_read
-      responses:
-        '200':
-          description: 'Customer retrieved.'
-          examples:
-            application/json: {"id":"db3a7c07-0189-4d8d-8b5d-09cd89fe33cc","stripe_id":"cus_B5ItVKoQw02KWP","created":"2017-07-24T15:15:47Z","metadata":{},"livemode":false,"account_balance":0,"currency":"usd","last_invoice_sync":null,"user":"f4d8e907-091c-40dd-aaa2-fdaaa9de9037","default_source":null}
-          schema:
-            $ref: '#/definitions/Customer'
-        '404':
-          description: 'Customer not found.'
-          schema:
-            $ref: '#/definitions/NotFound'
-      parameters:
-        - name: namespace
-          required: true
-          in: path
-          description: 'User or team name.'
-          type: string
-        - name: id
-          required: true
-          in: path
-          description: 'Customer unique identifier.'
-          type: string
-      summary: 'Get a customer'
-      tags:
-        - billing
-    put:
-      operationId: billing_customers_replace
-      responses:
-        '200':
-          description: 'Customer updated'
-          examples:
-            application/json: {"id": "db3a7c07-0189-4d8d-8b5d-09cd89fe33cc","stripe_id": "cus_B5ItVKoQw02KWP","created": "2017-07-24T15:15:47Z","metadata": {},"livemode": false,"account_balance": 1,"currency": "usd","last_invoice_sync": null,"user": "f4d8e907-091c-40dd-aaa2-fdaaa9de9037","default_source": null}
-          schema:
-            $ref: '#/definitions/Customer'
-        '400':
-          description: 'Invalid data supplied'
-          schema:
-            $ref: '#/definitions/CustomerError'
-      parameters:
-        - name: namespace
-          required: true
-          in: path
-          description: 'User or team name.'
-          type: string
-        - name: id
-          required: true
-          in: path
-          description: 'Customer unique identifier.'
-          type: string
-        - name: customer_data
-          in: body
-          schema:
-            $ref: '#/definitions/CustomerData'
-      consumes:
-        - application/json
-      summary: 'Replace a customer'
-      tags:
-        - billing
-    patch:
-      operationId: billing_customers_update
-      responses:
-        '200':
-          description: 'Customer updated'
-          examples:
-            application/json: {"id": "db3a7c07-0189-4d8d-8b5d-09cd89fe33cc","stripe_id": "cus_B5ItVKoQw02KWP","created": "2017-07-24T15:15:47Z","metadata": {},"livemode": false,"account_balance": 2,"currency": "usd","last_invoice_sync": null,"user": "f4d8e907-091c-40dd-aaa2-fdaaa9de9037","default_source": null}
-          schema:
-            $ref: '#/definitions/Customer'
-        '400':
-          description: 'Invalid data supplied'
-          schema:
-            $ref: '#/definitions/CustomerError'
-        '404':
-          description: 'Customer not found'
-          schema:
-            $ref: '#/definitions/NotFound'
-      parameters:
-        - name: namespace
-          required: true
-          in: path
-          description: 'User or team name.'
-          type: string
-        - name: id
-          required: true
-          in: path
-          description: 'Customer unique id expressed as UUID.'
-          type: string
-        - name: customer_data
-          in: body
-          schema:
-            $ref: '#/definitions/CustomerData'
-      consumes:
-        - application/json
-      summary: 'Update a customer'
-      tags:
-        - billing
-    delete:
-      operationId: billing_customers_delete
-      responses:
-        '204':
-          description: 'Customer deleted.'
-        '404':
-          description: 'Customer not found.'
-          schema:
-            $ref: '#/definitions/NotFound'
-      parameters:
-        - name: namespace
-          required: true
-          in: path
-          description: 'User or team name.'
-          type: string
-        - name: id
-          required: true
-          in: path
-          description: 'Customer unique identifier.'
-          type: string
-      summary: 'Delete a customer'
-      tags:
-        - billing
   '/v1/{namespace}/billing/invoices/':
     get:
       operationId: billing_invoices_list
@@ -650,34 +464,6 @@ paths:
       summary: 'Get billing plans'
       tags:
         - billing
-    post:
-      operationId: billing_plans_create
-      responses:
-        '201':
-          description: Plan created
-          examples:
-            application/json: {"id": "d5791ab3-aefb-45af-80fc-2c7a166d78eb","stripe_id": "post_billing_plan","created": "2017-07-24T15:46:39Z","metadata": {},"livemode": false,"amount": 20,"currency": "usd","interval": "year","interval_count": 1,"name": "post_billing_plan","statement_descriptor": null,"trial_period_days": 7}
-          schema:
-            $ref: '#/definitions/Plan'
-        '400':
-          description: Invalid data supplied
-          schema:
-            $ref: '#/definitions/PlanError'
-      parameters:
-        - name: namespace
-          required: true
-          in: path
-          description: 'User or team name.'
-          type: string
-        - name: plan_data
-          in: body
-          schema:
-            $ref: '#/definitions/PlanData'
-      consumes:
-        - application/json
-      summary: 'Create a billing plan'
-      tags:
-        - billing
   '/v1/{namespace}/billing/plans/{id}/':
     get:
       operationId: billing_plans_read
@@ -704,128 +490,6 @@ paths:
           description: 'Plan unique identifier expressed as UUID.'
           type: string
       summary: 'Get a billing plan'
-      tags:
-        - billing
-    put:
-      operationId: billing_plans_replace
-      responses:
-        '200':
-          description: 'Plan updated.'
-          schema:
-            $ref: '#/definitions/Plan'
-        '400':
-          description: 'Invalid data supplied.'
-          schema:
-            $ref: '#/definitions/PlanError'
-      parameters:
-        - name: namespace
-          required: true
-          in: path
-          description: 'User or team name.'
-          type: string
-        - name: id
-          required: true
-          in: path
-          description: 'Plan unique identifier expressed as UUID.'
-          type: string
-        - name: plan_data
-          in: body
-          schema:
-            $ref: '#/definitions/PlanData'
-      consumes:
-        - application/json
-      summary: 'Replace a billing plan'
-      tags:
-        - billing
-    patch:
-      operationId: billing_plans_update
-      responses:
-        '200':
-          description: Plan updated
-          examples:
-            application/json: {"id": "d5791ab3-aefb-45af-80fc-2c7a166d78eb","stripe_id": "post_billing_plan","created": "2017-07-24T15:46:39Z","metadata": {},"livemode": false,"amount": 20,"currency": "usd","interval": "year","interval_count": 1,"name": "patch_billing_plan","statement_descriptor": null,"trial_period_days": 7}
-          schema:
-            $ref: '#/definitions/Plan'
-        '400':
-          description: Invalid data supplied
-          schema:
-            $ref: '#/definitions/PlanError'
-        '404':
-          description: Plan not found
-          schema:
-            $ref: '#/definitions/NotFound'
-      parameters:
-        - name: namespace
-          required: true
-          in: path
-          description: 'User or team name.'
-          type: string
-        - name: id
-          required: true
-          in: path
-          description: 'Plan unique identifier expressed as UUID.'
-          type: string
-        - name: plan_data
-          in: body
-          schema:
-            $ref: '#/definitions/PlanData'
-      consumes:
-        - application/json
-      summary: 'Update a billing plan'
-      tags:
-        - billing
-    delete:
-      operationId: billing_plans_delete
-      responses:
-        '204':
-          description: Plan deleted
-        '404':
-          description: Plan not found
-          schema:
-            $ref: '#/definitions/NotFound'
-      parameters:
-        - name: namespace
-          required: true
-          in: path
-          description: 'User or team name.'
-          type: string
-        - name: id
-          required: true
-          in: path
-          description: 'Plan unique identifier expressed as UUID.'
-          type: string
-      summary: 'Delete a billing plan'
-      tags:
-        - billing
-  '/v1/{namespace}/billing/subscription_required/':
-    get:
-      operationId: billing_subscription_required_list
-      responses:
-        '200':
-          description: 'Account subscriptions.'
-      parameters:
-        - name: namespace
-          required: true
-          in: path
-          description: 'User or team name.'
-          type: string
-      summary: 'Get subscription required'
-      tags:
-        - billing
-    post:
-      operationId: billing_subscription_required_create
-      responses:
-        '201':
-          description: 'Account subscription created.'
-        '400':
-          description: 'Invalid data supplied.'
-      parameters:
-        - name: namespace
-          required: true
-          in: path
-          description: 'User or team name.'
-          type: string
-      summary: 'Require subscription for an account.'
       tags:
         - billing
   '/v1/{namespace}/billing/subscriptions/':
@@ -861,7 +525,7 @@ paths:
           in: query
           description: 'Ordering when getting items.'
           type: string
-      summary: 'Get valid subscriptons'
+      summary: 'Get active subscriptons'
       tags:
         - billing
     post:
@@ -893,103 +557,6 @@ paths:
       tags:
         - billing
   '/v1/{namespace}/billing/subscriptions/{id}/':
-    get:
-      operationId: billing_subscriptions_read
-      responses:
-        '200':
-          description: 'Subscription retrieved.'
-          examples:
-            application/json: {"id": "579208c3-4f5c-4b5d-baa3-309a06db681c","plan": "efb36cb0-0ef2-4af3-ae5d-10d9ae73845d","stripe_id": "sub_B5KyO9BZ6lUNPP","created": "2017-07-24T17:25:04Z","livemode": false,"application_fee_percent": null,"cancel_at_period_end": false,"canceled_at": null,"current_period_start": "2017-07-24T17:25:04Z","current_period_end": "2017-07-31T17:25:04Z","start": "2017-07-24T17:25:04Z","ended_at": null,"quantity": 1,"status": "trialing","trial_start": "2017-07-24T17:25:04Z","trial_end": "2017-07-31T17:25:04Z"}
-          schema:
-            $ref: '#/definitions/Subscription'
-        '404':
-          description: 'Subscription not found.'
-          schema:
-            $ref: '#/definitions/NotFound'
-      parameters:
-        - name: namespace
-          required: true
-          in: path
-          description: 'User or team name.'
-          type: string
-        - name: id
-          required: true
-          in: path
-          description: 'Unique identifier expressed as UUID.'
-          type: string
-      summary: 'Get a subscriptions'
-      tags:
-        - billing
-    put:
-      operationId: billing_subscriptions_replace
-      responses:
-        '200':
-          description: 'Subscription updated.'
-          examples:
-            application/json: {"id": "579208c3-4f5c-4b5d-baa3-309a06db681c","plan": "9a25f718-2bf1-48ea-94f2-c79045da20f7","stripe_id": "sub_B5KyO9BZ6lUNPP","created": "2017-07-24T17:25:04Z","livemode": false,"application_fee_percent": null,"cancel_at_period_end": false,"canceled_at": null,"current_period_start": "2017-07-24T17:25:04Z","current_period_end": "2017-07-31T17:25:04Z","start": "2017-07-24T17:25:04Z","ended_at": null,"quantity": 1,"status": "trialing","trial_start": "2017-07-24T17:25:04Z","trial_end": "2017-07-31T17:25:04Z"}
-          schema:
-            $ref: '#/definitions/Subscription'
-        '400':
-          description: 'Invalid data supplied.'
-          schema:
-            $ref: '#/definitions/SubscriptionError'
-      parameters:
-        - name: namespace
-          required: true
-          in: path
-          description: 'User or team name.'
-          type: string
-        - name: id
-          required: true
-          in: path
-          description: 'Subscription identifier expressed as UUID.'
-          type: string
-        - name: subscription_data
-          in: body
-          schema:
-            $ref: '#/definitions/SubscriptionData'
-      consumes:
-        - application/json
-      summary: 'Replace a subscription'
-      tags:
-        - billing
-    patch:
-      operationId: billing_subscriptions_update
-      responses:
-        '200':
-          description: 'Subscription updated.'
-          examples:
-            application/json: {"id": "579208c3-4f5c-4b5d-baa3-309a06db681c","plan": "9775af77-9641-4e73-ac8b-6bd37adc016e","stripe_id": "sub_B5KyO9BZ6lUNPP","created": "2017-07-24T17:25:04Z","livemode": false,"application_fee_percent": null,"cancel_at_period_end": false,"canceled_at": null,"current_period_start": "2017-07-24T17:25:04Z","current_period_end": "2017-07-31T17:25:04Z","start": "2017-07-24T17:25:04Z","ended_at": null,"quantity": 1,"status": "trialing","trial_start": "2017-07-24T17:25:04Z","trial_end": "2017-07-31T17:25:04Z"}
-          schema:
-            $ref: '#/definitions/Subscription'
-        '400':
-          description: 'Invalid data supplied.'
-          schema:
-            $ref: '#/definitions/SubscriptionError'
-        '404':
-          description: 'Subscription not found.'
-          schema:
-            $ref: '#/definitions/NotFound'
-      parameters:
-        - name: namespace
-          required: true
-          in: path
-          description: 'User or team name.'
-          type: string
-        - name: id
-          required: true
-          in: path
-          description: 'Subscription identifier expressed as UUID.'
-          type: string
-        - name: subscription_data
-          in: body
-          schema:
-            $ref: '#/definitions/SubscriptionData'
-      consumes:
-        - application/json
-      summary: 'Update a subscription'
-      tags:
-        - billing
     delete:
       operationId: billing_subscriptions_delete
       responses:
@@ -3262,6 +2829,7 @@ paths:
       consumes:
         - application/json
       summary: "Create a new server size item"
+      description: "Only super users with on-premises version have acceess to this endpoint."
       tags:
         - servers
   '/v1/servers/options/server-size/{id}/':
@@ -3317,6 +2885,7 @@ paths:
       consumes:
         - application/json
       summary: "Replace a server size by id"
+      description: "Only super users with on-premises version have acceess to this endpoint."
       tags:
         - servers
     patch:
@@ -3349,6 +2918,7 @@ paths:
       consumes:
         - application/json
       summary: "Update a server size by id"
+      description: "Only super users with on-premises version have acceess to this endpoint."
       tags:
         - servers
     delete:
@@ -3367,6 +2937,7 @@ paths:
           description: 'Server size unique identifier expressed as UUID.'
           type: string
       summary: "Delete a server size by id"
+      description: "Only super users with on-premises version have acceess to this endpoint."
       tags:
         - servers
   /v1/users/profiles/:
