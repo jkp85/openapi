@@ -4821,8 +4821,10 @@ definitions:
         type: string
       interval:
         description: 'Plan interval.'
-        type: string
-        enum: [day, week, month, year]
+        type: array
+        items:
+          type: string
+          enum: [day, week, month, year]
       interval_count:
         description: 'Number of intervals.'
         type: integer
@@ -5113,16 +5115,27 @@ definitions:
           Server image source, such as 3blades/tensorflow-notebook.
       server_size:
         type: string
-        description: 'Server size used when launching server.'
+        description: 'Server size unique identifier.'
       startup_script:
         type: string
         description: 'Optional startup script to use when launching server.'
       config:
-        type: object
+        type: array
         description: 'Server configuration option. Values are jupyter, restful and cron.'
+        items:
+          type: string
+          enum:
+            - jupyter
+            - restful
+            - cron
       status:
-        type: string
-        enum: [Pending, Running, Error]
+        type: array
+        items:
+          type: string
+          enum:
+            - Pending
+            - Running
+            - Error
         description: 'Server status, such as Running or Error.'
       connected:
         type: array
@@ -5156,14 +5169,15 @@ definitions:
         description: 'Image name.'
         type: string
       server_size:
-        description: 'Server size name.'
+        description: 'Server size unique identifier.'
         type: string
       startup_script:
         description: 'Startup script to run when launching server.'
         type: string
       config:
-        description: 'Configuration options when launching server.'
         type: object
+        description: 'Server configuration option. Values are jupyter, restful and cron.'
+        $ref: '#/definitions/ServerType'
       connected:
         description: 'Array of other servers the server is connected to.'
         type: array
@@ -5516,6 +5530,16 @@ definitions:
         description: 'Size field errors.'
         items:
           type: string
+  ServerType:
+    type: string
+    properties:
+      type:
+        type: string
+        description: Server type.
+        enum:
+          - jupyter
+          - restful
+          - cron
   SshTunnel:
     type: object
     properties:
