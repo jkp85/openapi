@@ -3182,6 +3182,21 @@ paths:
           in: path
           description: 'User or team name.'
           type: string
+        - name: q
+          required: true
+          in: query
+          description: 'Search string.'
+          type: string
+        - name: type
+          required: false
+          in: query
+          description: 'Limit results to specific types.'
+          type: string
+          items:
+            enum:
+              - users
+              - projects
+              - servers
         - name: limit
           required: false
           in: query
