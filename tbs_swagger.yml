@@ -5102,7 +5102,7 @@ definitions:
         items:
           type: string
   ServerType:
-    type: string
+    type: object
     properties:
       type:
         type: string
