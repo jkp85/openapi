@@ -223,7 +223,7 @@ paths:
         '201':
           description: 'Card created'
           examples:
-            application/json: {"name": "John Doe","address_line1": "3423 Piedmont Rd NE","address_line2": null,"address_city": "Atlanta","address_state": "Georgia","address_zip": "30305","address_country": "United States","exp_month": 1,"exp_year": 2019,"id": "4126086e-525a-4027-b9e7-ae8de47210b2","customer": "7e102c7b-55cd-49a0-9b23-58865eba1cc3","address_line1_check": "pass","address_zip_check": "pass","brand": "Visa","cvc_check": null,"last4": "4242","fingerprint": "WpZ4zQymdmF5LhbH","funding": "credit","stripe_id": "card_1Aj8HuLUHPUzUsaQlDbaXjzA","created": "2017-07-24T15:16:07.995380Z"}
+            application/json: {"name": "John Doe","address_line1": "3423 Piedmont Rd NE","address_line2": "","address_city": "Atlanta","address_state": "Georgia","address_zip": "30305","address_country": "United States","exp_month": 1,"exp_year": 2019,"id": "4126086e-525a-4027-b9e7-ae8de47210b2","customer": "7e102c7b-55cd-49a0-9b23-58865eba1cc3","address_line1_check": "pass","address_zip_check": "pass","brand": "Visa","cvc_check": "","last4": "4242","fingerprint": "WpZ4zQymdmF5LhbH","funding": "credit","stripe_id": "card_1Aj8HuLUHPUzUsaQlDbaXjzA","created": "2017-07-24T15:16:07.995380Z"}
           schema:
             $ref: '#/definitions/Card'
         '400':
@@ -252,7 +252,7 @@ paths:
         '200':
           description: 'Card retrieved.'
           examples:
-            application/json: {"name": "John Doe","address_line1": "3423 Piedmont Rd NE","address_line2": null,"address_city": "Atlanta","address_state": "Georgia","address_zip": "30305","address_country": "United States","exp_month": 1,"exp_year": 2019,"id": "4126086e-525a-4027-b9e7-ae8de47210b2","customer": "7e102c7b-55cd-49a0-9b23-58865eba1cc3","address_line1_check": "pass","address_zip_check": "pass","brand": "Visa","cvc_check": null,"last4": "4242","fingerprint": "WpZ4zQymdmF5LhbH","funding": "credit","stripe_id": "card_1Aj8HuLUHPUzUsaQlDbaXjzA","created": "2017-07-24T15:16:07.995380Z"}
+            application/json: {"name": "John Doe","address_line1": "3423 Piedmont Rd NE","address_line2": "","address_city": "Atlanta","address_state": "Georgia","address_zip": "30305","address_country": "United States","exp_month": 1,"exp_year": 2019,"id": "4126086e-525a-4027-b9e7-ae8de47210b2","customer": "7e102c7b-55cd-49a0-9b23-58865eba1cc3","address_line1_check": "pass","address_zip_check": "pass","brand": "Visa","cvc_check": "","last4": "4242","fingerprint": "WpZ4zQymdmF5LhbH","funding": "credit","stripe_id": "card_1Aj8HuLUHPUzUsaQlDbaXjzA","created": "2017-07-24T15:16:07.995380Z"}
           schema:
             $ref: '#/definitions/Card'
         '404':
@@ -279,7 +279,7 @@ paths:
         '200':
           description: 'Card updated'
           examples:
-            application/json: {"name": "John Doe","address_line1": "3423 Piedmont Rd NE","address_line2": null,"address_city": "Atlanta","address_state": "Georgia","address_zip": "30305","address_country": "United States","exp_month": 1,"exp_year": 2027,"id": "4126086e-525a-4027-b9e7-ae8de47210b2","customer": "7e102c7b-55cd-49a0-9b23-58865eba1cc3","address_line1_check": "pass","address_zip_check": "pass","brand": "Visa","cvc_check": null,"last4": "4242","fingerprint": "WpZ4zQymdmF5LhbH","funding": "credit","stripe_id": "card_1Aj8HuLUHPUzUsaQlDbaXjzA","created": "2017-07-24T15:16:07.995380Z"}
+            application/json: {"name": "John Doe","address_line1": "3423 Piedmont Rd NE","address_line2": "","address_city": "Atlanta","address_state": "Georgia","address_zip": "30305","address_country": "United States","exp_month": 1,"exp_year": 2027,"id": "4126086e-525a-4027-b9e7-ae8de47210b2","customer": "7e102c7b-55cd-49a0-9b23-58865eba1cc3","address_line1_check": "pass","address_zip_check": "pass","brand": "Visa","cvc_check": "","last4": "4242","fingerprint": "WpZ4zQymdmF5LhbH","funding": "credit","stripe_id": "card_1Aj8HuLUHPUzUsaQlDbaXjzA","created": "2017-07-24T15:16:07.995380Z"}
           schema:
             $ref: '#/definitions/Card'
         '400':
@@ -312,7 +312,7 @@ paths:
         '200':
           description: 'Card updated'
           examples:
-            application/json: {"name": "John Doe","address_line1": "3423 Piedmont Rd NE","address_line2": null,"address_city": "Atlanta","address_state": "Georgia","address_zip": "30305","address_country": "United States","exp_month": 1,"exp_year": 2025,"id": "4126086e-525a-4027-b9e7-ae8de47210b2","customer": "7e102c7b-55cd-49a0-9b23-58865eba1cc3","address_line1_check": "pass","address_zip_check": "pass","brand": "Visa","cvc_check": null,"last4": "4242","fingerprint": "WpZ4zQymdmF5LhbH","funding": "credit","stripe_id": "card_1Aj8HuLUHPUzUsaQlDbaXjzA","created": "2017-07-24T15:16:10.806003Z"}
+            application/json: {"name": "John Doe","address_line1": "3423 Piedmont Rd NE","address_line2": "","address_city": "Atlanta","address_state": "Georgia","address_zip": "30305","address_country": "United States","exp_month": 1,"exp_year": 2025,"id": "4126086e-525a-4027-b9e7-ae8de47210b2","customer": "7e102c7b-55cd-49a0-9b23-58865eba1cc3","address_line1_check": "pass","address_zip_check": "pass","brand": "Visa","cvc_check": "","last4": "4242","fingerprint": "WpZ4zQymdmF5LhbH","funding": "credit","stripe_id": "card_1Aj8HuLUHPUzUsaQlDbaXjzA","created": "2017-07-24T15:16:10.806003Z"}
           schema:
             $ref: '#/definitions/Card'
         '400':
@@ -435,7 +435,7 @@ paths:
         '200':
           description: 'Plan list.'
           examples:
-            application/json: [{"id": "d5791ab3-aefb-45af-80fc-2c7a166d78eb","stripe_id": "post_billing_plan","created": "2017-07-24T15:46:39Z","metadata": {},"livemode": false,"amount": 20,"currency": "usd","interval": "year","interval_count": 1,"name": "patch_billing_plan","statement_descriptor": null,"trial_period_days": 7},{"id": "256fd63a-9d6b-48d2-8ff5-f56eaf54c59b","stripe_id": "post_billing_plan_2","created": "2017-07-24T15:46:48Z","metadata": {},"livemode": false,"amount": 20,"currency": "usd","interval": "week","interval_count": 52,"name": "post_billing_plan_2","statement_descriptor": null,"trial_period_days": 7},{"id": "5915a2ae-12f5-4927-bb26-3b0609228791","stripe_id": "post_billing_plan_3","created": "2017-07-24T15:46:52Z","metadata": {},"livemode": false,"amount": 20,"currency": "usd","interval": "month","interval_count": 12,"name": "post_billing_plan_3","statement_descriptor": null,"trial_period_days": 7}]
+            application/json: [{"id": "d5791ab3-aefb-45af-80fc-2c7a166d78eb","stripe_id": "post_billing_plan","created": "2017-07-24T15:46:39Z","metadata": {},"livemode": false,"amount": 20,"currency": "usd","interval": "year","interval_count": 1,"name": "patch_billing_plan","statement_descriptor": "","trial_period_days": 7},{"id": "256fd63a-9d6b-48d2-8ff5-f56eaf54c59b","stripe_id": "post_billing_plan_2","created": "2017-07-24T15:46:48Z","metadata": {},"livemode": false,"amount": 20,"currency": "usd","interval": "week","interval_count": 52,"name": "post_billing_plan_2","statement_descriptor": "","trial_period_days": 7},{"id": "5915a2ae-12f5-4927-bb26-3b0609228791","stripe_id": "post_billing_plan_3","created": "2017-07-24T15:46:52Z","metadata": {},"livemode": false,"amount": 20,"currency": "usd","interval": "month","interval_count": 12,"name": "post_billing_plan_3","statement_descriptor": "","trial_period_days": 7}]
           schema:
             type: array
             items:
@@ -471,7 +471,7 @@ paths:
         '200':
           description: Plan retrieved
           examples:
-            application/json: {"id": "d5791ab3-aefb-45af-80fc-2c7a166d78eb","stripe_id": "post_billing_plan","created": "2017-07-24T15:46:39Z","metadata": {},"livemode": false,"amount": 20,"currency": "usd","interval": "year","interval_count": 1,"name": "post_billing_plan","statement_descriptor": null,"trial_period_days": 7}
+            application/json: {"id": "d5791ab3-aefb-45af-80fc-2c7a166d78eb","stripe_id": "post_billing_plan","created": "2017-07-24T15:46:39Z","metadata": {},"livemode": false,"amount": 20,"currency": "usd","interval": "year","interval_count": 1,"name": "post_billing_plan","statement_descriptor": "","trial_period_days": 7}
           schema:
             $ref: '#/definitions/Plan'
         '404':
@@ -499,7 +499,7 @@ paths:
         '200':
           description: 'Subscription list.'
           examples:
-            application/json: {"id": "579208c3-4f5c-4b5d-baa3-309a06db681c","plan": "efb36cb0-0ef2-4af3-ae5d-10d9ae73845d","stripe_id": "sub_B5KyO9BZ6lUNPP","created": "2017-07-24T17:25:04Z","livemode": false,"application_fee_percent": null,"cancel_at_period_end": false,"canceled_at": null,"current_period_start": "2017-07-24T17:25:04Z","current_period_end": "2017-07-31T17:25:04Z","start": "2017-07-24T17:25:04Z","ended_at": null,"quantity": 1,"status": "trialing","trial_start": "2017-07-24T17:25:04Z","trial_end": "2017-07-31T17:25:04Z"}
+            application/json: [{"id": "579208c3-4f5c-4b5d-baa3-309a06db681c","plan": "efb36cb0-0ef2-4af3-ae5d-10d9ae73845d","stripe_id": "sub_B5KyO9BZ6lUNPP","created": "2017-07-24T17:25:04Z","livemode": false,"application_fee_percent": 0,"cancel_at_period_end": false,"canceled_at": "","current_period_start": "2017-07-24T17:25:04Z","current_period_end": "2017-07-31T17:25:04Z","start": "2017-07-24T17:25:04Z","ended_at": "","quantity": 1,"status": "trialing","trial_start": "2017-07-24T17:25:04Z","trial_end": "2017-07-31T17:25:04Z"}]
           schema:
             type: array
             items:
@@ -534,7 +534,7 @@ paths:
         '201':
           description: Subscription created
           examples:
-            application/json: {"id": "579208c3-4f5c-4b5d-baa3-309a06db681c","plan": "efb36cb0-0ef2-4af3-ae5d-10d9ae73845d","stripe_id": "sub_B5KyO9BZ6lUNPP","created": "2017-07-24T17:25:04Z","livemode": false,"application_fee_percent": null,"cancel_at_period_end": false,"canceled_at": null,"current_period_start": "2017-07-24T17:25:04Z","current_period_end": "2017-07-31T17:25:04Z","start": "2017-07-24T17:25:04Z","ended_at": null,"quantity": 1,"status": "trialing","trial_start": "2017-07-24T17:25:04Z","trial_end": "2017-07-31T17:25:04Z"}
+            application/json: {"id": "579208c3-4f5c-4b5d-baa3-309a06db681c","plan": "efb36cb0-0ef2-4af3-ae5d-10d9ae73845d","stripe_id": "sub_B5KyO9BZ6lUNPP","created": "2017-07-24T17:25:04Z","livemode": false,"application_fee_percent": 0,"cancel_at_period_end": false,"canceled_at": "","current_period_start": "2017-07-24T17:25:04Z","current_period_end": "2017-07-31T17:25:04Z","start": "2017-07-24T17:25:04Z","ended_at": "","quantity": 1,"status": "trialing","trial_start": "2017-07-24T17:25:04Z","trial_end": "2017-07-31T17:25:04Z"}
           schema:
             $ref: '#/definitions/Subscription'
         '400':
@@ -1176,8 +1176,6 @@ paths:
       responses:
         '200':
           description: ProjectFile list
-          examples:
-            application/json: []
           schema:
             type: array
             items:
@@ -1222,7 +1220,7 @@ paths:
         '201':
           description: ProjectFile created
           examples:
-            application/json: [{"id": "592ac8da-dbf5-4654-9127-8df9ba9280a3","project": "79cadd17-5738-4f02-8377-68e67d3eee18","file": "http://dev-api.3blades.ai/media/johndoe/79cadd17-5738-4f02-8377-68e67d3eee18/foo","public": false,"name": "myfile","path": "","content": null}]
+            application/json: {"id": "592ac8da-dbf5-4654-9127-8df9ba9280a3","project": "79cadd17-5738-4f02-8377-68e67d3eee18","file": "http://dev-api.3blades.ai/media/johndoe/79cadd17-5738-4f02-8377-68e67d3eee18/foo","public": false,"name": "myfile","path": "","content": null}
           schema:
             $ref: '#/definitions/ProjectFile'
         '400':
@@ -1273,7 +1271,7 @@ paths:
         '200':
           description: 'ProjectFile retrieved'
           examples:
-            application/json: [{"id": "592ac8da-dbf5-4654-9127-8df9ba9280a3","project": "79cadd17-5738-4f02-8377-68e67d3eee18","file": "http://dev-api.3blades.ai/media/johndoe/79cadd17-5738-4f02-8377-68e67d3eee18/myfile","public": false,"name": "myfile","path": "","content": null}]
+            application/json: {"id": "592ac8da-dbf5-4654-9127-8df9ba9280a3","project": "79cadd17-5738-4f02-8377-68e67d3eee18","file": "http://dev-api.3blades.ai/media/johndoe/79cadd17-5738-4f02-8377-68e67d3eee18/myfile","public": false,"name": "myfile","path": "","content": null}
           schema:
             $ref: '#/definitions/ProjectFile'
         '404':
@@ -1491,7 +1489,7 @@ paths:
         '201':
           description: 'Server created.'
           examples:
-            application/json: {"id": "768f6eef-d07b-40ce-bce1-0dcce5bfbfc3","name": "testPostServer","created_at": "2017-07-24T13:41:57.089722Z","image_name": "","server_size": "d16e2091-7596-481b-a50f-285812beb98c","startup_script": "","config": {"type": "jupyter"},"status": "Stopped","connected": [],"host": null,"endpoint": "https://dev-api.3blades.ai/v1/johndoe/projects/d56271ef-eea7-44ad-8d46-828a288c7a3d/servers/768f6eef-d07b-40ce-bce1-0dcce5bfbfc3/endpoint/jupyter/tree","logs_url": "wss://dev-api.3blades.ai/v1/johndoe/projects/d56271ef-eea7-44ad-8d46-828a288c7a3d/servers/768f6eef-d07b-40ce-bce1-0dcce5bfbfc3/logs/","status_url": "wss://dev-api.3blades.ai/v1/johndoe/projects/d56271ef-eea7-44ad-8d46-828a288c7a3d/servers/768f6eef-d07b-40ce-bce1-0dcce5bfbfc3/status/"}
+            application/json: {"id": "768f6eef-d07b-40ce-bce1-0dcce5bfbfc3","name": "testPostServer","created_at": "2017-07-24T13:41:57.089722Z","image_name": "","server_size": "d16e2091-7596-481b-a50f-285812beb98c","startup_script": "","config": {"type": "jupyter"},"status": "Stopped","connected": [],"host": "","endpoint": "https://dev-api.3blades.ai/v1/johndoe/projects/d56271ef-eea7-44ad-8d46-828a288c7a3d/servers/768f6eef-d07b-40ce-bce1-0dcce5bfbfc3/endpoint/jupyter/tree","logs_url": "wss://dev-api.3blades.ai/v1/johndoe/projects/d56271ef-eea7-44ad-8d46-828a288c7a3d/servers/768f6eef-d07b-40ce-bce1-0dcce5bfbfc3/logs/","status_url": "wss://dev-api.3blades.ai/v1/johndoe/projects/d56271ef-eea7-44ad-8d46-828a288c7a3d/servers/768f6eef-d07b-40ce-bce1-0dcce5bfbfc3/status/"}
           schema:
             $ref: '#/definitions/Server'
         '400':
@@ -1525,7 +1523,7 @@ paths:
         '200':
           description: 'Server retrieved.'
           examples:
-            application/json: {"id": "768f6eef-d07b-40ce-bce1-0dcce5bfbfc3","name": "testPostServer","created_at": "2017-07-24T13:41:57.089722Z","image_name": "","server_size": "d16e2091-7596-481b-a50f-285812beb98c","startup_script": "","config": {"type": "jupyter"},"status": "Stopped","connected": [],"host": null,"endpoint": "https://dev-api.3blades.ai/v1/johndoe/projects/d56271ef-eea7-44ad-8d46-828a288c7a3d/servers/768f6eef-d07b-40ce-bce1-0dcce5bfbfc3/endpoint/jupyter/tree","logs_url": "wss://dev-api.3blades.ai/v1/johndoe/projects/d56271ef-eea7-44ad-8d46-828a288c7a3d/servers/768f6eef-d07b-40ce-bce1-0dcce5bfbfc3/logs/","status_url": "wss://dev-api.3blades.ai/v1/johndoe/projects/d56271ef-eea7-44ad-8d46-828a288c7a3d/servers/768f6eef-d07b-40ce-bce1-0dcce5bfbfc3/status/"}
+            application/json: {"id": "768f6eef-d07b-40ce-bce1-0dcce5bfbfc3","name": "testPostServer","created_at": "2017-07-24T13:41:57.089722Z","image_name": "","server_size": "d16e2091-7596-481b-a50f-285812beb98c","startup_script": "","config": {"type": "jupyter"},"status": "Stopped","connected": [],"host": "","endpoint": "https://dev-api.3blades.ai/v1/johndoe/projects/d56271ef-eea7-44ad-8d46-828a288c7a3d/servers/768f6eef-d07b-40ce-bce1-0dcce5bfbfc3/endpoint/jupyter/tree","logs_url": "wss://dev-api.3blades.ai/v1/johndoe/projects/d56271ef-eea7-44ad-8d46-828a288c7a3d/servers/768f6eef-d07b-40ce-bce1-0dcce5bfbfc3/logs/","status_url": "wss://dev-api.3blades.ai/v1/johndoe/projects/d56271ef-eea7-44ad-8d46-828a288c7a3d/servers/768f6eef-d07b-40ce-bce1-0dcce5bfbfc3/status/"}
           schema:
             $ref: '#/definitions/Server'
         '404':
@@ -1557,7 +1555,7 @@ paths:
         '200':
           description: 'Server updated.'
           examples:
-            application/json: {"id": "768f6eef-d07b-40ce-bce1-0dcce5bfbfc3","name": "testPutServer","created_at": "2017-07-24T13:41:57.089722Z","image_name": "","server_size": "d16e2091-7596-481b-a50f-285812beb98c","startup_script": "","config": {"type": "jupyter"},"status": "Stopped","connected": [],"host": null,"endpoint": "https://dev-api.3blades.ai/v1/johndoe/projects/d56271ef-eea7-44ad-8d46-828a288c7a3d/servers/768f6eef-d07b-40ce-bce1-0dcce5bfbfc3/endpoint/jupyter/tree","logs_url": "wss://dev-api.3blades.ai/v1/johndoe/projects/d56271ef-eea7-44ad-8d46-828a288c7a3d/servers/768f6eef-d07b-40ce-bce1-0dcce5bfbfc3/logs/","status_url": "wss://dev-api.3blades.ai/v1/johndoe/projects/d56271ef-eea7-44ad-8d46-828a288c7a3d/servers/768f6eef-d07b-40ce-bce1-0dcce5bfbfc3/status/"}
+            application/json: {"id": "768f6eef-d07b-40ce-bce1-0dcce5bfbfc3","name": "testPutServer","created_at": "2017-07-24T13:41:57.089722Z","image_name": "","server_size": "d16e2091-7596-481b-a50f-285812beb98c","startup_script": "","config": {"type": "jupyter"},"status": "Stopped","connected": [],"host": "","endpoint": "https://dev-api.3blades.ai/v1/johndoe/projects/d56271ef-eea7-44ad-8d46-828a288c7a3d/servers/768f6eef-d07b-40ce-bce1-0dcce5bfbfc3/endpoint/jupyter/tree","logs_url": "wss://dev-api.3blades.ai/v1/johndoe/projects/d56271ef-eea7-44ad-8d46-828a288c7a3d/servers/768f6eef-d07b-40ce-bce1-0dcce5bfbfc3/logs/","status_url": "wss://dev-api.3blades.ai/v1/johndoe/projects/d56271ef-eea7-44ad-8d46-828a288c7a3d/servers/768f6eef-d07b-40ce-bce1-0dcce5bfbfc3/status/"}
           schema:
             $ref: '#/definitions/Server'
         '400':
@@ -1596,7 +1594,7 @@ paths:
           description: Server updated
           examples:
             application/json:
-              {"id": "768f6eef-d07b-40ce-bce1-0dcce5bfbfc3","name": "testPatchServer","created_at": "2017-07-24T13:41:57.089722Z","image_name": "","server_size": "d16e2091-7596-481b-a50f-285812beb98c","startup_script": "","config": {"type": "jupyter"},"status": "Stopped","connected": [],"host": null,"endpoint": "https://dev-api.3blades.ai/v1/johndoe/projects/d56271ef-eea7-44ad-8d46-828a288c7a3d/servers/768f6eef-d07b-40ce-bce1-0dcce5bfbfc3/endpoint/jupyter/tree","logs_url": "wss://dev-api.3blades.ai/v1/johndoe/projects/d56271ef-eea7-44ad-8d46-828a288c7a3d/servers/768f6eef-d07b-40ce-bce1-0dcce5bfbfc3/logs/","status_url": "wss://dev-api.3blades.ai/v1/johndoe/projects/d56271ef-eea7-44ad-8d46-828a288c7a3d/servers/768f6eef-d07b-40ce-bce1-0dcce5bfbfc3/status/"}
+              {"id": "768f6eef-d07b-40ce-bce1-0dcce5bfbfc3","name": "testPatchServer","created_at": "2017-07-24T13:41:57.089722Z","image_name": "","server_size": "d16e2091-7596-481b-a50f-285812beb98c","startup_script": "","config": {"type": "jupyter"},"status": "Stopped","connected": [],"host": "","endpoint": "https://dev-api.3blades.ai/v1/johndoe/projects/d56271ef-eea7-44ad-8d46-828a288c7a3d/servers/768f6eef-d07b-40ce-bce1-0dcce5bfbfc3/endpoint/jupyter/tree","logs_url": "wss://dev-api.3blades.ai/v1/johndoe/projects/d56271ef-eea7-44ad-8d46-828a288c7a3d/servers/768f6eef-d07b-40ce-bce1-0dcce5bfbfc3/logs/","status_url": "wss://dev-api.3blades.ai/v1/johndoe/projects/d56271ef-eea7-44ad-8d46-828a288c7a3d/servers/768f6eef-d07b-40ce-bce1-0dcce5bfbfc3/status/"}
           schema:
             $ref: '#/definitions/Server'
         '400':
@@ -1774,7 +1772,7 @@ paths:
         '200':
           description: 'Server run statistics.'
           examples:
-            application/json: {"duration": null,"runs": 0,"start": null,"stop": null}
+            application/json: {"duration": null,"runs": 0,"start": "","stop": ""}
           schema:
             type: object
             items:
@@ -1819,7 +1817,7 @@ paths:
         '201':
           description: 'ServerRunStatistics created.'
           examples:
-            application/json: {"id": "7d55fca5-2ba3-4af4-95ab-26dc141e6bfc","start": "2017-07-24T13:42:14.883820Z","stop": null,"exit_code": null,"size": null,"stacktrace": ""}
+            application/json: {"id": "7d55fca5-2ba3-4af4-95ab-26dc141e6bfc","start": "2017-07-24T13:42:14.883820Z","stop": "","exit_code": 0,"size": 0,"stacktrace": ""}
           schema:
             $ref: '#/definitions/ServerRunStatistics'
         '400':
@@ -2250,7 +2248,7 @@ paths:
         '200':
           description: 'Server statistics.'
           examples:
-            appplication/json: {"server_time": null,"start": null,"stop": null}
+            appplication/json: {"server_time": null,"start": "","stop": ""}
           schema:
             type: object
             items:
@@ -2295,7 +2293,7 @@ paths:
         '201':
           description: ServerStatistics created
           examples:
-            application/json: {"id": "cc45123f-8dac-4338-8c0b-b6fedf18d0e7","start": null,"stop": null,"size": null}
+            application/json: {"id": "cc45123f-8dac-4338-8c0b-b6fedf18d0e7","start": "","stop": "","size": 0}
           schema:
             $ref: '#/definitions/ServerStatistics'
         '400':
@@ -4522,9 +4520,6 @@ definitions:
         description: 'Array of project collaborators.'
         items:
           type: string
-          enum:
-            - read_project
-            - write_project
     required:
       - name
   ProjectData:
@@ -4706,22 +4701,14 @@ definitions:
         type: string
         description: 'Optional startup script to use when launching server.'
       config:
-        type: array
+        type: object
         description: 'Server configuration option. Values are jupyter, restful and cron.'
-        items:
-          type: string
-          enum:
-            - jupyter
-            - restful
-            - cron
       status:
-        type: array
-        items:
-          type: string
-          enum:
-            - Pending
-            - Running
-            - Error
+        type: string
+        enum:
+          - Stopped
+          - Running
+          - Error
         description: 'Server status, such as Running or Error.'
       connected:
         type: array
@@ -4861,12 +4848,10 @@ definitions:
           'Manage server state. Starting a server changes state from Starting to
           Running. Terminating a server changes state from Running to Terminated.
           If the action results in Error, status will change to Error.'
-        type: array
-        items:
-          type: string
-          enum:
-            - START
-            - TERMINATE
+        type: string
+        enum:
+          - start
+          - terminate
   ServerActionError:
     type: object
     properties:
@@ -5117,7 +5102,7 @@ definitions:
         items:
           type: string
   ServerType:
-    type: string
+    type: object
     properties:
       type:
         type: string
@@ -5422,13 +5407,11 @@ definitions:
         type: string
         description: 'Object ID Unique identifer in UUID format.'
       action_name:
-        type: array
+        type: string
         description: 'Name for trigger action.'
-        items:
-          type: string
-          enum:
-            - START
-            - TERMINATE
+        enum:
+          - START
+          - TERMINATE
     required:
       - method
       - action_name
