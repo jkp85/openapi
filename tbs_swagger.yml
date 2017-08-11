@@ -1091,7 +1091,7 @@ paths:
         - name: collaborator_data
           in: body
           schema:
-            $ref: '#/definitions/CollaboratorError'
+            $ref: '#/definitions/CollaboratorData'
       consumes:
         - application/json
       summary: 'Update project collaborator'
@@ -3712,9 +3712,10 @@ definitions:
         type: string
       permissions:
         description: 'Permissions assigned to collaborator.'
-        type: array
-        items:
-          type: string
+        type: string
+        enum:
+          - read_project
+          - write_project
     required:
     - member
     - permissions
