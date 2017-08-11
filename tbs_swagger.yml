@@ -4467,11 +4467,6 @@ definitions:
       private:
         description: 'Private project true, otherwise public.'
         type: boolean
-      collaborators:
-        description: 'Array (list) of project collaborators.'
-        type: array
-        items:
-          type: string
     required:
       - name
   ProjectError:
