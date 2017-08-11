@@ -1,37 +1,7 @@
 swagger: '2.0'
 info:
   title: 3blades API
-  version: "2.0"
-  description: |-
-    # Introduction
-
-    3Blades currently offers a **HTTP REST API** which is used by both the Web UI and the CLI Tools. This API documentation contains all API operations currently supported in the platform and provides examples of how to execute them using our Command Line Interface (CLI), Python SDK and Go SDK.
-
-    # Authentication
-
-    In order to make requests to the 3Blades API, you will need a JSON Web Token (JWT) for your account. Generate a JWT by providing a valid username and password to the `/auth/jwt-token-auth/` endpoint. Once you generate your JWT, include the `Authorization` header in each API request. The value of the `Authorization` header should be in the following format: `Bearer YOURJWT`.
-
-    > Code samples *do not* include headers. Add `Content-Type` and `Authorization` headers to your code. The interactive API prompts the user to add their valid JWT token after clicking on the `Try It` option. `Content-Type` header is included automatically.
-
-    # RESTful API
-
-    The 3Blades REST API is reachable through the following hostname:
-
-    https://api.3blades.ai/
-
-    All requests should be sent to this endpoint using basic authentication using a valid authentication token. All endpoints are versioned except for the auth endpoints.
-
-    ## Namespaced Endpoints
-
-    Endpoints that are labeled as `namespaced` allow users to operate over different account/projects, for example a over a specific user project. The namespace includes the user or team account + project name, since it is possible for two accounts to have a project with the same name. A namespace therefore identifies the full project path.
-
-    Example:
-
-    The user `foo` wants to manage a file within a specific project. They can use either of the following urls: https://api.3blades.io/v1/foo/my-proyect/my-file.
-
-    ## Namespaced Endpoints in the 3Blades CLI
-
-    If you are using namespaces with the 3Blades CLI, set them by changing the value of the TBS_NAMESPACE environment variable. In `*nix` environments you can `eval $(tbs env --namespace foo/myproject)` into your namespace. For more information please view [CLI Tools README](https://github.com/3blades/cli-tools).
+  version: "1.0"
 host: api.3blades.ai
 schemes:
   - https
