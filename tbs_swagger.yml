@@ -2465,7 +2465,7 @@ paths:
       summary: "Delete a server's statistics"
       tags:
         - projects
-  '/v1/{namespace}/projects/{project_id}/servers/{server_id}/trigger/':
+  '/v1/{namespace}/projects/{project_id}/servers/{server_id}/triggers/':
     get:
       operationId: service_trigger_list
       responses:
@@ -2492,6 +2492,11 @@ paths:
           required: true
           in: path
           description: 'User or team name.'
+          type: string
+        - name: name
+          required: false
+          in: query
+          description: 'Trigger name.'
           type: string
         - name: limit
           required: false
@@ -2550,7 +2555,7 @@ paths:
       summary: "Create a new server trigger"
       tags:
         - projects
-  '/v1/{namespace}/projects/{project_id}/servers/{server_id}/trigger/{id}/':
+  '/v1/{namespace}/projects/{project_id}/servers/{server_id}/triggers/{id}/':
     get:
       operationId: service_trigger_read
       responses:
@@ -4811,6 +4816,8 @@ definitions:
         enum:
           - start
           - terminate
+      webhook:
+        $ref: '#/definitions/Webhook'
   ServerActionError:
     type: object
     properties:
@@ -5522,7 +5529,7 @@ definitions:
       url:
         type: string
         description: 'URL for webhook.'
-      config:
+      payload:
         type: object
         description: 'Object that represents configuration options for webhook.'
     required:
