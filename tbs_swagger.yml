@@ -2533,6 +2533,11 @@ paths:
           in: path
           description: 'User or team name.'
           type: string
+        - name: name
+          required: false
+          in: query
+          description: 'Trigger name.'
+          type: string
         - name: limit
           required: false
           in: query
@@ -4877,6 +4882,8 @@ definitions:
         enum:
           - start
           - terminate
+      webhook:
+        $ref: '#/definitions/Webhook'
   ServerActionError:
     type: object
     properties:
@@ -5765,7 +5772,7 @@ definitions:
       url:
         type: string
         description: 'URL for webhook.'
-      config:
+      payload:
         type: object
         description: 'Object that represents configuration options for webhook.'
     required:
