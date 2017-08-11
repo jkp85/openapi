@@ -1,37 +1,7 @@
 swagger: '2.0'
 info:
   title: 3blades API
-  version: "2.0"
-  description: |-
-    # Introduction
-
-    3Blades currently offers a **HTTP REST API** which is used by both the Web UI and the CLI Tools. This API documentation contains all API operations currently supported in the platform and provides examples of how to execute them using our Command Line Interface (CLI), Python SDK and Go SDK.
-
-    # Authentication
-
-    In order to make requests to the 3Blades API, you will need a JSON Web Token (JWT) for your account. Generate a JWT by providing a valid username and password to the `/auth/jwt-token-auth/` endpoint. Once you generate your JWT, include the `Authorization` header in each API request. The value of the `Authorization` header should be in the following format: `Bearer YOURJWT`.
-
-    > Code samples *do not* include headers. Add `Content-Type` and `Authorization` headers to your code. The interactive API prompts the user to add their valid JWT token after clicking on the `Try It` option. `Content-Type` header is included automatically.
-
-    # RESTful API
-
-    The 3Blades REST API is reachable through the following hostname:
-
-    https://api.3blades.ai/
-
-    All requests should be sent to this endpoint using basic authentication using a valid authentication token. All endpoints are versioned except for the auth endpoints.
-
-    ## Namespaced Endpoints
-
-    Endpoints that are labeled as `namespaced` allow users to operate over different account/projects, for example a over a specific user project. The namespace includes the user or team account + project name, since it is possible for two accounts to have a project with the same name. A namespace therefore identifies the full project path.
-
-    Example:
-
-    The user `foo` wants to manage a file within a specific project. They can use either of the following urls: https://api.3blades.io/v1/foo/my-proyect/my-file.
-
-    ## Namespaced Endpoints in the 3Blades CLI
-
-    If you are using namespaces with the 3Blades CLI, set them by changing the value of the TBS_NAMESPACE environment variable. In `*nix` environments you can `eval $(tbs env --namespace foo/myproject)` into your namespace. For more information please view [CLI Tools README](https://github.com/3blades/cli-tools).
+  version: "1.0"
 host: api.3blades.ai
 schemes:
   - https
@@ -1087,46 +1057,6 @@ paths:
       summary: 'Get a project collaborator'
       tags:
         - projects
-    put:
-      operationId: projects_collaborators_replace
-      responses:
-        '200':
-          description: Collaborator updated
-          schema:
-            $ref: '#/definitions/Collaborator'
-        '400':
-          description: Invalid data supplied
-          schema:
-            $ref: '#/definitions/CollaboratorError'
-        '404':
-          description: Collaborator not found
-          schema:
-            $ref: '#/definitions/NotFound'
-      parameters:
-        - name: project_id
-          required: true
-          in: path
-          description: 'Project unique identifier expressed as UUID.'
-          type: string
-        - name: namespace
-          required: true
-          in: path
-          description: 'User or team name.'
-          type: string
-        - name: id
-          required: true
-          in: path
-          description: 'Collaborator unique identifier expressed as UUID.'
-          type: string
-        - name: collaborator_data
-          in: body
-          schema:
-            $ref: '#/definitions/CollaboratorData'
-      consumes:
-        - application/json
-      summary: 'Replace a project collaborator'
-      tags:
-        - projects
     patch:
       operationId: projects_collaborators_update
       responses:
@@ -1791,51 +1721,6 @@ paths:
       tags:
         - projects
   '/v1/{namespace}/projects/{project_id}/servers/{server_id}/run-stats/':
-    get:
-      operationId: projects_servers_run-stats_list
-      responses:
-        '200':
-          description: 'Server run statistics.'
-          examples:
-            application/json: {"duration": null,"runs": 0,"start": "","stop": ""}
-          schema:
-            type: object
-            items:
-              $ref: '#/definitions/ServerRunStatistics'
-      parameters:
-        - name: server_id
-          required: true
-          in: path
-          description: 'Server identifier expressed as UUID.'
-          type: string
-        - name: project_id
-          required: true
-          in: path
-          description: 'Project identifier expressed as UUID.'
-          type: string
-        - name: namespace
-          required: true
-          in: path
-          description: 'User or team name.'
-          type: string
-        - name: limit
-          required: false
-          in: query
-          description: 'Limit number of items retrieved.'
-          type: string
-        - name: offset
-          required: false
-          in: query
-          description: 'Offset items retrieved.'
-          type: string
-        - name: ordering
-          required: false
-          in: query
-          description: 'Order retrieved items.'
-          type: string
-      summary: 'Retrieve server run statistics'
-      tags:
-        - projects
     post:
       operationId: projects_servers_run-stats_create
       responses:
@@ -2266,90 +2151,6 @@ paths:
       summary: "Delete an SSH Tunnel associated to a server"
       tags:
         - projects
-  '/v1/{namespace}/projects/{project_id}/servers/{server_id}/stats/':
-    get:
-      operationId: projects_servers_stats_list
-      responses:
-        '200':
-          description: 'Server statistics.'
-          examples:
-            appplication/json: {"server_time": null,"start": "","stop": ""}
-          schema:
-            type: object
-            items:
-              $ref: '#/definitions/ServerStatistics'
-      parameters:
-        - name: server_id
-          required: true
-          in: path
-          description: 'Server unique identifier expressed as UUID.'
-          type: string
-        - name: project_id
-          required: true
-          in: path
-          description: 'Project unique identifier expressed as UUID.'
-          type: string
-        - name: namespace
-          required: true
-          in: path
-          description: 'User or team name.'
-          type: string
-        - name: limit
-          required: false
-          in: query
-          description: 'Limit items when retrieving data.'
-          type: string
-        - name: offset
-          required: false
-          in: query
-          description: 'Offset items when retrieving items.'
-          type: string
-        - name: ordering
-          required: false
-          in: query
-          description: 'Order when retrieving items.'
-          type: string
-      summary: "Retrieve server statistics"
-      tags:
-        - projects
-    post:
-      operationId: projects_servers_stats_create
-      responses:
-        '201':
-          description: ServerStatistics created
-          examples:
-            application/json: {"id": "cc45123f-8dac-4338-8c0b-b6fedf18d0e7","start": "","stop": "","size": 0}
-          schema:
-            $ref: '#/definitions/ServerStatistics'
-        '400':
-          description: Invalid data supplied
-          schema:
-            $ref: '#/definitions/ServerStatisticsError'
-      parameters:
-        - name: server_id
-          required: true
-          in: path
-          description: 'Server unique identifier expressed as UUID.'
-          type: string
-        - name: project_id
-          required: true
-          in: path
-          description: 'Project unique identifier expressed as UUID.'
-          type: string
-        - name: namespace
-          required: true
-          in: path
-          description: 'User or team name.'
-          type: string
-        - name: serverstats_data
-          in: body
-          schema:
-            $ref: '#/definitions/ServerStatisticsData'
-      consumes:
-        - application/json
-      summary: "Create server statistics"
-      tags:
-        - projects
   '/v1/{namespace}/projects/{project_id}/servers/{server_id}/stats/{id}/':
     get:
       operationId: projects_servers_stats_read
@@ -2645,7 +2446,7 @@ paths:
         '400':
           description: 'Invalid data supplied.'
           schema:
-            $ref: '#/definitions/TriggerError'
+            $ref: '#/definitions/ServerActionError'
         '404':
           description: 'Server action not found.'
           schema:
@@ -2787,11 +2588,10 @@ paths:
           in: query
           description: 'Limit results to specific types.'
           type: string
-          items:
-            enum:
-              - users
-              - projects
-              - servers
+          enum:
+            - users
+            - projects
+            - servers
         - name: limit
           required: false
           in: query
@@ -3053,32 +2853,6 @@ paths:
           description: 'Unique identifier expressed as UUID.'
           type: string
       summary: "Retrieve a user"
-      tags:
-        - users
-    put:
-      operationId: users_replace
-      responses:
-        '200':
-          description: User updated
-          schema:
-            $ref: '#/definitions/User'
-        '400':
-          description: Invalid data supplied
-          schema:
-            $ref: '#/definitions/UserError'
-      parameters:
-        - name: id
-          required: true
-          in: path
-          description: 'User unique identifier expressed as UUID.'
-          type: string
-        - name: user_data
-          in: body
-          schema:
-            $ref: '#/definitions/UserData'
-      consumes:
-        - application/json
-      summary: "Replace a user"
       tags:
         - users
     patch:
@@ -4564,11 +4338,6 @@ definitions:
       private:
         description: 'Private project true, otherwise public.'
         type: boolean
-      collaborators:
-        description: 'Array (list) of project collaborators.'
-        type: array
-        items:
-          type: string
     required:
       - name
   ProjectError:
@@ -4875,9 +4644,9 @@ definitions:
         description: 'Name for server action.'
       operation:
         description: |
-          'Manage server state. Starting a server changes state from Starting to
+          Manage server state. Starting a server changes state from Pending to
           Running. Terminating a server changes state from Running to Terminated.
-          If the action results in Error, status will change to Error.'
+          If the action results in Error, status will change to Error.
         type: string
         enum:
           - start
@@ -5403,183 +5172,6 @@ definitions:
         description: trial_end field errors
         items:
           type: string
-  Trigger:
-    type: object
-    properties:
-      id:
-        type: string
-        description: 'Trigger unique identifier in UUID format.'
-      cause:
-        type: object
-        description: 'Object that represents the cause for trigger.'
-      effect:
-        type: object
-        description: 'Object that represents effect for trigger. '
-      schedule:
-        type: string
-        description: 'Schedule to create triggers, otherwise know as cron schedule.'
-      webhook:
-        type: object
-        description: 'Object that represents webhook for trigger.'
-  TriggerAction:
-    type: object
-    properties:
-      id:
-        type: string
-        description: 'Trigger action that represents unique identifier in UUID format.'
-      payload:
-        type: object
-        description: 'Object that represents trigger action payload.'
-      method:
-        type: array
-        description: 'Method for trigger action, such as POST.'
-        items:
-          type: string
-          enum:
-            - POST
-            - GET
-            - PUT
-            - PATCH
-            - DELETE
-      model:
-        type: string
-        description: 'Trigger action model.'
-      object_id:
-        type: string
-        description: 'Object ID Unique identifer in UUID format.'
-      action_name:
-        type: string
-        description: 'Name for trigger action.'
-        enum:
-          - START
-          - TERMINATE
-    required:
-      - method
-      - action_name
-  TriggerData:
-    type: object
-    properties:
-      cause:
-        $ref: '#/definitions/TriggerAction'
-      effect:
-        $ref: '#/definitions/TriggerAction'
-      schedule:
-        description: Cron schedule
-        type: string
-      webhook:
-        $ref: '#/definitions/Webhook'
-  TriggerError:
-    type: object
-    properties:
-      non_field_errors:
-        type: array
-        description: Errors not connected to any field.'
-        items:
-          type: string
-      id:
-        type: array
-        description: 'Id field errors.'
-        items:
-          type: string
-      cause:
-        type: object
-        properties:
-          non_field_errors:
-            type: array
-            description: 'Errors not connected to any field.'
-            items:
-              type: string
-          id:
-            type: array
-            description: 'Id field errors.'
-            items:
-              type: string
-          payload:
-            type: array
-            description: 'Payload field errors.'
-            items:
-              type: string
-          method:
-            type: array
-            description: 'Method field errors.'
-            items:
-              type: string
-          model:
-            type: array
-            description: 'Model field errors.'
-            items:
-              type: string
-          object_id:
-            type: array
-            description: 'Object_id field errors.'
-            items:
-              type: string
-          action_name:
-            type: array
-            description: 'Action_name field errors.'
-            items:
-              type: string
-      effect:
-        type: object
-        properties:
-          non_field_errors:
-            type: array
-            description: 'Errors not connected to any field.'
-            items:
-              type: string
-          id:
-            type: array
-            description: 'Id field errors.'
-            items:
-              type: string
-          payload:
-            type: array
-            description: 'Payload field errors.'
-            items:
-              type: string
-          method:
-            type: array
-            description: 'Method field errors.'
-            items:
-              type: string
-          model:
-            type: array
-            description: 'Model field errors.'
-            items:
-              type: string
-          object_id:
-            type: array
-            description: 'Object_id field errors.'
-            items:
-              type: string
-          action_name:
-            type: array
-            description: 'Action_name field errors.'
-            items:
-              type: string
-      schedule:
-        type: array
-        description: schedule field errors
-        items:
-          type: string
-      webhook:
-        type: object
-        properties:
-          non_field_errors:
-            type: array
-            description: Errors not connected to any field
-            items:
-              type: string
-          url:
-            type: array
-            description: url field errors
-            items:
-              type: string
-          config:
-            type: array
-            description: config field errors
-            items:
-              type: string
   UserProfile:
     type: object
     properties:
