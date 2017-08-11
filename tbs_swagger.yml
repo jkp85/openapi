@@ -2747,11 +2747,10 @@ paths:
           in: query
           description: 'Limit results to specific types.'
           type: string
-          items:
-            enum:
-              - users
-              - projects
-              - servers
+          enum:
+            - users
+            - projects
+            - servers
         - name: limit
           required: false
           in: query
@@ -4809,9 +4808,9 @@ definitions:
         description: 'Name for server action.'
       operation:
         description: |
-          'Manage server state. Starting a server changes state from Starting to
+          Manage server state. Starting a server changes state from Pending to
           Running. Terminating a server changes state from Running to Terminated.
-          If the action results in Error, status will change to Error.'
+          If the action results in Error, status will change to Error.
         type: string
         enum:
           - start
