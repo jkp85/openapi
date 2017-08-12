@@ -128,29 +128,6 @@ paths:
       tags:
         - auth
       security: []
-  /auth/simple-token-auth/:
-    post:
-      operationId: auth_simple-token-auth
-      responses:
-        '201':
-          description: 'AuthToken created'
-          schema:
-            $ref: '#/definitions/AuthToken'
-        '400':
-          description: Invalid data supplied
-          schema:
-            $ref: '#/definitions/AuthTokenError'
-      parameters:
-        - name: auth_token_data
-          in: body
-          schema:
-            $ref: '#/definitions/AuthTokenData'
-      consumes:
-        - application/json
-      summary: 'Create simple JWT'
-      tags:
-        - auth
-      security: []
   '/v1/{namespace}/billing/cards/':
     get:
       operationId: billing_cards_list
