@@ -186,7 +186,7 @@ paths:
         - name: card_data
           in: body
           schema:
-            $ref: '#/definitions/CardData'
+            $ref: '#/definitions/CardDataPost'
       summary: 'Create new credit card'
       consumes:
         - application/json
@@ -247,7 +247,7 @@ paths:
         - name: card_data
           in: body
           schema:
-            $ref: '#/definitions/CardData'
+            $ref: '#/definitions/CardDataPutandPatch'
       consumes:
         - application/json
       summary: 'Replace a credit card'
@@ -284,7 +284,7 @@ paths:
         - name: card_data
           in: body
           schema:
-            $ref: '#/definitions/CardData'
+            $ref: '#/definitions/CardDataPutandPatch'
       consumes:
         - application/json
       summary: 'Update a credit card'
@@ -3382,7 +3382,7 @@ definitions:
       created:
         type: string
         description: 'Card date and time creation.'
-  CardData:
+  CardDataPost:
     type: object
     properties:
       name:
@@ -3415,6 +3415,36 @@ definitions:
       token:
         type: string
         description: 'Card unique token.'
+  CardDataPutandPatch:
+    type: object
+    properties:
+      name:
+        type: string
+        description: 'Card name.'
+      address_line1:
+        type: string
+        description: 'Address line 1.'
+      address_line2:
+        type: string
+        description: 'Address line 2.'
+      address_city:
+        type: string
+        description: 'Address city.'
+      address_state:
+        type: string
+        description: 'Address state.'
+      address_zip:
+        type: string
+        description: 'Address zip code.'
+      address_country:
+        type: string
+        description: 'Address country.'
+      exp_month:
+        type: integer
+        description: 'Card expiration month.'
+      exp_year:
+        type: integer
+        description: 'Card expiration year.'
   CardError:
     type: object
     properties:
