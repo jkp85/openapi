@@ -1575,7 +1575,7 @@ paths:
         - name: project_id
           required: true
           in: path
-          description: 'Project unique identifier expressed as UUID.'
+          description: 'Project unique identifier.'
           type: string
         - name: namespace
           required: true
@@ -1585,7 +1585,7 @@ paths:
         - name: id
           required: true
           in: path
-          description: 'User unique identifier expressed as UUID.'
+          description: 'User unique identifier.'
           type: string
       summary: 'Delete a server'
       tags:
@@ -1682,7 +1682,7 @@ paths:
         - name: project_id
           required: true
           in: path
-          description: 'Project identifier expressed as UUID.'
+          description: 'Project unique identifier.'
           type: string
         - name: namespace
           required: true
@@ -1692,9 +1692,9 @@ paths:
         - name: id
           required: true
           in: path
-          description: 'Server identifier expressed as UUID.'
+          description: 'Server unique identifier.'
           type: string
-      summary: 'Delete a server'
+      summary: 'Terminate a server'
       tags:
         - projects
   '/v1/{namespace}/projects/{project_id}/servers/{server_id}/run-stats/':
@@ -4665,7 +4665,7 @@ definitions:
     properties:
       name:
         type: string
-        description: 'Name for server action.'
+        description: 'Name of server action.'
       operation:
         description: |
           Manage server state. Starting a server changes state from Pending to Running. Terminating a server changes state from Running to Terminated. Stopping a server changes state from Running to Stopped. If the action results in Error, status will change to Error.
