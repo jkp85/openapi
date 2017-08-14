@@ -2367,7 +2367,7 @@ paths:
           in: body
           description: 'Server action.'
           schema:
-            $ref: '#/definitions/ServerAction'
+            $ref: '#/definitions/ServerActionData'
       consumes:
         - application/json
       summary: "Create a new server trigger"
@@ -2406,7 +2406,7 @@ paths:
         - name: id
           required: true
           in: path
-          description: 'Trigger identifier expressed as UUID.'
+          description: 'Trigger unique identifier.'
           type: string
       summary: "Get a server trigger"
       tags:
@@ -2447,12 +2447,12 @@ paths:
         - name: id
           required: true
           in: path
-          description: 'Trigger identifier expressed as UUID.'
+          description: 'Trigger unique identifier.'
           type: string
         - name: server_action
           in: body
           schema:
-            $ref: '#/definitions/ServerAction'
+            $ref: '#/definitions/ServerActionData'
       consumes:
         - application/json
       summary: "Replace a server trigger"
@@ -2500,7 +2500,7 @@ paths:
         - name: server_action
           in: body
           schema:
-            $ref: '#/definitions/ServerAction'
+            $ref: '#/definitions/ServerActionData'
       consumes:
         - application/json
       summary: "Update a server trigger"
@@ -4646,18 +4646,33 @@ definitions:
     properties:
       id:
         type: string
-        description: 'Server action unique identifier.'
+        description: 'Server trigger unique identifier.'
       name:
         type: string
         description: 'Name for server action.'
       operation:
         description: |
-          Manage server state. Starting a server changes state from Pending to
-          Running. Terminating a server changes state from Running to Terminated.
-          If the action results in Error, status will change to Error.
+            Manage server state. Starting a server changes state from Pending to Running. Terminating a server changes state from Running to Terminated. If the action results in Error, status will change to Error.
         type: string
         enum:
           - start
+          - stop
+          - terminate
+      webhook:
+        $ref: '#/definitions/Webhook'
+  ServerActionData:
+    type: object
+    properties:
+      name:
+        type: string
+        description: 'Name for server action.'
+      operation:
+        description: |
+          Manage server state. Starting a server changes state from Pending to Running. Terminating a server changes state from Running to Terminated. Stopping a server changes state from Running to Stopped. If the action results in Error, status will change to Error.
+        type: string
+        enum:
+          - start
+          - stop
           - terminate
       webhook:
         $ref: '#/definitions/Webhook'
@@ -5373,7 +5388,5 @@ definitions:
         type: string
         description: 'URL for webhook.'
       payload:
-        type: object
-        description: 'Object that represents configuration options for webhook.'
-    required:
-      - url
+        type: string
+        description: 'JSON with payload and webhook configurations.'
