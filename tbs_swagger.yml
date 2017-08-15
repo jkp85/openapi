@@ -5103,7 +5103,7 @@ definitions:
     type: object
     properties:
       plan:
-        description: 'Subscription plan.'
+        description: 'Plan unique identifier.'
         type: string
     required:
       - plan
