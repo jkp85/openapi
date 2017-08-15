@@ -1087,7 +1087,7 @@ paths:
         - name: project_id
           required: true
           in: path
-          description: 'Project unique identifier expressed as UUID.'
+          description: 'Project unique identifier.'
           type: string
         - name: namespace
           required: true
@@ -1097,7 +1097,7 @@ paths:
         - name: id
           required: true
           in: path
-          description: 'Collaborator unique identifier expressed as UUID.'
+          description: 'Collaborator unique identifier.'
           type: string
       summary: 'Delete a project collaborator'
       tags:
@@ -1143,6 +1143,11 @@ paths:
           in: query
           description: 'Exact file name, relative to the project root. If no such file is found, an empty list will be returned.'
           type: string
+        - name: content
+          required: false
+          in: query
+          description: 'Determines whether or not content is returned as base64. Defaults to false.'
+          type: string
       summary: 'Get project files'
       tags:
         - projects
@@ -1152,7 +1157,7 @@ paths:
         '201':
           description: ProjectFile created
           examples:
-            application/json: {"id": "592ac8da-dbf5-4654-9127-8df9ba9280a3","project": "79cadd17-5738-4f02-8377-68e67d3eee18","file": "http://dev-api.3blades.ai/media/johndoe/79cadd17-5738-4f02-8377-68e67d3eee18/foo","public": false,"name": "myfile","path": "","content": null}
+            application/json: {"id": "592ac8da-dbf5-4654-9127-8df9ba9280a3","project": "79cadd17-5738-4f02-8377-68e67d3eee18","file": "http://dev-api.3blades.ai/media/johndoe/79cadd17-5738-4f02-8377-68e67d3eee18/foo","public": false,"name": "myfile","path": ""}
           schema:
             $ref: '#/definitions/ProjectFile'
         '400':
@@ -1163,7 +1168,7 @@ paths:
         - name: project_id
           required: true
           in: path
-          description: 'Unique project identifier expressed as UUID.'
+          description: 'Project unique identifier.'
           type: string
         - name: namespace
           required: true
@@ -1171,15 +1176,10 @@ paths:
           description: 'User or team name.'
           type: string
         - name: file
-          required: true
-          in: formData
-          description: 'File to send, to create new file. Note: this parameter is only used with form data.'
-          type: file
-        - name: public
           required: false
           in: formData
-          description: 'Is project file public or private.'
-          type: boolean
+          description: 'File to send, to create new file. This parameter is only used with form data and may include multiple files.'
+          type: file
         - name: base64_data
           required: false
           in: formData
@@ -1188,7 +1188,12 @@ paths:
         - name: name
           required: false
           in: formData
-          description: 'File name.'
+          description: 'File name. May include path when creating file with base64 field.'
+          type: string
+        - name: path
+          required: false
+          in: formData
+          description: 'File path. Defaults to (/).'
           type: string
       consumes:
         - multipart/form-data
@@ -1203,7 +1208,7 @@ paths:
         '200':
           description: 'ProjectFile retrieved'
           examples:
-            application/json: {"id": "592ac8da-dbf5-4654-9127-8df9ba9280a3","project": "79cadd17-5738-4f02-8377-68e67d3eee18","file": "http://dev-api.3blades.ai/media/johndoe/79cadd17-5738-4f02-8377-68e67d3eee18/myfile","public": false,"name": "myfile","path": "","content": null}
+            application/json: {"id": "592ac8da-dbf5-4654-9127-8df9ba9280a3","project": "79cadd17-5738-4f02-8377-68e67d3eee18","file": "http://dev-api.3blades.ai/media/johndoe/79cadd17-5738-4f02-8377-68e67d3eee18/myfile","public": false,"name": "myfile","path": ""}
           schema:
             $ref: '#/definitions/ProjectFile'
         '404':
@@ -1214,7 +1219,7 @@ paths:
         - name: project_id
           required: true
           in: path
-          description: 'Project unique identifer expressed as UUID.'
+          description: 'Project unique identifer.'
           type: string
         - name: namespace
           required: true
@@ -1224,7 +1229,12 @@ paths:
         - name: id
           required: true
           in: path
-          description: 'File unique identifier expressed as UUID.'
+          description: 'File unique identifier.'
+          type: string
+        - name: content
+          required: false
+          in: query
+          description: 'Determines whether or not content is returned as base64. Defaults to false.'
           type: string
       summary: 'Get a project file'
       tags:
@@ -1235,7 +1245,7 @@ paths:
         '200':
           description: 'ProjectFile updated'
           examples:
-            application/json: {"id": "592ac8da-dbf5-4654-9127-8df9ba9280a3","project": "79cadd17-5738-4f02-8377-68e67d3eee18","file": "/media/johndoe/79cadd17-5738-4f02-8377-68e67d3eee18/myfile","public": false,"name": "myfile","path": "","content": null}
+            application/json: {"id": "592ac8da-dbf5-4654-9127-8df9ba9280a3","project": "79cadd17-5738-4f02-8377-68e67d3eee18","file": "/media/johndoe/79cadd17-5738-4f02-8377-68e67d3eee18/myfile","public": false,"name": "myfile","path": ""}
           schema:
             $ref: '#/definitions/ProjectFile'
         '400':
@@ -1246,7 +1256,7 @@ paths:
         - name: project_id
           required: true
           in: path
-          description: 'Project unique identifer expressed as UUID.'
+          description: 'Project unique identifer.'
           type: string
         - name: namespace
           required: true
@@ -1256,27 +1266,27 @@ paths:
         - name: id
           required: true
           in: path
-          description: 'Project file identifier expressed as UUID.'
+          description: 'File unique identifier.'
           type: string
         - name: file
-          required: true
-          in: formData
-          description: 'File to update.'
-          type: file
-        - name: public
           required: false
           in: formData
-          description: 'Is project public or private.'
-          type: boolean
+          description: 'File to send, to create new file. This parameter is only used with form data and may include multiple files.'
+          type: file
         - name: base64_data
           required: false
           in: formData
-          description: 'File contents as base64.'
+          description: 'Fila data, represented as base64.'
           type: string
         - name: name
           required: false
           in: formData
-          description: 'File name.'
+          description: 'File name. May include path when creating file with base64 field.'
+          type: string
+        - name: path
+          required: false
+          in: formData
+          description: 'File path. Defaults to (/).'
           type: string
       consumes:
         - multipart/form-data
@@ -1289,7 +1299,7 @@ paths:
         '200':
           description: 'ProjectFile updated.'
           examples:
-            application/json: {"id": "592ac8da-dbf5-4654-9127-8df9ba9280a3","project": "79cadd17-5738-4f02-8377-68e67d3eee18","file": "/media/johndoe/79cadd17-5738-4f02-8377-68e67d3eee18/myfile","public": false,"name": "foo","path": "","content": null}
+            application/json: {"id": "592ac8da-dbf5-4654-9127-8df9ba9280a3","project": "79cadd17-5738-4f02-8377-68e67d3eee18","file": "/media/johndoe/79cadd17-5738-4f02-8377-68e67d3eee18/myfile","public": false,"name": "foo","path": ""}
           schema:
             $ref: '#/definitions/ProjectFile'
         '400':
@@ -1304,7 +1314,7 @@ paths:
         - name: project_id
           required: true
           in: path
-          description: 'Project unique identifier.'
+          description: 'Project unique identifer.'
           type: string
         - name: namespace
           required: true
@@ -1314,27 +1324,27 @@ paths:
         - name: id
           required: true
           in: path
-          description: 'File unique identifier expressed as UUID.'
+          description: 'File unique identifier.'
           type: string
         - name: file
           required: false
           in: formData
-          description: 'File to patch.'
+          description: 'File to send, to create new file. This parameter is only used with form data and may include multiple files.'
           type: file
-        - name: public
-          required: false
-          in: formData
-          description: 'Is project file public or private.'
-          type: boolean
         - name: base64_data
           required: false
           in: formData
-          description: 'File encoded as base64.'
+          description: 'Fila data, represented as base64.'
           type: string
         - name: name
           required: false
           in: formData
-          description: 'File name.'
+          description: 'File name. May include path when creating file with base64 field.'
+          type: string
+        - name: path
+          required: false
+          in: formData
+          description: 'File path. Defaults to (/).'
           type: string
       consumes:
         - multipart/form-data
@@ -1354,7 +1364,7 @@ paths:
         - name: project_id
           required: true
           in: path
-          description: 'Project unique identifier expressed as UUID.'
+          description: 'Project unique identifer.'
           type: string
         - name: namespace
           required: true
@@ -1364,7 +1374,7 @@ paths:
         - name: id
           required: true
           in: path
-          description: 'File unique identifier expressed as UUID.'
+          description: 'File unique identifier.'
           type: string
       summary: 'Delete a project file'
       tags:
@@ -4400,21 +4410,17 @@ definitions:
       project:
         type: string
         description: 'Project name where file is located.'
-      file:
-        type: string
-        description: 'Complete file endpoint as URL.'
-      public:
-        type: boolean
-        description: 'Public or private file.'
-      base64_data:
+      content:
         type: string
         description: 'Data sent as string, in base64 format.'
       name:
         type: string
         description: 'File name and extension.'
+      path:
+        type: string
+        description: 'File path. Defaults to root (/).'
     required:
       - project
-      - file
   ProjectFileError:
     type: object
     properties:
@@ -4438,12 +4444,7 @@ definitions:
         description: file field errors
         items:
           type: string
-      public:
-        type: array
-        description: public field errors
-        items:
-          type: string
-      base64_data:
+      content:
         type: array
         description: base64_data field errors
         items:
@@ -4451,6 +4452,11 @@ definitions:
       name:
         type: array
         description: name field errors
+        items:
+          type: string
+      path:
+        type: array
+        description: path field errors
         items:
           type: string
   RefreshJSONWebToken:
@@ -5103,7 +5109,7 @@ definitions:
     type: object
     properties:
       plan:
-        description: 'Subscription plan.'
+        description: 'Plan unique identifier.'
         type: string
     required:
       - plan
