@@ -3725,7 +3725,7 @@ definitions:
         description: 'Project owner.'
         type: boolean
       member:
-        description: 'Project member.'
+        description: 'Project member username.'
         type: string
       permissions:
         description: 'Permissions assigned to collaborator.'
