@@ -3722,7 +3722,7 @@ definitions:
     type: object
     properties:
       owner:
-        description: 'Project owner.'
+        description: 'Project owner. Defaults to false.'
         type: boolean
       member:
         description: 'Project member username.'
@@ -5208,9 +5208,6 @@ definitions:
         type: string
         format: byte
         description: "Avatar image"
-      avatar_url:
-        type: string
-        description: "URL where user's avatar is located."
       bio:
         type: string
         description: "Description of user's biography."
@@ -5232,11 +5229,6 @@ definitions:
       non_field_errors:
         type: array
         description: 'Errors not connected to any field.'
-        items:
-          type: string
-      avatar_url:
-        type: array
-        description: 'Avatar field errors.'
         items:
           type: string
       bio:
