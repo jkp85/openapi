@@ -103,7 +103,7 @@ paths:
         - auth
       security: []
   '/auth/login/{provider}/':
-    post:
+    get:
       operationId: oauth_login
       responses:
         '302':
