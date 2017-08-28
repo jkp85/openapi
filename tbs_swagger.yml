@@ -128,29 +128,6 @@ paths:
       tags:
         - auth
       security: []
-  /auth/simple-token-auth/:
-    post:
-      operationId: auth_simple-token-auth
-      responses:
-        '201':
-          description: 'AuthToken created'
-          schema:
-            $ref: '#/definitions/AuthToken'
-        '400':
-          description: Invalid data supplied
-          schema:
-            $ref: '#/definitions/AuthTokenError'
-      parameters:
-        - name: auth_token_data
-          in: body
-          schema:
-            $ref: '#/definitions/AuthTokenData'
-      consumes:
-        - application/json
-      summary: 'Create simple JWT'
-      tags:
-        - auth
-      security: []
   '/v1/{namespace}/billing/cards/':
     get:
       operationId: billing_cards_list
@@ -209,7 +186,7 @@ paths:
         - name: card_data
           in: body
           schema:
-            $ref: '#/definitions/CardData'
+            $ref: '#/definitions/CardDataPost'
       summary: 'Create new credit card'
       consumes:
         - application/json
@@ -270,7 +247,7 @@ paths:
         - name: card_data
           in: body
           schema:
-            $ref: '#/definitions/CardData'
+            $ref: '#/definitions/CardDataPutandPatch'
       consumes:
         - application/json
       summary: 'Replace a credit card'
@@ -307,7 +284,7 @@ paths:
         - name: card_data
           in: body
           schema:
-            $ref: '#/definitions/CardData'
+            $ref: '#/definitions/CardDataPutandPatch'
       consumes:
         - application/json
       summary: 'Update a credit card'
@@ -1091,7 +1068,7 @@ paths:
         - name: collaborator_data
           in: body
           schema:
-            $ref: '#/definitions/CollaboratorError'
+            $ref: '#/definitions/CollaboratorData'
       consumes:
         - application/json
       summary: 'Update project collaborator'
@@ -1110,7 +1087,7 @@ paths:
         - name: project_id
           required: true
           in: path
-          description: 'Project unique identifier expressed as UUID.'
+          description: 'Project unique identifier.'
           type: string
         - name: namespace
           required: true
@@ -1120,7 +1097,7 @@ paths:
         - name: id
           required: true
           in: path
-          description: 'Collaborator unique identifier expressed as UUID.'
+          description: 'Collaborator unique identifier.'
           type: string
       summary: 'Delete a project collaborator'
       tags:
@@ -1166,6 +1143,11 @@ paths:
           in: query
           description: 'Exact file name, relative to the project root. If no such file is found, an empty list will be returned.'
           type: string
+        - name: content
+          required: false
+          in: query
+          description: 'Determines whether or not content is returned as base64. Defaults to false.'
+          type: string
       summary: 'Get project files'
       tags:
         - projects
@@ -1175,7 +1157,7 @@ paths:
         '201':
           description: ProjectFile created
           examples:
-            application/json: {"id": "592ac8da-dbf5-4654-9127-8df9ba9280a3","project": "79cadd17-5738-4f02-8377-68e67d3eee18","file": "http://dev-api.3blades.ai/media/johndoe/79cadd17-5738-4f02-8377-68e67d3eee18/foo","public": false,"name": "myfile","path": "","content": null}
+            application/json: {"id": "592ac8da-dbf5-4654-9127-8df9ba9280a3","project": "79cadd17-5738-4f02-8377-68e67d3eee18","file": "http://dev-api.3blades.ai/media/johndoe/79cadd17-5738-4f02-8377-68e67d3eee18/foo","public": false,"name": "myfile","path": ""}
           schema:
             $ref: '#/definitions/ProjectFile'
         '400':
@@ -1186,7 +1168,7 @@ paths:
         - name: project_id
           required: true
           in: path
-          description: 'Unique project identifier expressed as UUID.'
+          description: 'Project unique identifier.'
           type: string
         - name: namespace
           required: true
@@ -1194,15 +1176,10 @@ paths:
           description: 'User or team name.'
           type: string
         - name: file
-          required: true
-          in: formData
-          description: 'File to send, to create new file. Note: this parameter is only used with form data.'
-          type: file
-        - name: public
           required: false
           in: formData
-          description: 'Is project file public or private.'
-          type: boolean
+          description: 'File to send, to create new file. This parameter is only used with form data and may include multiple files.'
+          type: file
         - name: base64_data
           required: false
           in: formData
@@ -1211,7 +1188,12 @@ paths:
         - name: name
           required: false
           in: formData
-          description: 'File name.'
+          description: 'File name. May include path when creating file with base64 field.'
+          type: string
+        - name: path
+          required: false
+          in: formData
+          description: 'File path. Defaults to (/).'
           type: string
       consumes:
         - multipart/form-data
@@ -1226,7 +1208,7 @@ paths:
         '200':
           description: 'ProjectFile retrieved'
           examples:
-            application/json: {"id": "592ac8da-dbf5-4654-9127-8df9ba9280a3","project": "79cadd17-5738-4f02-8377-68e67d3eee18","file": "http://dev-api.3blades.ai/media/johndoe/79cadd17-5738-4f02-8377-68e67d3eee18/myfile","public": false,"name": "myfile","path": "","content": null}
+            application/json: {"id": "592ac8da-dbf5-4654-9127-8df9ba9280a3","project": "79cadd17-5738-4f02-8377-68e67d3eee18","file": "http://dev-api.3blades.ai/media/johndoe/79cadd17-5738-4f02-8377-68e67d3eee18/myfile","public": false,"name": "myfile","path": ""}
           schema:
             $ref: '#/definitions/ProjectFile'
         '404':
@@ -1237,7 +1219,7 @@ paths:
         - name: project_id
           required: true
           in: path
-          description: 'Project unique identifer expressed as UUID.'
+          description: 'Project unique identifer.'
           type: string
         - name: namespace
           required: true
@@ -1247,7 +1229,12 @@ paths:
         - name: id
           required: true
           in: path
-          description: 'File unique identifier expressed as UUID.'
+          description: 'File unique identifier.'
+          type: string
+        - name: content
+          required: false
+          in: query
+          description: 'Determines whether or not content is returned as base64. Defaults to false.'
           type: string
       summary: 'Get a project file'
       tags:
@@ -1258,7 +1245,7 @@ paths:
         '200':
           description: 'ProjectFile updated'
           examples:
-            application/json: {"id": "592ac8da-dbf5-4654-9127-8df9ba9280a3","project": "79cadd17-5738-4f02-8377-68e67d3eee18","file": "/media/johndoe/79cadd17-5738-4f02-8377-68e67d3eee18/myfile","public": false,"name": "myfile","path": "","content": null}
+            application/json: {"id": "592ac8da-dbf5-4654-9127-8df9ba9280a3","project": "79cadd17-5738-4f02-8377-68e67d3eee18","file": "/media/johndoe/79cadd17-5738-4f02-8377-68e67d3eee18/myfile","public": false,"name": "myfile","path": ""}
           schema:
             $ref: '#/definitions/ProjectFile'
         '400':
@@ -1269,7 +1256,7 @@ paths:
         - name: project_id
           required: true
           in: path
-          description: 'Project unique identifer expressed as UUID.'
+          description: 'Project unique identifer.'
           type: string
         - name: namespace
           required: true
@@ -1279,27 +1266,27 @@ paths:
         - name: id
           required: true
           in: path
-          description: 'Project file identifier expressed as UUID.'
+          description: 'File unique identifier.'
           type: string
         - name: file
-          required: true
-          in: formData
-          description: 'File to update.'
-          type: file
-        - name: public
           required: false
           in: formData
-          description: 'Is project public or private.'
-          type: boolean
+          description: 'File to send, to create new file. This parameter is only used with form data and may include multiple files.'
+          type: file
         - name: base64_data
           required: false
           in: formData
-          description: 'File contents as base64.'
+          description: 'Fila data, represented as base64.'
           type: string
         - name: name
           required: false
           in: formData
-          description: 'File name.'
+          description: 'File name. May include path when creating file with base64 field.'
+          type: string
+        - name: path
+          required: false
+          in: formData
+          description: 'File path. Defaults to (/).'
           type: string
       consumes:
         - multipart/form-data
@@ -1312,7 +1299,7 @@ paths:
         '200':
           description: 'ProjectFile updated.'
           examples:
-            application/json: {"id": "592ac8da-dbf5-4654-9127-8df9ba9280a3","project": "79cadd17-5738-4f02-8377-68e67d3eee18","file": "/media/johndoe/79cadd17-5738-4f02-8377-68e67d3eee18/myfile","public": false,"name": "foo","path": "","content": null}
+            application/json: {"id": "592ac8da-dbf5-4654-9127-8df9ba9280a3","project": "79cadd17-5738-4f02-8377-68e67d3eee18","file": "/media/johndoe/79cadd17-5738-4f02-8377-68e67d3eee18/myfile","public": false,"name": "foo","path": ""}
           schema:
             $ref: '#/definitions/ProjectFile'
         '400':
@@ -1327,7 +1314,7 @@ paths:
         - name: project_id
           required: true
           in: path
-          description: 'Project unique identifier.'
+          description: 'Project unique identifer.'
           type: string
         - name: namespace
           required: true
@@ -1337,27 +1324,27 @@ paths:
         - name: id
           required: true
           in: path
-          description: 'File unique identifier expressed as UUID.'
+          description: 'File unique identifier.'
           type: string
         - name: file
           required: false
           in: formData
-          description: 'File to patch.'
+          description: 'File to send, to create new file. This parameter is only used with form data and may include multiple files.'
           type: file
-        - name: public
-          required: false
-          in: formData
-          description: 'Is project file public or private.'
-          type: boolean
         - name: base64_data
           required: false
           in: formData
-          description: 'File encoded as base64.'
+          description: 'Fila data, represented as base64.'
           type: string
         - name: name
           required: false
           in: formData
-          description: 'File name.'
+          description: 'File name. May include path when creating file with base64 field.'
+          type: string
+        - name: path
+          required: false
+          in: formData
+          description: 'File path. Defaults to (/).'
           type: string
       consumes:
         - multipart/form-data
@@ -1377,7 +1364,7 @@ paths:
         - name: project_id
           required: true
           in: path
-          description: 'Project unique identifier expressed as UUID.'
+          description: 'Project unique identifer.'
           type: string
         - name: namespace
           required: true
@@ -1387,7 +1374,7 @@ paths:
         - name: id
           required: true
           in: path
-          description: 'File unique identifier expressed as UUID.'
+          description: 'File unique identifier.'
           type: string
       summary: 'Delete a project file'
       tags:
@@ -1598,7 +1585,7 @@ paths:
         - name: project_id
           required: true
           in: path
-          description: 'Project unique identifier expressed as UUID.'
+          description: 'Project unique identifier.'
           type: string
         - name: namespace
           required: true
@@ -1608,7 +1595,7 @@ paths:
         - name: id
           required: true
           in: path
-          description: 'User unique identifier expressed as UUID.'
+          description: 'User unique identifier.'
           type: string
       summary: 'Delete a server'
       tags:
@@ -1705,7 +1692,7 @@ paths:
         - name: project_id
           required: true
           in: path
-          description: 'Project identifier expressed as UUID.'
+          description: 'Project unique identifier.'
           type: string
         - name: namespace
           required: true
@@ -1715,9 +1702,9 @@ paths:
         - name: id
           required: true
           in: path
-          description: 'Server identifier expressed as UUID.'
+          description: 'Server unique identifier.'
           type: string
-      summary: 'Delete a server'
+      summary: 'Terminate a server'
       tags:
         - projects
   '/v1/{namespace}/projects/{project_id}/servers/{server_id}/run-stats/':
@@ -2390,7 +2377,7 @@ paths:
           in: body
           description: 'Server action.'
           schema:
-            $ref: '#/definitions/ServerAction'
+            $ref: '#/definitions/ServerActionData'
       consumes:
         - application/json
       summary: "Create a new server trigger"
@@ -2429,7 +2416,7 @@ paths:
         - name: id
           required: true
           in: path
-          description: 'Trigger identifier expressed as UUID.'
+          description: 'Trigger unique identifier.'
           type: string
       summary: "Get a server trigger"
       tags:
@@ -2470,12 +2457,12 @@ paths:
         - name: id
           required: true
           in: path
-          description: 'Trigger identifier expressed as UUID.'
+          description: 'Trigger unique identifier.'
           type: string
         - name: server_action
           in: body
           schema:
-            $ref: '#/definitions/ServerAction'
+            $ref: '#/definitions/ServerActionData'
       consumes:
         - application/json
       summary: "Replace a server trigger"
@@ -2523,7 +2510,7 @@ paths:
         - name: server_action
           in: body
           schema:
-            $ref: '#/definitions/ServerAction'
+            $ref: '#/definitions/ServerActionData'
       consumes:
         - application/json
       summary: "Update a server trigger"
@@ -3405,7 +3392,7 @@ definitions:
       created:
         type: string
         description: 'Card date and time creation.'
-  CardData:
+  CardDataPost:
     type: object
     properties:
       name:
@@ -3438,6 +3425,36 @@ definitions:
       token:
         type: string
         description: 'Card unique token.'
+  CardDataPutandPatch:
+    type: object
+    properties:
+      name:
+        type: string
+        description: 'Card name.'
+      address_line1:
+        type: string
+        description: 'Address line 1.'
+      address_line2:
+        type: string
+        description: 'Address line 2.'
+      address_city:
+        type: string
+        description: 'Address city.'
+      address_state:
+        type: string
+        description: 'Address state.'
+      address_zip:
+        type: string
+        description: 'Address zip code.'
+      address_country:
+        type: string
+        description: 'Address country.'
+      exp_month:
+        type: integer
+        description: 'Card expiration month.'
+      exp_year:
+        type: integer
+        description: 'Card expiration year.'
   CardError:
     type: object
     properties:
@@ -3705,16 +3722,17 @@ definitions:
     type: object
     properties:
       owner:
-        description: 'Project owner.'
+        description: 'Project owner. Defaults to false.'
         type: boolean
       member:
-        description: 'Project member.'
+        description: 'Project member username.'
         type: string
       permissions:
         description: 'Permissions assigned to collaborator.'
-        type: array
-        items:
-          type: string
+        type: string
+        enum:
+          - read_project
+          - write_project
     required:
     - member
     - permissions
@@ -4392,21 +4410,17 @@ definitions:
       project:
         type: string
         description: 'Project name where file is located.'
-      file:
-        type: string
-        description: 'Complete file endpoint as URL.'
-      public:
-        type: boolean
-        description: 'Public or private file.'
-      base64_data:
+      content:
         type: string
         description: 'Data sent as string, in base64 format.'
       name:
         type: string
         description: 'File name and extension.'
+      path:
+        type: string
+        description: 'File path. Defaults to root (/).'
     required:
       - project
-      - file
   ProjectFileError:
     type: object
     properties:
@@ -4430,12 +4444,7 @@ definitions:
         description: file field errors
         items:
           type: string
-      public:
-        type: array
-        description: public field errors
-        items:
-          type: string
-      base64_data:
+      content:
         type: array
         description: base64_data field errors
         items:
@@ -4443,6 +4452,11 @@ definitions:
       name:
         type: array
         description: name field errors
+        items:
+          type: string
+      path:
+        type: array
+        description: path field errors
         items:
           type: string
   RefreshJSONWebToken:
@@ -4638,18 +4652,33 @@ definitions:
     properties:
       id:
         type: string
-        description: 'Server action unique identifier.'
+        description: 'Server trigger unique identifier.'
       name:
         type: string
         description: 'Name for server action.'
       operation:
         description: |
-          Manage server state. Starting a server changes state from Pending to
-          Running. Terminating a server changes state from Running to Terminated.
-          If the action results in Error, status will change to Error.
+            Manage server state. Starting a server changes state from Pending to Running. Terminating a server changes state from Running to Terminated. If the action results in Error, status will change to Error.
         type: string
         enum:
           - start
+          - stop
+          - terminate
+      webhook:
+        $ref: '#/definitions/Webhook'
+  ServerActionData:
+    type: object
+    properties:
+      name:
+        type: string
+        description: 'Name of server action.'
+      operation:
+        description: |
+          Manage server state. Starting a server changes state from Pending to Running. Terminating a server changes state from Running to Terminated. Stopping a server changes state from Running to Stopped. If the action results in Error, status will change to Error.
+        type: string
+        enum:
+          - start
+          - stop
           - terminate
       webhook:
         $ref: '#/definitions/Webhook'
@@ -5080,7 +5109,7 @@ definitions:
     type: object
     properties:
       plan:
-        description: 'Subscription plan.'
+        description: 'Plan unique identifier.'
         type: string
     required:
       - plan
@@ -5179,9 +5208,6 @@ definitions:
         type: string
         format: byte
         description: "Avatar image"
-      avatar_url:
-        type: string
-        description: "URL where user's avatar is located."
       bio:
         type: string
         description: "Description of user's biography."
@@ -5203,11 +5229,6 @@ definitions:
       non_field_errors:
         type: array
         description: 'Errors not connected to any field.'
-        items:
-          type: string
-      avatar_url:
-        type: array
-        description: 'Avatar field errors.'
         items:
           type: string
       bio:
@@ -5365,7 +5386,5 @@ definitions:
         type: string
         description: 'URL for webhook.'
       payload:
-        type: object
-        description: 'Object that represents configuration options for webhook.'
-    required:
-      - url
+        type: string
+        description: 'JSON with payload and webhook configurations.'
