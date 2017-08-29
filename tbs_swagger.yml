@@ -2750,7 +2750,7 @@ paths:
           in: path
           description: 'User or team name.'
           type: string
-        - name: id
+        - name: server_id
           required: true
           in: path
           description: 'Server unique identifier expressed as UUID.'
