@@ -2731,7 +2731,7 @@ paths:
       summary: "Delete a server trigger"
       tags:
         - projects
-  '/v1/{namespace}/projects/{project_id}/servers/{id}/auth/':
+  '/v1/{namespace}/projects/{project_id}/servers/{server_id}/auth/':
     post:
       operationId: projects_servers_auth
       responses:
