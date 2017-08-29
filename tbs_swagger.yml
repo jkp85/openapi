@@ -2549,6 +2549,33 @@ paths:
       summary: "Delete a server trigger"
       tags:
         - projects
+  '/v1/{namespace}/projects/{project_id}/servers/{server_id}/auth/':
+    post:
+      operationId: projects_servers_auth
+      responses:
+        '200':
+          description: 'Api key verified'
+        '401':
+          description: 'Invalid api key.'
+      parameters:
+        - name: project_id
+          required: true
+          in: path
+          description: 'Project unique identifier expressed as UUID.'
+          type: string
+        - name: namespace
+          required: true
+          in: path
+          description: 'User or team name.'
+          type: string
+        - name: server_id
+          required: true
+          in: path
+          description: 'Server unique identifier expressed as UUID.'
+          type: string
+      summary: 'Server api key validation'
+      tags:
+        - projects
   '/v1/{namespace}/search/':
     get:
       operationId: search
