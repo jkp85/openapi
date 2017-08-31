@@ -102,6 +102,24 @@ paths:
       tags:
         - auth
       security: []
+  '/auth/login/{provider}/':
+    get:
+      operationId: oauth_login
+      responses:
+        '302':
+          description: "Redirect to backend auth page"
+      parameters:
+        - name: provider
+          in: path
+          required: true
+          description: "OAuth2 provider"
+          type: string
+          enum:
+            - github
+            - google
+            - slack
+      tags:
+        - auth
   /auth/register/:
     post:
       operationId: auth_register
