@@ -140,7 +140,7 @@ paths:
           schema:
             $ref: '#/definitions/UserData'
       summary: 'Register a user'
-      description: 'User register'
+      description: 'User registration requires confirming email address to activate user.'
       consumes:
         - application/json
       tags:
@@ -2889,6 +2889,7 @@ paths:
       consumes:
         - application/json
       summary: "Create new user"
+      description: 'Only admin users can create new users. New users have active status by default.'
       tags:
         - users
   '/v1/users/profiles/{id}/':
