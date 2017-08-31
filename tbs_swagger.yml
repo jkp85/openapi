@@ -1644,6 +1644,33 @@ paths:
       description: 'Checks if user is allowed to access restful server'
       tags:
         - projects
+  '/v1/{namespace}/projects/{project_id}/servers/{server_id}/api-key/':
+    get:
+      operationId: projects_servers_api-key
+      responses:
+        '200':
+          description: 'Server API key'
+          schema:
+            $ref: '#/definitions/JWT'
+      parameters:
+        - name: project_id
+          required: true
+          in: path
+          description: 'Project unique identifier expressed as UUID.'
+          type: string
+        - name: namespace
+          required: true
+          in: path
+          description: 'User or team name.'
+          type: string
+        - name: server_id
+          required: true
+          in: path
+          description: 'Server unique identifier expressed as UUID.'
+          type: string
+      summary: 'Get server API key'
+      tags:
+        - projects
   '/v1/{namespace}/projects/{project_id}/servers/{id}/start/':
     post:
       operationId: projects_servers_start
