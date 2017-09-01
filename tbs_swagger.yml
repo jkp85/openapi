@@ -1725,33 +1725,6 @@ paths:
       summary: 'Stop a server'
       tags:
         - projects
-  '/v1/{namespace}/projects/{project_id}/servers/{id}/terminate/':
-    post:
-      operationId: projects_servers_terminate
-      responses:
-        '201':
-          description: 'Server terminated.'
-        '400':
-          description: 'Invalid data supplied.'
-      parameters:
-        - name: project_id
-          required: true
-          in: path
-          description: 'Project unique identifier.'
-          type: string
-        - name: namespace
-          required: true
-          in: path
-          description: 'User or team name.'
-          type: string
-        - name: id
-          required: true
-          in: path
-          description: 'Server unique identifier.'
-          type: string
-      summary: 'Terminate a server'
-      tags:
-        - projects
   '/v1/{namespace}/projects/{project_id}/servers/{server_id}/run-stats/':
     post:
       operationId: projects_servers_run-stats_create
