@@ -5406,5 +5406,7 @@ definitions:
         type: string
         description: 'URL for webhook.'
       payload:
-        type: string
+        type: object
         description: 'JSON with payload and webhook configurations.'
+    required:
+      - url
