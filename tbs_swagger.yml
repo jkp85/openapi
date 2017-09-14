@@ -352,7 +352,7 @@ paths:
         - name: limit
           required: false
           in: query
-          description: 'Limite when getting items.'
+          description: 'Limit when getting items.'
           type: string
         - name: offset
           required: false
@@ -391,6 +391,78 @@ paths:
           description: 'Invoice unique identifier expressed as UUID.'
           type: string
       summary: 'Get an invoice'
+      tags:
+        - billing
+  '/v1/{namespace}/billing/invoices/{invoice_id}/invoice-items/':
+    get:
+      operationId: billing_invoice_items_list
+      responses:
+        '200':
+          description: 'InvoiceItem list.'
+          examples:
+            application/json: []
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/InvoiceItem'
+      parameters:
+        - name: namespace
+          required: true
+          in: path
+          description: 'User or team name.'
+          type: string
+        - name: invoice_id
+          required: true
+          in: path
+          description: 'Invoice id, expressed as UUID.'
+          type: string
+        - name: limit
+          required: false
+          in: query
+          description: 'Limit when getting items.'
+          type: string
+        - name: offset
+          required: false
+          in: query
+          description: 'Offset when getting items.'
+          type: string
+        - name: ordering
+          required: false
+          in: query
+          description: 'Ordering when getting items.'
+          type: string
+      summary: 'Get invoice items for a given invoice.'
+      tags:
+        - billing
+  '/v1/{namespace}/billing/invoices/{invoice_id}/invoice-items/{id}':
+    get:
+      operationId: billing_invoice_items_read
+      responses:
+        '200':
+          description: 'InvoiceItem retrieved.'
+          schema:
+            $ref: '#/definitions/InvoiceItem'
+        '404':
+          description: 'InvoiceItem not found.'
+          schema:
+            $ref: '#/definitions/NotFound'
+      parameters:
+        - name: namespace
+          required: true
+          in: path
+          description: 'User or team name.'
+          type: string
+        - name: invoice_id
+          required: true
+          in: path
+          description: 'Invoice id, expressed as UUID.'
+          type: string
+        - name: id
+          required: true
+          in: path
+          description: 'InvoiceItem id, expressed as UUID.'
+          type: string
+      summary: 'Get a specific InvoiceItem.'
       tags:
         - billing
   '/v1/{namespace}/billing/plans/':
@@ -4139,6 +4211,53 @@ definitions:
       - subtotal
       - total
       - customer
+  InvoiceItem:
+    type: object
+    properties:
+      id:
+        type: string
+        description: 'InvoiceItem unique identifier expressed as UUID.'
+      stripe_id:
+        type: string
+        description: 'Stripe account identifier.'
+      created:
+        type: string
+        description: 'Date and time when invoice was created.'
+      metadata:
+        type: object
+        description: 'Optional metadata object of invoice.'
+      livemode:
+        type: boolean
+        description: 'Boolean that determines whether invoice is live, or not.'
+      invoice:
+        type: string
+        description: 'Invoice unique identifier expressed as UUID.'
+      amount:
+        type: integer
+        description: 'Amount the the invoice item will be billed for.'
+      currency:
+        type: string
+        description: 'Currency used in invoice.'
+      invoice_date:
+        type: string
+        description: 'Date the item was added to the invoice.'
+      proration:
+        type: boolean
+        description: 'Whether or not the items cost will be prorated for the billing period.'
+      quantity:
+        type: integer
+        description: 'Number of units for this item.'
+      description:
+        type: string
+        description: 'Item description.'
+    required:
+      - stripe_id
+      - created
+      - amount
+      - currency
+      - invoice
+      - invoice_date
+      - quantity
   JWT:
     type: object
     properties:
