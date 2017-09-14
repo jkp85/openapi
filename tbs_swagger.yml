@@ -434,7 +434,7 @@ paths:
       summary: 'Get invoice items for a given invoice.'
       tags:
         - billing
-  '/v1/{namespace}/billing/invoices/{invoice_id}/invoice-items/{id{}':
+  '/v1/{namespace}/billing/invoices/{invoice_id}/invoice-items/{id}':
     get:
       operationId: billing_invoice_items_read
       responses:
