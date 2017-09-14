@@ -462,21 +462,6 @@ paths:
           in: path
           description: 'InvoiceItem id, expressed as UUID.'
           type: string
-        - name: limit
-          required: false
-          in: query
-          description: 'Limit when getting items.'
-          type: string
-        - name: offset
-          required: false
-          in: query
-          description: 'Offset when getting items.'
-          type: string
-        - name: ordering
-          required: false
-          in: query
-          description: 'Ordering when getting items.'
-          type: string
       summary: 'Get a specific InvoiceItem.'
       tags:
         - billing
