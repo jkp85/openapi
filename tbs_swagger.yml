@@ -2855,7 +2855,7 @@ paths:
           examples:
             application/json: {"id":"66949654-1f75-4c6f-a5c5-e3572eae6527","username":"johndoe","email":"johndoe@email.com","first_name":"John","last_name":"Doe","profile":{"avatar_url":"http://example.com/","bio":"I like tests","url":"http://about.me/myprofile","location":"Atlanta, GA","company":"3Blades","timezone":"America/New_York"}}
           schema:
-            $ref: '#definitions/User'
+            $ref: '#/definitions/User'
       summary: "A convenience endpoint that is equivalent to GET /v1/users/profiles/<my user id>/"
       tags:
         - users
