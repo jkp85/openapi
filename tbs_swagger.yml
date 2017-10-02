@@ -4793,7 +4793,7 @@ definitions:
         type: string
         description: 'Type of the notification, e.g. invoice.created, subscription.created, etc.'
       timestamp:
-        type: datetime
+        type: string
         description: 'Timestamp that the notification was created at.'
       read:
         type: boolean
