@@ -1245,22 +1245,22 @@ paths:
           schema:
             $ref: '#/definitions/NotificationSettingsError'
       parameters:
-      - name: namespace
-        required: true
-        in: path
-        description: 'User or team name.'
-        type: string
-      - name: entity
+        - name: namespace
           required: true
           in: path
-          description: 'Entity whose settings should be retrieved.'
+          description: 'User or team name.'
           type: string
-          enum:
-            - billing
-      - name: notification_settings_data
-        in: body
-        schema:
-          $ref: '#/definitions/NotificationSettingsData'
+        - name: entity
+            required: true
+            in: path
+            description: 'Entity whose settings should be retrieved.'
+            type: string
+            enum:
+              - billing
+        - name: notification_settings_data
+          in: body
+          schema:
+            $ref: '#/definitions/NotificationSettingsData'
       consumes:
         - application/json
       summary: 'Create global notification settings'
@@ -1328,7 +1328,6 @@ paths:
       summary: 'Delete global notification settings'
       tags:
         - notifications
-
   /v1/{namespace}/projects/:
     get:
       operationId: projects_list
