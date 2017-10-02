@@ -102,7 +102,7 @@ paths:
       tags:
         - auth
       security: []
-  '/auth/login/{provider}/':
+  /auth/login/{provider}/:
     get:
       operationId: oauth_login
       responses:
@@ -146,7 +146,7 @@ paths:
       tags:
         - auth
       security: []
-  '/v1/{namespace}/billing/cards/':
+  /v1/{namespace}/billing/cards/:
     get:
       operationId: billing_cards_list
       responses:
@@ -210,7 +210,7 @@ paths:
         - application/json
       tags:
         - billing
-  '/v1/{namespace}/billing/cards/{id}/':
+  /v1/{namespace}/billing/cards/{id}/:
     get:
       operationId: billing_cards_read
       responses:
@@ -331,7 +331,7 @@ paths:
       summary: 'Delete a credit card'
       tags:
         - billing
-  '/v1/{namespace}/billing/invoices/':
+  /v1/{namespace}/billing/invoices/:
     get:
       operationId: billing_invoices_list
       responses:
@@ -367,7 +367,7 @@ paths:
       summary: 'Get invoices'
       tags:
         - billing
-  '/v1/{namespace}/billing/invoices/{id}/':
+  /v1/{namespace}/billing/invoices/{id}/':
     get:
       operationId: billing_invoices_read
       responses:
@@ -393,7 +393,7 @@ paths:
       summary: 'Get an invoice'
       tags:
         - billing
-  '/v1/{namespace}/billing/invoices/{invoice_id}/invoice-items/':
+  /v1/{namespace}/billing/invoices/{invoice_id}/invoice-items/:
     get:
       operationId: billing_invoice_items_list
       responses:
@@ -434,7 +434,7 @@ paths:
       summary: 'Get invoice items for a given invoice.'
       tags:
         - billing
-  '/v1/{namespace}/billing/invoices/{invoice_id}/invoice-items/{id}':
+  /v1/{namespace}/billing/invoices/{invoice_id}/invoice-items/{id}:
     get:
       operationId: billing_invoice_items_read
       responses:
@@ -465,7 +465,7 @@ paths:
       summary: 'Get a specific InvoiceItem.'
       tags:
         - billing
-  '/v1/{namespace}/billing/plans/':
+  /v1/{namespace}/billing/plans/:
     get:
       operationId: billing_plans_list
       responses:
@@ -501,7 +501,7 @@ paths:
       summary: 'Get billing plans'
       tags:
         - billing
-  '/v1/{namespace}/billing/plans/{id}/':
+  /v1/{namespace}/billing/plans/{id}/:
     get:
       operationId: billing_plans_read
       responses:
@@ -529,7 +529,7 @@ paths:
       summary: 'Get a billing plan'
       tags:
         - billing
-  '/v1/{namespace}/billing/subscriptions/':
+  /v1/{namespace}/billing/subscriptions/:
     get:
       operationId: billing_subscriptions_list
       responses:
@@ -593,7 +593,7 @@ paths:
       summary: 'Create a new subscription'
       tags:
         - billing
-  '/v1/{namespace}/billing/subscriptions/{id}/':
+  /v1/{namespace}/billing/subscriptions/{id}/:
     get:
       operationId: billing_subscriptions_read
       responses:
@@ -642,7 +642,7 @@ paths:
       summary: 'Delete a subscription'
       tags:
         - billing
-  '/v1/{namespace}/hosts/':
+  /v1/{namespace}/hosts/:
     get:
       operationId: hosts_list
       responses:
@@ -707,7 +707,7 @@ paths:
       summary: 'Create a new host'
       tags:
         - hosts
-  '/v1/{namespace}/hosts/{host}/':
+  /v1/{namespace}/hosts/{host}/:
     get:
       operationId: hosts_read
       responses:
@@ -822,7 +822,514 @@ paths:
       summary: 'Delete a host'
       tags:
         - hosts
-  '/v1/{namespace}/projects/':
+  /v1/{namespace}/notifications/:
+    get:
+      operationId: notifications_list
+      responses:
+        '200':
+          description: "List of notifications"
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Notification'
+      parameters:
+        - name: namespace
+          required: true
+          in: path
+          description: 'User or team data.'
+          type: string
+        - name: limit
+          required: false
+          in: query
+          description: 'Limite when getting items.'
+          type: string
+        - name: offset
+          required: false
+          in: query
+          description: 'Offset when getting items.'
+          type: string
+        - name: ordering
+          required: false
+          in: query
+          description: 'Ordering when getting items.'
+          type: string
+        - name: read
+          required: false
+          in: query
+          description: "When true, get only read notifications. When false, get only unread notifications. Default behavior is to return both read and unread."
+          type: boolean
+      summary: Get notifications of all types and entities for the authenticated user.
+      tags:
+        - notifications
+    patch:
+      operationId: notifications_update
+      responses:
+        '200':
+          description: Notification updated
+          schema:
+            $ref: '#/definitions/Notification'
+        '400':
+          description: Invalid data supplied
+          schema:
+            $ref: '#/definitions/NotificationError'
+      parameters:
+        - name: namespace
+          required: true
+          in: path
+          description: 'User or team name.'
+          type: string
+        - name: notification_data
+          required: true
+          in: body
+          schema:
+            $ref: '#/definitions/NotificationListUpdateData'
+      consumes:
+        - application/json
+      summary: 'Mark a list of notifications as either read or unread.'
+      tags:
+        - notifications
+  /v1/{namespace}/notifications/{entity}:
+    get:
+      operationId: notifications_list
+      responses:
+        '200':
+          description: "List of notifications"
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Notification'
+      parameters:
+        - name: namespace
+          required: true
+          in: path
+          description: 'User or team data.'
+          type: string
+        - name: limit
+          required: false
+          in: query
+          description: 'Limite when getting items.'
+          type: string
+        - name: offset
+          required: false
+          in: query
+          description: 'Offset when getting items.'
+          type: string
+        - name: ordering
+          required: false
+          in: query
+          description: 'Ordering when getting items.'
+          type: string
+        - name: entity
+          required: true
+          in: path
+          description: 'Entity to filter notifications by.'
+          type: string
+          enum:
+            - billing
+        - name: read
+          required: false
+          in: query
+          description: "When true, get only read notifications. When false, get only unread notifications. Default behavior is to return both read and unread."
+          type: boolean
+      summary: Get notifications of all types and entities for the authenticated user.
+      tags:
+        - notifications
+    patch:
+      operationId: notifications_update
+      responses:
+        '200':
+          description: Notification updated
+          schema:
+            $ref: '#/definitions/Notification'
+        '400':
+          description: Invalid data supplied
+          schema:
+            $ref: '#/definitions/NotificationError'
+      parameters:
+        - name: namespace
+          required: true
+          in: path
+          description: 'User or team name.'
+          type: string
+        - name: entity
+          required: true
+          in: path
+          description: 'Entity to filter notifications by.'
+          type: string
+          enum:
+            - billing
+        - name: notification_data
+          required: true
+          in: body
+          schema:
+            $ref: '#/definitions/NotificationListUpdateData'
+      consumes:
+        - application/json
+      summary: 'Mark a list of notifications as either read or unread.'
+      tags:
+        - notifications
+  /v1/{namespace}/notifications/{notification_id}/:
+    get:
+      operationId: notifications_read
+      responses:
+        '200':
+          description: "List of notifications"
+          schema:
+            $ref: '#/definitions/Notification'
+        '404':
+          description: 'Notification not found.'
+          schema:
+            $ref: '#/definitions/NotFound'
+      parameters:
+        - name: namespace
+          required: true
+          in: path
+          description: 'User or team data.'
+          type: string
+        - name: notification_id
+          required: false
+          in: path
+          description: "Notification PK, expressed as a UUID."
+          type: string
+      summary: Retrieve a specific notification.
+      tags:
+        - notifications
+    patch:
+      operationId: notifications_update
+      responses:
+        '200':
+          description: Notification updated
+          schema:
+            $ref: '#/definitions/Notification'
+        '400':
+          description: Invalid data supplied
+          schema:
+            $ref: '#/definitions/NotificationError'
+        '404':
+          description: 'Notification not found.'
+          schema:
+            $ref: '#/definitions/NotFound'
+      parameters:
+        - name: namespace
+          required: true
+          in: path
+          description: 'User or team name.'
+          type: string
+        - name: notification_id
+          required: false
+          in: path
+          description: "Notification PK, expressed as a UUID."
+          type: string
+        - name: notification_data
+          required: true
+          in: body
+          schema:
+            $ref: '#/definitions/NotificationUpdateData'
+      consumes:
+        - application/json
+      summary: 'Mark a specific notification as either read or unread.'
+      tags:
+        - notifications
+  /v1/{namespace}/notifications/{entity}/{notification_id}/:
+    get:
+      operationId: notifications_read
+      responses:
+        '200':
+          description: "List of notifications"
+          schema:
+            $ref: '#/definitions/Notification'
+        '404':
+          description: 'Notification not found.'
+          schema:
+            $ref: '#/definitions/NotFound'
+      parameters:
+        - name: namespace
+          required: true
+          in: path
+          description: 'User or team data.'
+          type: string
+        - name: entity
+          required: true
+          in: path
+          description: 'Entity to filter notifications by.'
+          type: string
+          enum:
+            - billing
+        - name: notification_id
+          required: false
+          in: path
+          description: "Notification PK, expressed as a UUID."
+          type: string
+      summary: Retrieve a specific notification.
+      tags:
+        - notifications
+    patch:
+      operationId: notifications_update
+      responses:
+        '200':
+          description: Notification updated
+          schema:
+            $ref: '#/definitions/Notification'
+        '400':
+          description: Invalid data supplied
+          schema:
+            $ref: '#/definitions/NotificationError'
+        '404':
+          description: 'Notification not found.'
+          schema:
+            $ref: '#/definitions/NotFound'
+      parameters:
+        - name: namespace
+          required: true
+          in: path
+          description: 'User or team name.'
+          type: string
+        - name: entity
+          required: true
+          in: path
+          description: 'Entity to filter notifications by.'
+          type: string
+          enum:
+            - billing
+        - name: notification_id
+          required: false
+          in: path
+          description: "Notification PK, expressed as a UUID."
+          type: string
+        - name: notification_data
+          required: true
+          in: body
+          schema:
+            $ref: '#/definitions/NotificationUpdateData'
+      consumes:
+        - application/json
+      summary: 'Mark a specific notification as either read or unread.'
+      tags:
+        - notifications
+  /v1/{namespace}/notifications/settings/:
+    get:
+      operationId: notification_settings_read
+      responses:
+        '200':
+          description: "Global notification settings"
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/NotificationSettings'
+        '404':
+          description: 'Notification not found.'
+          schema:
+            $ref: '#/definitions/NotFound'
+      parameters:
+        - name: namespace
+          required: true
+          in: path
+          description: 'User or team data.'
+          type: string
+      summary: Retrieve global notification settings for the authenticated user
+      tags:
+        - notifications
+    post:
+      operationId: notification_settings_create
+      responses:
+        '201':
+          description: 'Global Notification Settings created successfully.'
+          schema:
+            $ref: '#/definitions/NotificationSettings'
+        '400':
+          description: 'Invalid data supplied.'
+          schema:
+            $ref: '#/definitions/NotificationSettingsError'
+      parameters:
+      - name: namespace
+        required: true
+        in: path
+        description: 'User or team name.'
+        type: string
+      - name: notification_settings_data
+        in: body
+        schema:
+          $ref: '#/definitions/NotificationSettingsData'
+      consumes:
+        - application/json
+      summary: 'Create global notification settings'
+      tags:
+        - notifications
+    patch:
+      operationId: notification_settings_update
+      responses:
+        '200':
+          description: Notification Settings updated
+          schema:
+            $ref: '#/definitions/NotificationSettings'
+        '400':
+          description: Invalid data supplied
+          schema:
+            $ref: '#/definitions/NotificationSettingsError'
+        '404':
+          description: 'Notification Settings not found.'
+          schema:
+            $ref: '#/definitions/NotFound'
+      parameters:
+        - name: namespace
+          required: true
+          in: path
+          description: 'User or team name.'
+          type: string
+        - name: notification_settings_data
+          in: body
+          schema:
+            $ref: '#/definitions/NotificationSettingsData'
+      consumes:
+        - application/json
+      summary: 'Modify global notification settings.'
+      tags:
+        - notifications
+    delete:
+      operationId: notifications_settings_delete
+      responses:
+        '204':
+          description: 'NotificationsSettings deleted.'
+        '404':
+          description: 'NotificationSettings not found.'
+          schema:
+            $ref: '#/definitions/NotFound'
+      parameters:
+        - name: namespace
+          required: true
+          in: path
+          description: 'User or team name.'
+          type: string
+      summary: 'Delete global notification settings'
+      tags:
+        - notifications
+  /v1/{namespace}/notifications/settings/{entity}:
+    get:
+      operationId: notification_settings_read
+      responses:
+        '200':
+          description: "Global notification settings"
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/NotificationSettings'
+        '404':
+          description: 'Notification not found.'
+          schema:
+            $ref: '#/definitions/NotFound'
+      parameters:
+        - name: namespace
+          required: true
+          in: path
+          description: 'User or team data.'
+          type: string
+        - name: entity
+          required: true
+          in: path
+          description: 'Entity whose settings should be retrieved.'
+          type: string
+          enum:
+            - billing
+      summary: Retrieve global notification settings for the authenticated user
+      tags:
+        - notifications
+    post:
+      operationId: notification_settings_create
+      responses:
+        '201':
+          description: 'Global Notification Settings created successfully.'
+          schema:
+            $ref: '#/definitions/NotificationSettings'
+        '400':
+          description: 'Invalid data supplied.'
+          schema:
+            $ref: '#/definitions/NotificationSettingsError'
+      parameters:
+      - name: namespace
+        required: true
+        in: path
+        description: 'User or team name.'
+        type: string
+      - name: entity
+          required: true
+          in: path
+          description: 'Entity whose settings should be retrieved.'
+          type: string
+          enum:
+            - billing
+      - name: notification_settings_data
+        in: body
+        schema:
+          $ref: '#/definitions/NotificationSettingsData'
+      consumes:
+        - application/json
+      summary: 'Create global notification settings'
+      tags:
+        - notifications
+    patch:
+      operationId: notification_settings_update
+      responses:
+        '200':
+          description: Notification Settings updated
+          schema:
+            $ref: '#/definitions/NotificationSettings'
+        '400':
+          description: Invalid data supplied
+          schema:
+            $ref: '#/definitions/NotificationSettingsError'
+        '404':
+          description: 'Notification Settings not found.'
+          schema:
+            $ref: '#/definitions/NotFound'
+      parameters:
+        - name: namespace
+          required: true
+          in: path
+          description: 'User or team name.'
+          type: string
+        - name: entity
+          required: true
+          in: path
+          description: 'Entity whose settings should be retrieved.'
+          type: string
+          enum:
+            - billing
+        - name: notification_settings_data
+          in: body
+          schema:
+            $ref: '#/definitions/NotificationSettingsData'
+      consumes:
+        - application/json
+      summary: 'Modify global notification settings.'
+      tags:
+        - notifications
+    delete:
+      operationId: notifications_settings_delete
+      responses:
+        '204':
+          description: 'NotificationsSettings deleted.'
+        '404':
+          description: 'NotificationSettings not found.'
+          schema:
+            $ref: '#/definitions/NotFound'
+      parameters:
+        - name: namespace
+          required: true
+          in: path
+          description: 'User or team name.'
+          type: string
+        - name: entity
+          required: true
+          in: path
+          description: 'Entity whose settings should be retrieved.'
+          type: string
+          enum:
+            - billing
+      summary: 'Delete global notification settings'
+      tags:
+        - notifications
+
+  /v1/{namespace}/projects/:
     get:
       operationId: projects_list
       responses:
@@ -896,7 +1403,7 @@ paths:
       summary: 'Create a new project'
       tags:
         - projects
-  '/v1/{namespace}/projects/{project}/':
+  /v1/{namespace}/projects/{project}/:
     get:
       operationId: projects_read
       responses:
@@ -1017,7 +1524,7 @@ paths:
       summary: 'Delete a project'
       tags:
         - projects
-  '/v1/{namespace}/projects/{project}/collaborators/':
+  /v1/{namespace}/projects/{project}/collaborators/:
     get:
       operationId: projects_collaborators_list
       responses:
@@ -1091,7 +1598,7 @@ paths:
       summary: 'Create project collaborators'
       tags:
         - projects
-  '/v1/{namespace}/projects/{project}/collaborators/{collaborator}/':
+  /v1/{namespace}/projects/{project}/collaborators/{collaborator}/:
     get:
       operationId: projects_collaborators_read
       responses:
@@ -1192,7 +1699,7 @@ paths:
       summary: 'Delete a project collaborator'
       tags:
         - projects
-  '/v1/{namespace}/projects/{project}/project_files/':
+  /v1/{namespace}/projects/{project}/project_files/:
     get:
       operationId: projects_project_files_list
       responses:
@@ -1291,7 +1798,7 @@ paths:
       summary: 'Create project files'
       tags:
         - projects
-  '/v1/{namespace}/projects/{project}/project_files/{id}/':
+  /v1/{namespace}/projects/{project}/project_files/{id}/:
     get:
       operationId: projects_project_files_read
       responses:
@@ -1469,7 +1976,7 @@ paths:
       summary: 'Delete a project file'
       tags:
         - projects
-  '/v1/{namespace}/projects/{project}/servers/':
+  /v1/{namespace}/projects/{project}/servers/:
     get:
       operationId: projects_servers_list
       responses:
@@ -1548,7 +2055,7 @@ paths:
       summary: 'Create a new server'
       tags:
         - projects
-  '/v1/{namespace}/projects/{project}/servers/{server}/':
+  /v1/{namespace}/projects/{project}/servers/{server}/:
     get:
       operationId: projects_servers_read
       responses:
@@ -1690,7 +2197,7 @@ paths:
       summary: 'Delete a server'
       tags:
         - projects
-  '/v1/{namespace}/projects/{project}/servers/{server}/api-key/':
+  /v1/{namespace}/projects/{project}/servers/{server}/api-key/:
     get:
       operationId: projects_servers_api-key
       responses:
@@ -1717,7 +2224,7 @@ paths:
       summary: 'Get server API key'
       tags:
         - projects
-  '/v1/{namespace}/projects/{project}/servers/{server}/start/':
+  /v1/{namespace}/projects/{project}/servers/{server}/start/:
     post:
       operationId: projects_servers_start
       responses:
@@ -1744,7 +2251,7 @@ paths:
       summary: 'Start a server'
       tags:
         - projects
-  '/v1/{namespace}/projects/{project}/servers/{server}/stop/':
+  /v1/{namespace}/projects/{project}/servers/{server}/stop/:
     post:
       operationId: projects_servers_stop
       responses:
@@ -1771,7 +2278,7 @@ paths:
       summary: 'Stop a server'
       tags:
         - projects
-  '/v1/{namespace}/projects/{project}/servers/{server}/run-stats/':
+  /v1/{namespace}/projects/{project}/servers/{server}/run-stats/:
     post:
       operationId: projects_servers_run-stats_create
       responses:
@@ -1810,7 +2317,7 @@ paths:
         - application/json
       tags:
         - projects
-  '/v1/{namespace}/projects/{project}/servers/{server}/run-stats/{id}/':
+  /v1/{namespace}/projects/{project}/servers/{server}/run-stats/{id}/:
     get:
       operationId: projects_servers_run-stats_read
       responses:
@@ -1965,7 +2472,7 @@ paths:
       summary: "Delete a server's statistics"
       tags:
         - projects
-  '/v1/{namespace}/projects/{project}/servers/{server}/ssh-tunnels/':
+  /v1/{namespace}/projects/{project}/servers/{server}/ssh-tunnels/:
     get:
       operationId: projects_servers_ssh-tunnels_list
       responses:
@@ -2047,7 +2554,7 @@ paths:
       summary: "Create SSH Tunnel associated to a server"
       tags:
         - projects
-  '/v1/{namespace}/projects/{project}/servers/{server}/ssh-tunnels/{tunnel}/':
+  /v1/{namespace}/projects/{project}/servers/{server}/ssh-tunnels/{tunnel}/:
     get:
       operationId: projects_servers_ssh-tunnels_read
       responses:
@@ -2202,7 +2709,7 @@ paths:
       summary: "Delete an SSH Tunnel associated to a server"
       tags:
         - projects
-  '/v1/{namespace}/projects/{project}/servers/{server}/stats/{id}/':
+  /v1/{namespace}/projects/{project}/servers/{server}/stats/{id}/:
     get:
       operationId: projects_servers_stats_read
       responses:
@@ -2357,7 +2864,7 @@ paths:
       summary: "Delete a server's statistics"
       tags:
         - projects
-  '/v1/{namespace}/projects/{project}/servers/{server}/triggers/':
+  /v1/{namespace}/projects/{project}/servers/{server}/triggers/:
     get:
       operationId: service_trigger_list
       responses:
@@ -2447,7 +2954,7 @@ paths:
       summary: "Create a new server trigger"
       tags:
         - projects
-  '/v1/{namespace}/projects/{project}/servers/{server}/triggers/{trigger}/':
+  /v1/{namespace}/projects/{project}/servers/{server}/triggers/{trigger}/:
     get:
       operationId: service_trigger_read
       responses:
@@ -2613,7 +3120,7 @@ paths:
       summary: "Delete a server trigger"
       tags:
         - projects
-  '/v1/{namespace}/projects/{project}/servers/{server}/auth/':
+  /v1/{namespace}/projects/{project}/servers/{server}/auth/:
     post:
       operationId: projects_servers_auth
       responses:
@@ -2640,7 +3147,7 @@ paths:
       summary: 'Server api key validation'
       tags:
         - projects
-  '/v1/{namespace}/search/':
+  /v1/{namespace}/search/:
     get:
       operationId: search
       responses:
@@ -2683,7 +3190,7 @@ paths:
       summary: "Get a search results"
       tags:
         - search
-  '/v1/servers/options/server-size/':
+  /v1/servers/options/server-size/:
     get:
       operationId: servers_options_sizes_list
       responses:
@@ -2738,7 +3245,7 @@ paths:
       description: "Only super users with on-premises version have acceess to this endpoint."
       tags:
         - servers
-  '/v1/servers/options/server-size/{size}/':
+  /v1/servers/options/server-size/{size}/:
     get:
       operationId: servers_options_resources_read
       responses:
@@ -2997,7 +3504,7 @@ paths:
       summary: "Delete a user"
       tags:
         - users
-  '/v1/users/{user}/api-key/':
+  /v1/users/{user}/api-key/:
     get:
       operationId: users_api-key_list
       responses:
@@ -3012,7 +3519,7 @@ paths:
       summary: "Retrieve account's API key"
       tags:
         - users
-  '/v1/users/{user}/api-key/reset/':
+  /v1/users/{user}/api-key/reset/:
     post:
       operationId: users_api-key_reset
       responses:
@@ -3029,7 +3536,7 @@ paths:
       summary: "Reset a user's API key"
       tags:
         - users
-  '/v1/users/{user}/avatar/':
+  /v1/users/{user}/avatar/:
     post:
       operationId: user_avatar_set
       responses:
@@ -3108,7 +3615,7 @@ paths:
       summary: 'Delete avatar'
       tags:
         - users
-  '/v1/users/{user}/emails/':
+  /v1/users/{user}/emails/:
     get:
       operationId: users_emails_list
       responses:
@@ -3173,7 +3680,7 @@ paths:
       summary: "Create an email address"
       tags:
         - users
-  '/v1/users/{user}/emails/{email_id}/':
+  /v1/users/{user}/emails/{email_id}/:
     get:
       operationId: users_emails_read
       responses:
@@ -3294,7 +3801,7 @@ paths:
       summary: "Delete an email address"
       tags:
         - users
-  '/v1/users/{user}/ssh-key/':
+  /v1/users/{user}/ssh-key/:
     get:
       operationId: users_ssh-key_list
       responses:
@@ -3311,7 +3818,7 @@ paths:
       summary: "Retrieve an SSH key"
       tags:
         - users
-  '/v1/users/{user}/ssh-key/reset/':
+  /v1/users/{user}/ssh-key/reset/:
     post:
       operationId: users_ssh-key_reset
       responses:
@@ -4271,6 +4778,105 @@ definitions:
       - invoice
       - invoice_date
       - quantity
+  Notification:
+    type: object
+    properties:
+      id:
+        type: string
+        description: 'Notification unique identifier expressed as a UUID'
+      actor:
+        type: string
+        description: 'Unique identifier of the object that triggered the notification.'
+      target:
+        type: string
+        description: 'Unique identifier of the object that was acted upon by the object referred to in actor.'
+      'type':
+        type: string
+        description: 'Type of the notification, e.g. invoice.created, subscription.created, etc.'
+      timestamp:
+        type: datetime
+        description: 'Timestamp that the notification was created at.'
+      read:
+        type: boolean
+        description: 'Whether or not the notification has been marked as read by the user.'
+  NotificationListUpdateData:
+    type: object
+    properties:
+      notifications:
+        type: array
+        description: 'An array of notification IDs to update.'
+      read:
+        type: boolean
+        description: 'Mark the notification as either read or unread'
+  NotificationUpdateData:
+    type: object
+    properties:
+      read:
+        type: boolean
+        description: 'Mark the notification as either read or unread'
+  NotificationError:
+     type: object
+     properties:
+      non_field_errors:
+        type: array
+        description: Errors not connected to any field
+        items:
+          type: string
+      read:
+        type: array
+        description: read field errors
+        items:
+          type: string
+  NotificationSettings:
+    type: object
+    properties:
+      id:
+        type: string
+        description: 'Notification unique identifier expressed as a UUID'
+      entity:
+        type: string
+        description: 'The entity type that the settings pertain to.'
+        enum:
+            - global
+            - billing
+      enabled:
+        type: boolean
+        description: 'Turn notifications on or off entirely.'
+      emails_enabled:
+        type: boolean
+        description: 'Turn emails on or off.'
+      email_address:
+        type: string
+        description: 'Unique identifier for the Email Adrress object that emails should be sent to.'
+  NotificationSettingsData:
+    type: object
+    properties:
+      enabled:
+        type: boolean
+        description: 'Turn notifications on or off entirely.'
+      emails_enabled:
+        type: boolean
+        description: 'Turn emails on or off.'
+      email_address:
+        type: string
+        description: 'Unique identifier for the Email Adrress object that emails should be sent to.'
+  NotificationSettingsError:
+    type: object
+    properties:
+      non_field_errors:
+        type: array
+        description: Errors not connected to any field
+        items:
+          type: string
+      enabled:
+        type: boolean
+        description: 'enabled field errors'
+      emails_enabled:
+        type: boolean
+        description: 'emails_enabled field errors'
+      email_address:
+        type: string
+        description: 'email_address field errors'
   JWT:
     type: object
     properties:
