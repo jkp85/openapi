@@ -1251,12 +1251,12 @@ paths:
           description: 'User or team name.'
           type: string
         - name: entity
-            required: true
-            in: path
-            description: 'Entity whose settings should be retrieved.'
-            type: string
-            enum:
-              - billing
+          required: true
+          in: path
+          description: 'Entity whose settings should be retrieved.'
+          type: string
+          enum:
+            - billing
         - name: notification_settings_data
           in: body
           schema:
