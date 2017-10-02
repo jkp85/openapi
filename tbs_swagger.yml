@@ -1021,7 +1021,6 @@ paths:
           description: "Notification PK, expressed as a UUID."
           type: string
         - name: notification_data
-          required: true
           in: body
           schema:
             $ref: '#/definitions/NotificationUpdateData'
@@ -4844,9 +4843,6 @@ definitions:
       emails_enabled:
         type: boolean
         description: 'Turn emails on or off.'
-      email_address:
-        type: string
-        description: 'Unique identifier for the Email Adrress object that emails should be sent to.'
   NotificationSettingsData:
     type: object
     properties:
@@ -4856,9 +4852,6 @@ definitions:
       emails_enabled:
         type: boolean
         description: 'Turn emails on or off.'
-      email_address:
-        type: string
-        description: 'Unique identifier for the Email Adrress object that emails should be sent to.'
   NotificationSettingsError:
     type: object
     properties:
@@ -4873,9 +4866,6 @@ definitions:
       emails_enabled:
         type: boolean
         description: 'emails_enabled field errors'
-      email_address:
-        type: string
-        description: 'email_address field errors'
   JWT:
     type: object
     properties:
