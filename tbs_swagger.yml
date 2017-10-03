@@ -973,7 +973,7 @@ paths:
       operationId: notification_read
       responses:
         '200':
-          description: "List of notifications"
+          description: "Retrieve a notification."
           schema:
             $ref: '#/definitions/Notification'
         '404':
@@ -1018,7 +1018,7 @@ paths:
         - name: notification_id
           required: true
           in: path
-          description: "Notification PK, expressed as a UUID."
+          description: "Notification UUID."
           type: string
         - name: notification_data
           in: body
@@ -1107,24 +1107,6 @@ paths:
       consumes:
         - application/json
       summary: 'Modify global notification settings.'
-      tags:
-        - notifications
-    delete:
-      operationId: notifications_settings_delete
-      responses:
-        '204':
-          description: 'NotificationsSettings deleted.'
-        '404':
-          description: 'NotificationSettings not found.'
-          schema:
-            $ref: '#/definitions/NotFound'
-      parameters:
-        - name: namespace
-          required: true
-          in: path
-          description: 'User or team name.'
-          type: string
-      summary: 'Delete global notification settings'
       tags:
         - notifications
   /v1/{namespace}/notifications/settings/entity/{entity}:
@@ -1225,31 +1207,6 @@ paths:
       consumes:
         - application/json
       summary: 'Modify global notification settings.'
-      tags:
-        - notifications
-    delete:
-      operationId: notifications_settings_entity_delete
-      responses:
-        '204':
-          description: 'NotificationsSettings deleted.'
-        '404':
-          description: 'NotificationSettings not found.'
-          schema:
-            $ref: '#/definitions/NotFound'
-      parameters:
-        - name: namespace
-          required: true
-          in: path
-          description: 'User or team name.'
-          type: string
-        - name: entity
-          required: true
-          in: path
-          description: 'Entity whose settings should be retrieved.'
-          type: string
-          enum:
-            - billing
-      summary: 'Delete global notification settings'
       tags:
         - notifications
   /v1/{namespace}/projects/:
