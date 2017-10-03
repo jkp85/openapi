@@ -888,7 +888,7 @@ paths:
       summary: 'Mark a list of notifications as either read or unread.'
       tags:
         - notifications
-  /v1/{namespace}/notifications/{entity}:
+  /v1/{namespace}/notifications/entity/{entity}:
     get:
       operationId: notifications_list_entity
       responses:
@@ -1016,87 +1016,11 @@ paths:
           description: 'User or team data.'
           type: string
         - name: notification_id
-          required: false
+          required: true
           in: path
           description: "Notification PK, expressed as a UUID."
           type: string
         - name: notification_data
-          in: body
-          schema:
-            $ref: '#/definitions/NotificationUpdateData'
-      consumes:
-        - application/json
-      summary: 'Mark a specific notification as either read or unread.'
-      tags:
-        - notifications
-  /v1/{namespace}/notifications/{entity}/{notification_id}:
-    get:
-      operationId: notification_read_entity
-      responses:
-        '200':
-          description: "List of notifications"
-          schema:
-            $ref: '#/definitions/Notification'
-        '404':
-          description: 'Notification not found.'
-          schema:
-            $ref: '#/definitions/NotFound'
-      parameters:
-        - name: namespace
-          required: true
-          in: path
-          description: 'User or team data.'
-          type: string
-        - name: entity
-          required: true
-          in: path
-          description: 'Entity to filter notifications by.'
-          type: string
-          enum:
-            - billing
-        - name: notification_id
-          required: false
-          in: path
-          description: "Notification PK, expressed as a UUID."
-          type: string
-      summary: Retrieve a specific notification.
-      tags:
-        - notifications
-    patch:
-      operationId: notification_update_entity
-      responses:
-        '200':
-          description: Notification updated
-          schema:
-            $ref: '#/definitions/Notification'
-        '400':
-          description: Invalid data supplied
-          schema:
-            $ref: '#/definitions/NotificationError'
-        '404':
-          description: 'Notification not found.'
-          schema:
-            $ref: '#/definitions/NotFound'
-      parameters:
-        - name: namespace
-          required: true
-          in: path
-          description: 'User or team name.'
-          type: string
-        - name: entity
-          required: true
-          in: path
-          description: 'Entity to filter notifications by.'
-          type: string
-          enum:
-            - billing
-        - name: notification_id
-          required: false
-          in: path
-          description: "Notification PK, expressed as a UUID."
-          type: string
-        - name: notification_data
-          required: true
           in: body
           schema:
             $ref: '#/definitions/NotificationUpdateData'
@@ -1203,7 +1127,7 @@ paths:
       summary: 'Delete global notification settings'
       tags:
         - notifications
-  /v1/{namespace}/notifications/settings/{entity}:
+  /v1/{namespace}/notifications/settings/entity/{entity}:
     get:
       operationId: notification_settings_entity_read
       responses:
@@ -4806,6 +4730,8 @@ definitions:
       notifications:
         type: array
         description: 'An array of notification IDs to update.'
+        items:
+          type: string
       read:
         type: boolean
         description: 'Mark the notification as either read or unread'
@@ -4852,7 +4778,7 @@ definitions:
         type: boolean
         description: 'Turn emails on or off.'
     required:
-      - emails
+      - enabled
       - emails_enabled
   NotificationSettingsData:
     type: object
