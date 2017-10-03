@@ -841,7 +841,7 @@ paths:
         - name: limit
           required: false
           in: query
-          description: 'Limite when getting items.'
+          description: 'Limit when getting items.'
           type: string
         - name: offset
           required: false
@@ -907,7 +907,7 @@ paths:
         - name: limit
           required: false
           in: query
-          description: 'Limite when getting items.'
+          description: 'Limit when getting items.'
           type: string
         - name: offset
           required: false
@@ -968,7 +968,7 @@ paths:
       summary: 'Mark a list of notifications as either read or unread.'
       tags:
         - notifications
-  /v1/{namespace}/notifications/{notification_id}/:
+  /v1/{namespace}/notifications/{notification_id}:
     get:
       operationId: notifications_read
       responses:
@@ -987,9 +987,9 @@ paths:
           description: 'User or team data.'
           type: string
         - name: notification_id
-          required: false
+          required: true
           in: path
-          description: "Notification PK, expressed as a UUID."
+          description: "Notification UUID."
           type: string
       summary: Retrieve a specific notification.
       tags:
@@ -1029,7 +1029,7 @@ paths:
       summary: 'Mark a specific notification as either read or unread.'
       tags:
         - notifications
-  /v1/{namespace}/notifications/{entity}/{notification_id}/:
+  /v1/{namespace}/notifications/{entity}/{notification_id}:
     get:
       operationId: notifications_read
       responses:
@@ -4797,6 +4797,8 @@ definitions:
       read:
         type: boolean
         description: 'Whether or not the notification has been marked as read by the user.'
+    required:
+      - read
   NotificationListUpdateData:
     type: object
     properties:
@@ -4806,12 +4808,17 @@ definitions:
       read:
         type: boolean
         description: 'Mark the notification as either read or unread'
+    required:
+      - notifications
+      - read
   NotificationUpdateData:
     type: object
     properties:
       read:
         type: boolean
         description: 'Mark the notification as either read or unread'
+    required:
+      - read
   NotificationError:
      type: object
      properties:
@@ -4843,6 +4850,9 @@ definitions:
       emails_enabled:
         type: boolean
         description: 'Turn emails on or off.'
+    required:
+      - emails
+      - emails_enabled
   NotificationSettingsData:
     type: object
     properties:
@@ -4852,6 +4862,9 @@ definitions:
       emails_enabled:
         type: boolean
         description: 'Turn emails on or off.'
+    required:
+      - enabled
+      - emails_enabled
   NotificationSettingsError:
     type: object
     properties:
