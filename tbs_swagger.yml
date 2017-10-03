@@ -367,7 +367,7 @@ paths:
       summary: 'Get invoices'
       tags:
         - billing
-  /v1/{namespace}/billing/invoices/{id}/':
+  /v1/{namespace}/billing/invoices/{id}/:
     get:
       operationId: billing_invoices_read
       responses:
@@ -862,7 +862,7 @@ paths:
       tags:
         - notifications
     patch:
-      operationId: notifications_update
+      operationId: notifications_update_list
       responses:
         '200':
           description: Notification updated
@@ -890,7 +890,7 @@ paths:
         - notifications
   /v1/{namespace}/notifications/{entity}:
     get:
-      operationId: notifications_list
+      operationId: notifications_list_entity
       responses:
         '200':
           description: "List of notifications"
@@ -935,7 +935,7 @@ paths:
       tags:
         - notifications
     patch:
-      operationId: notifications_update
+      operationId: notifications_update_entity_list
       responses:
         '200':
           description: Notification updated
@@ -970,7 +970,7 @@ paths:
         - notifications
   /v1/{namespace}/notifications/{notification_id}:
     get:
-      operationId: notifications_read
+      operationId: notification_read
       responses:
         '200':
           description: "List of notifications"
@@ -995,7 +995,7 @@ paths:
       tags:
         - notifications
     patch:
-      operationId: notifications_update
+      operationId: notification_update
       responses:
         '200':
           description: Notification updated
@@ -1013,7 +1013,7 @@ paths:
         - name: namespace
           required: true
           in: path
-          description: 'User or team name.'
+          description: 'User or team data.'
           type: string
         - name: notification_id
           required: false
@@ -1031,7 +1031,7 @@ paths:
         - notifications
   /v1/{namespace}/notifications/{entity}/{notification_id}:
     get:
-      operationId: notifications_read
+      operationId: notification_read_entity
       responses:
         '200':
           description: "List of notifications"
@@ -1063,7 +1063,7 @@ paths:
       tags:
         - notifications
     patch:
-      operationId: notifications_update
+      operationId: notification_update_entity
       responses:
         '200':
           description: Notification updated
@@ -1147,6 +1147,7 @@ paths:
         type: string
       - name: notification_settings_data
         in: body
+        required: true
         schema:
           $ref: '#/definitions/NotificationSettingsData'
       consumes:
@@ -1204,7 +1205,7 @@ paths:
         - notifications
   /v1/{namespace}/notifications/settings/{entity}:
     get:
-      operationId: notification_settings_read
+      operationId: notification_settings_entity_read
       responses:
         '200':
           description: "Global notification settings"
@@ -1233,7 +1234,7 @@ paths:
       tags:
         - notifications
     post:
-      operationId: notification_settings_create
+      operationId: notification_settings_entity_create
       responses:
         '201':
           description: 'Global Notification Settings created successfully.'
@@ -1266,7 +1267,7 @@ paths:
       tags:
         - notifications
     patch:
-      operationId: notification_settings_update
+      operationId: notification_settings_entity_update
       responses:
         '200':
           description: Notification Settings updated
@@ -1303,7 +1304,7 @@ paths:
       tags:
         - notifications
     delete:
-      operationId: notifications_settings_delete
+      operationId: notifications_settings_entity_delete
       responses:
         '204':
           description: 'NotificationsSettings deleted.'
