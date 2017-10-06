@@ -1404,6 +1404,40 @@ paths:
       summary: 'Delete a project'
       tags:
         - projects
+  /v1/{namespace}/projects/project-copy/:
+    post:
+      operationId: project_copy
+      responses:
+        201:
+          description: "Project copied"
+          schema:
+            $ref: '#/definitions/Project'
+        404:
+          description: 'Project not found.'
+          schema:
+            $ref: '#/definitions/NotFound'
+      parameters:
+        - name: namespace
+          required: true
+          in: path
+          description: 'User or team name.'
+          type: string
+        - name: project_copy_data
+          required: true
+          in: body
+          schema:
+            type: object
+            properties:
+              project:
+                type: string
+                description: "UUID of the project the user wishes to copy."
+            required:
+              - project
+      consumes:
+        - application/json
+      summary: 'Copy a project to your own account.'
+      tags:
+        - projects
   /v1/{namespace}/projects/{project}/collaborators/:
     get:
       operationId: projects_collaborators_list
