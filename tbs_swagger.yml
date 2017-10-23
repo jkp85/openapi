@@ -535,7 +535,81 @@ paths:
       tags:
         - teams
         - billing
-  '/v1/teams/{team}//billing/subscriptions/':
+  /v1/teams/{team}/billing/invoices/{invoice_id}/invoice-items/:
+    get:
+      operationId: teams_billing_invoice_items_list
+      responses:
+        '200':
+          description: 'Team invoiceItem list.'
+          examples:
+            application/json: []
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/InvoiceItem'
+      parameters:
+        - name: team
+          required: true
+          in: path
+          description: 'Team unique identifier expressed as UUID or name.'
+          type: string
+        - name: invoice_id
+          required: true
+          in: path
+          description: 'Invoice id, expressed as UUID.'
+          type: string
+        - name: limit
+          required: false
+          in: query
+          description: 'Limit when getting items.'
+          type: string
+        - name: offset
+          required: false
+          in: query
+          description: 'Offset when getting items.'
+          type: string
+        - name: ordering
+          required: false
+          in: query
+          description: 'Ordering when getting items.'
+          type: string
+      summary: 'Get team invoice items for a given invoice.'
+      tags:
+        - teams
+        - billing
+  /v1/teams/{team}//billing/invoices/{invoice_id}/invoice-items/{id}:
+    get:
+      operationId: teams_billing_invoice_items_read
+      responses:
+        '200':
+          description: 'Team invoiceItem retrieved.'
+          schema:
+            $ref: '#/definitions/InvoiceItem'
+        '404':
+          description: 'InvoiceItem not found.'
+          schema:
+            $ref: '#/definitions/NotFound'
+      parameters:
+        - name: team
+          required: true
+          in: path
+          description: 'Team unique identifier expressed as UUID or name.'
+          type: string
+        - name: invoice_id
+          required: true
+          in: path
+          description: 'Invoice id, expressed as UUID.'
+          type: string
+        - name: id
+          required: true
+          in: path
+          description: 'InvoiceItem id, expressed as UUID.'
+          type: string
+      summary: 'Get a specific team InvoiceItem.'
+      tags:
+        - teams
+        - billing
+  '/v1/teams/{team}/billing/subscriptions/':
     get:
       operationId: teams_billing_subscriptions_list
       responses:
