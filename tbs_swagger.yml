@@ -146,6 +146,512 @@ paths:
       tags:
         - auth
       security: []
+  /v1/teams/:
+    get:
+      operationId: teams_list
+      responses:
+        200:
+          description: 'Team list'
+          examples:
+            application/json: []
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Team'
+      parameters:
+        - name: limit
+          required: false
+          in: query
+          description: 'Limit when getting data.'
+          type: string
+        - name: offset
+          required: false
+          in: query
+          description: 'Offset when getting data.'
+          type: string
+      summary: 'Get teams'
+      tags:
+        - teams
+    post:
+      operationId: teams_create
+      responses:
+        201:
+          description: Team created
+          schema:
+            $ref: '#/definitions/Team'
+        400:
+          description: Invalid data supplied
+          schema:
+            $ref: '#/definitions/TeamError'
+      parameters:
+        - name: team_data
+          in: body
+          schema:
+            $ref: '#/definitions/TeamData'
+      consumes:
+        - application/json
+      summary: 'Create a new team'
+      tags:
+        - teams
+  /v1/teams/{team}/:
+    get:
+      operationId: teams_read
+      responses:
+        200:
+          description: "Team retruieved."
+          schema:
+            $ref: '#/definitions/Team'
+        404:
+          description: 'Team not found.'
+          schema:
+            $ref: '#/definitions/NotFound'
+      parameters:
+        - name: team
+          required: true
+          in: path
+          description: 'Team unique identifier expressed as UUID or name.'
+          type: string
+      summary: 'Get a team'
+      tags:
+        - teams
+    put:
+      operationId: teams_replace
+      responses:
+        200:
+          description: 'Team updated'
+          schema:
+            $ref: '#/definitions/Team'
+        400:
+          description: 'Invalid data supplied.'
+          schema:
+            $ref: '#/definitions/TeamError'
+      parameters:
+        - name: team
+          required: true
+          in: path
+          description: 'Team unique identifier expressed as UUID or name.'
+          type: string
+        - name: team_data
+          in: body
+          schema:
+            $ref: '#/definitions/TeamData'
+      summary: 'Replace a team'
+      tags:
+        - teams
+    patch:
+      operationId: teams_update
+      responses:
+        200:
+          description: 'Team updated'
+          schema:
+            $ref: '#/definitions/Team'
+        400:
+          description: 'Invalid data supplied'
+          schema:
+            $ref: '#/definitions/TeamError'
+        404:
+          description: 'Team not found'
+          schema:
+            $ref: '#/definitions/NotFound'
+      parameters:
+        - name: team
+          required: true
+          in: path
+          description: 'Team unique identifier expressed as UUID or name.'
+          type: string
+        - name: team_data
+          in: body
+          schema:
+            $ref: '#/definitions/TeamData'
+      summary: 'Update a team'
+      tags:
+        - teams
+    delete:
+      operationId: teams_delete
+      responses:
+        204:
+          description: 'Team deleted.'
+        404:
+          description: 'Team not found.'
+          schema:
+            $ref: '#/definitions/NotFound'
+      parameters:
+        - name: team
+          required: true
+          in: path
+          description: 'Team unique identifier expressed as UUID or name.'
+          type: string
+      summary: 'Delete a team'
+      tags:
+        - teams
+  /v1/teams/{team}/groups/:
+    get:
+      operationId: teams_groups_list
+      responses:
+        200:
+          description: 'Team groups list'
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Group'
+      parameters:
+        - name: team
+          required: true
+          in: path
+          description: 'Team unique identifier expressed as UUID or name.'
+          type: string
+        - name: limit
+          required: false
+          in: query
+          description: 'Limit when getting data.'
+          type: string
+        - name: offset
+          required: false
+          in: query
+          description: 'Offset when getting data.'
+          type: string
+      summary: "Get team groups"
+      tags:
+        - teams
+  /v1/teams/{team}/groups/{group}/:
+    get:
+      operationId: teams_groups_read
+      responses:
+        200:
+          description: "Group retrieved."
+          schema:
+            $ref: '#/definitions/Group'
+      parameters:
+        - name: team
+          required: true
+          in: path
+          description: 'Team unique identifier expressed as UUID or name.'
+          type: string
+        - name: group
+          required: true
+          in: path
+          description: 'Group unique identifier expressed as UUID or name.'
+          type: string
+      summary: "Get team group"
+      tags:
+        - teams
+  put:
+    operationId: teams_groups_replace
+    responses:
+      200:
+        description: 'Group replaced'
+        schema:
+          $ref: '#/definitions/Group'
+      400:
+        description: Invalid data supplied
+        schema:
+          $ref: '#/definitions/GroupError'
+      parameters:
+        - name: team
+          required: true
+          in: path
+          description: 'Team unique identifier expressed as UUID or name.'
+          type: string
+        - name: group
+          required: true
+          in: path
+          description: 'Group unique identifier expressed as UUID or name.'
+          type: string
+        - name: group_data
+          in: body
+          schema:
+            $ref: '#/definitions/GroupData'
+      summary: "Patch team group"
+      tags:
+        - teams
+  patch:
+    operationId: teams_groups_update
+    responses:
+      200:
+        description: 'Group updated'
+        schema:
+          $ref: '#/definitions/Group'
+      400:
+        description: Invalid data supplied
+        schema:
+          $ref: '#/definitions/GroupError'
+      404:
+        description: 'Group not found.'
+        schema:
+          $ref: '#/definitions/NotFound'
+      parameters:
+        - name: team
+          required: true
+          in: path
+          description: 'Team unique identifier expressed as UUID or name.'
+          type: string
+        - name: group
+          required: true
+          in: path
+          description: 'Group unique identifier expressed as UUID or name.'
+          type: string
+        - name: group_data
+          in: body
+          schema:
+            $ref: '#/definitions/GroupData'
+      summary: "Patch team group"
+      tags:
+        - teams
+  delete:
+    operationId: teams_groups_delete
+    responses:
+      204:
+        description: "Group deleted"
+      404:
+        description: "Group not found."
+        schema:
+          $ref: '#/definitions/NotFound'
+      parameters:
+        - name: team
+          required: true
+          in: path
+          description: 'Team unique identifier expressed as UUID or name.'
+          type: string
+        - name: group
+          required: true
+          in: path
+          description: 'Group unique identifier expressed as UUID or name.'
+          type: string
+      summary: "Delete team group"
+      tags:
+        - teams
+  /v1/teams/{team}/groups/{group}/add/:
+    post:
+      operationId: teams_groups_add_to_group
+      responses:
+        200:
+          description: "User added to group."
+          schema:
+            $ref: '#/definitions/GroupUser'
+        400:
+          description: "Invalid data supplied"
+          schema:
+            $ref: '#/definitions/GroupUserError'
+        404:
+          description: "Group not found"
+          schema:
+            $ref: '#/definitions/NotFound'
+      parameters:
+        - name: team
+          required: true
+          in: path
+          description: 'Team unique identifier expressed as UUID or name.'
+          type: string
+        - name: group
+          required: true
+          in: path
+          description: 'Group unique identifier expressed as UUID or name.'
+          type: string
+      summary: "Add user to group"
+      tags:
+        - teams
+  /v1/teams/{team}/groups/{group}/remove/:
+    post:
+      operationId: teams_groups_remove_from_group
+      responses:
+        200:
+          description: "User removed from group."
+        400:
+          description: "Invalid data supplied"
+        404:
+          description: "Group not found"
+          schema:
+            $ref: '#/definitions/NotFound'
+      parameters:
+        - name: team
+          required: true
+          in: path
+          description: 'Team unique identifier expressed as UUID or name.'
+          type: string
+        - name: group
+          required: true
+          in: path
+          description: 'Group unique identifier expressed as UUID or name.'
+          type: string
+      summary: "User removed from group"
+      tags:
+        - teams
+  '/v1/teams/{team}/billing/invoices/':
+    get:
+      operationId: teams_billing_invoices_list
+      responses:
+        '200':
+          description: 'Invoice list.'
+          examples:
+            application/json: []
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Invoice'
+      parameters:
+        - name: team
+          required: true
+          in: path
+          description: 'Team unique identifier expressed as UUID or name.'
+          type: string
+        - name: limit
+          required: false
+          in: query
+          description: 'Limite when getting items.'
+          type: string
+        - name: offset
+          required: false
+          in: query
+          description: 'Offset when getting items.'
+          type: string
+      summary: 'Get team invoices'
+      tags:
+        - teams
+        - billing
+  '/v1/teams/{team}/billing/invoices/{id}/':
+    get:
+      operationId: teams_billing_invoices_read
+      responses:
+        '200':
+          description: 'Team invoice retrieved.'
+          schema:
+            $ref: '#/definitions/Invoice'
+        '404':
+          description: 'Team invoice not found.'
+          schema:
+            $ref: '#/definitions/NotFound'
+      parameters:
+        - name: team
+          required: true
+          in: path
+          description: 'Team unique identifier expressed as UUID or name.'
+          type: string
+        - name: id
+          required: true
+          in: path
+          description: 'Invoice unique identifier expressed as UUID.'
+          type: string
+      summary: 'Get an invoice'
+      tags:
+        - teams
+        - billing
+  '/v1/teams/{team}//billing/subscriptions/':
+    get:
+      operationId: teams_billing_subscriptions_list
+      responses:
+        '200':
+          description: 'Teams subscription list.'
+          examples:
+            application/json: [{"id": "579208c3-4f5c-4b5d-baa3-309a06db681c","plan": "efb36cb0-0ef2-4af3-ae5d-10d9ae73845d","stripe_id": "sub_B5KyO9BZ6lUNPP","created": "2017-07-24T17:25:04Z","livemode": false,"application_fee_percent": 0,"cancel_at_period_end": false,"canceled_at": "","current_period_start": "2017-07-24T17:25:04Z","current_period_end": "2017-07-31T17:25:04Z","start": "2017-07-24T17:25:04Z","ended_at": "","quantity": 1,"status": "trialing","trial_start": "2017-07-24T17:25:04Z","trial_end": "2017-07-31T17:25:04Z"}]
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Subscription'
+      parameters:
+        - name: team
+          required: true
+          in: path
+          description: 'Team unique identifier expressed as UUID or name.'
+          type: string
+        - name: limit
+          required: false
+          in: query
+          description: 'Limit when getting items.'
+          type: string
+        - name: offset
+          required: false
+          in: query
+          description: 'Offset when getting items.'
+          type: string
+        - name: ordering
+          required: false
+          in: query
+          description: 'Ordering when getting items.'
+          type: string
+      summary: 'Get active team subscriptons'
+      tags:
+        - teams
+        - billing
+    post:
+      operationId: teams_billing_subscriptions_create
+      responses:
+        '201':
+          description: Team subscription created
+          examples:
+            application/json: {"id": "579208c3-4f5c-4b5d-baa3-309a06db681c","plan": "efb36cb0-0ef2-4af3-ae5d-10d9ae73845d","stripe_id": "sub_B5KyO9BZ6lUNPP","created": "2017-07-24T17:25:04Z","livemode": false,"application_fee_percent": 0,"cancel_at_period_end": false,"canceled_at": "","current_period_start": "2017-07-24T17:25:04Z","current_period_end": "2017-07-31T17:25:04Z","start": "2017-07-24T17:25:04Z","ended_at": "","quantity": 1,"status": "trialing","trial_start": "2017-07-24T17:25:04Z","trial_end": "2017-07-31T17:25:04Z"}
+          schema:
+            $ref: '#/definitions/Subscription'
+        '400':
+          description: Invalid data supplied
+          schema:
+            $ref: '#/definitions/SubscriptionError'
+      parameters:
+        - name: team
+          required: true
+          in: path
+          description: 'Team unique identifier expressed as UUID or name.'
+          type: string
+        - name: subscription_data
+          in: body
+          schema:
+            $ref: '#/definitions/SubscriptionData'
+      consumes:
+        - application/json
+      summary: 'Create a new team subscription'
+      tags:
+        - teams
+        - billing
+  '/v1/teams/{team}/billing/subscriptions/{id}/':
+    get:
+      operationId: teams_billing_subscriptions_read
+      responses:
+        '200':
+          description: 'Team subscription retrieved.'
+          schema:
+            $ref: '#/definitions/Subscription'
+        '404':
+          description: 'Subscription not found.'
+          schema:
+            $ref: '#/definitions/NotFound'
+      parameters:
+        - name: team
+          required: true
+          in: path
+          description: 'Team unique identifier expressed as UUID or name.'
+          type: string
+        - name: id
+          required: true
+          in: path
+          description: 'Unique identifier expressed as UUID.'
+          type: string
+      summary: 'Get team subscriptions'
+      tags:
+        - teams
+        - billing
+    delete:
+      operationId: billing_subscriptions_delete
+      responses:
+        '204':
+          description: 'Subscription deleted.'
+        '404':
+          description: 'Subscription not found.'
+          schema:
+            $ref: '#/definitions/NotFound'
+      parameters:
+        - name: team
+          required: true
+          in: path
+          description: 'Team unique identifier expressed as UUID or name.'
+          type: string
+        - name: id
+          required: true
+          in: path
+          description: 'Subscription unique identifier expressed as UUID.'
+          type: string
+      summary: 'Delete a subscription'
+      tags:
+        - teams
+        - billing
   '/v1/{namespace}/billing/cards/':
     get:
       operationId: billing_cards_list
@@ -864,7 +1370,7 @@ paths:
         '400':
           description: 'Invalid data supplied.'
           schema:
-            $ref: '#/definitions/Project'
+            $ref: '#/definitions/ProjectError'
       parameters:
         - name: namespace
           required: true
@@ -4048,6 +4554,106 @@ definitions:
         description: 'Unsubscribed field errors.'
         items:
           type: string
+  Group:
+    type: object
+    properties:
+      id:
+        type: string
+        description: 'Group unique identifier expressed as UUID.'
+      name:
+        type: string
+        description: "Group name"
+      description:
+        type: string
+        description: "Group description"
+      private:
+        type: boolean
+        description: "States whether group is visible to all users."
+      parent:
+        type: string
+        description: "Parent group"
+      created_by:
+        type: string
+        description: "UUID of a user that created this group."
+      members:
+        type: array
+        items:
+          type: string
+        description: "List of group members usernames."
+      permissions:
+        type: array
+        items:
+          type: string
+        description: "List of group permissions."
+  GroupData:
+    type: object
+    properties:
+      name:
+        type: string
+        description: "Group name"
+      description:
+        type: string
+        description: "Group description"
+      private:
+        type: boolean
+        description: "States whether group is visible to all users."
+      parent:
+        type: string
+        description: "Parent group"
+    required:
+      - name
+  GroupError:
+    type: object
+    properties:
+      non_field_errors:
+        type: array
+        description: 'Errors not connected to any field.'
+        items:
+          type: string
+      id:
+        type: array
+        description: 'Id field errors.'
+        items:
+          type: string
+      name:
+        type: array
+        description: 'Name field errors.'
+        items:
+          type: string
+      description:
+        type: array
+        description: 'Description field errors.'
+        items:
+          type: string
+      private:
+        type: array
+        description: 'Private field errors.'
+        items:
+          type: string
+      parent:
+        type: array
+        description: 'Private field errors.'
+        items:
+          type: string
+  GroupUser:
+    type: object
+    properties:
+      user:
+        type: string
+        description: 'User username'
+  GroupUserError:
+    type: object
+    properties:
+      non_field_errors:
+        type: array
+        description: 'Errors not connected to any field.'
+        items:
+          type: string
+      user:
+        type: array
+        description: "User field errors."
+        items:
+          type: string
   Invoice:
     type: object
     properties:
@@ -5219,6 +5825,101 @@ definitions:
       trial_end:
         type: array
         description: trial_end field errors
+        items:
+          type: string
+  Team:
+    type: object
+    properties:
+      id:
+        type: string
+        description: 'Team unique identifier expressed as UUID.'
+      name:
+        type: string
+        description: "Team name"
+      description:
+        type: string
+        description: "Team description"
+      created_by:
+        type: string
+        description: 'UUID of a user that created this team.'
+      website:
+        type: string
+        description: "Teams website."
+      location:
+        type: string
+        description: "Team location."
+      avatar:
+        type: string
+        format: byte
+        description: "Team avatar image."
+      avatar_url:
+        type: string
+        description: "Team avatar url."
+  TeamData:
+    type: object
+    properties:
+      name:
+        type: string
+        description: "Team name"
+      description:
+        type: string
+        description: "Team description"
+      website:
+        type: string
+        description: "Teams website."
+      location:
+        type: string
+        description: "Team location."
+      avatar:
+        type: string
+        format: byte
+        description: "Team avatar image."
+      avatar_url:
+        type: string
+        description: "Team avatar url."
+    required:
+      - name
+  TeamError:
+    type: object
+    properties:
+      non_field_errors:
+        type: array
+        description: 'Errors not connected to any field.'
+        items:
+          type: string
+      id:
+        type: array
+        description: 'Id field errors.'
+        items:
+          type: string
+      name:
+        type: array
+        description: 'Name field errors.'
+        items:
+          type: string
+      description:
+        type: array
+        description: 'Description field errors.'
+        items:
+          type: string
+      website:
+        type: array
+        description: 'Website field errors.'
+        items:
+          type: string
+      location:
+        type: array
+        description: 'Location field errors.'
+        items:
+          type: string
+      avatar:
+        type: array
+        description: 'Avatar field errors.'
+        items:
+          type: string
+      avatar_url:
+        type: array
+        description: 'Avatar url field errors.'
         items:
           type: string
   UserProfile:
