@@ -198,7 +198,7 @@ paths:
       operationId: teams_read
       responses:
         200:
-          description: "Team retruieved."
+          description: "Team retrieved successfully."
           schema:
             $ref: '#/definitions/Team'
         404:
@@ -497,7 +497,7 @@ paths:
         - name: limit
           required: false
           in: query
-          description: 'Limite when getting items.'
+          description: 'Limit when getting items.'
           type: string
         - name: offset
           required: false
