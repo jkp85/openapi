@@ -577,7 +577,7 @@ paths:
       tags:
         - teams
         - billing
-  /v1/teams/{team}//billing/invoices/{invoice_id}/invoice-items/{id}:
+  /v1/teams/{team}/billing/invoices/{invoice_id}/invoice-items/{id}:
     get:
       operationId: teams_billing_invoice_items_read
       responses:
