@@ -4247,6 +4247,12 @@ definitions:
         type: boolean
         description: |
           Boolean that states whether collaborator is project owner, or not.
+      user:
+        type: string
+        description: 'Collaborator user name.'
+      project:
+        type: string
+        description: 'Collaborator project name.'
       joined:
         type: string
         description: 'Date time of when collaborator joined.'
@@ -4482,6 +4488,9 @@ definitions:
       status:
         type: string
         description: 'Docker host status.'
+      owner:
+        type: string
+        description: 'UUID of Docker host owner.'
     required:
       - name
       - ip
@@ -4536,6 +4545,12 @@ definitions:
   Email:
     type: object
     properties:
+      id:
+        type: string
+        description: 'Email unique identifier expressed as UUID.'
+      user:
+        type: string
+        description: 'User name for email.'
       address:
         type: string
         description: 'Email address.'
@@ -4728,6 +4743,9 @@ definitions:
       id:
         type: string
         description: 'Notification unique identifier expressed as a UUID'
+      user:
+        type: string
+        description: 'User the notification is for.'
       actor:
         type: string
         description: 'Unique identifier of the object that triggered the notification.'
@@ -4786,6 +4804,9 @@ definitions:
       id:
         type: string
         description: 'Notification unique identifier expressed as a UUID'
+      user:
+        type: string
+        description: 'User the notification settings is for.'
       entity:
         type: string
         description: 'The entity type that the settings pertain to.'
@@ -4798,6 +4819,9 @@ definitions:
       emails_enabled:
         type: boolean
         description: 'Turn emails on or off.'
+      email_address:
+        type: string
+        description: 'Email address to send notifications.'
     required:
       - enabled
       - emails_enabled
@@ -5036,6 +5060,9 @@ definitions:
       description:
         type: string
         description: 'Project description.'
+      team:
+        type: string
+        description: 'Project team name.'
       private:
         type: boolean
         description: 'Value that states whether project is private or public.'
@@ -5208,9 +5235,15 @@ definitions:
       name:
         type: string
         description: 'Server name.'
+      project:
+        type: string
+        description: 'Project name.'
       created_at:
         type: string
         description: 'Date and time when server was created.'
+      created_by:
+        type: string
+        description: 'User that created server.'
       image_name:
         type: string
         description: |
@@ -5416,6 +5449,9 @@ definitions:
   ServerRunStatistics:
     type: object
     properties:
+      server:
+        type: string
+        description: 'Server name.'
       id:
         type: string
         description: 'Server run statistics object unique identifier in UUID format.'
@@ -5574,6 +5610,9 @@ definitions:
       id:
         type: string
         description: 'Server statistics unique identifier in UUID format.'
+      server:
+        type: string
+        description: 'Server name.'
       start:
         type: string
         description: 'Start statistics, such as start time and date.'
@@ -5664,6 +5703,9 @@ definitions:
       id:
         type: string
         description: 'SSH tunnel unique identifier in UUID format.'
+      server:
+        type: string
+        description: 'Server name.'
       name:
         type: string
         description: 'SSH tunnel name.'
