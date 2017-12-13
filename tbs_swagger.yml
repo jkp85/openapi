@@ -1999,6 +1999,32 @@ paths:
       summary: 'Create a new server'
       tags:
         - projects
+  /v1/{namespace}/projects/{project}/servers/statuses/:
+    get:
+      operationId: projects_servers_statuses
+      responses:
+        '200':
+          description: 'Server statuses list.'
+          examples:
+            application/json: [{"id": "768f6eef-d07b-40ce-bce1-0dcce5bfbfc3", "status": "Running"}, {"id": "768f6eef-d07b-40ce-bce1-0dcce5bfbfc3", "status": "Running"}]
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/ServerStatus'
+      parameters:
+        - name: project
+          required: true
+          in: path
+          description: 'Project unique identifier expressed as UUID or name.'
+          type: string
+        - name: namespace
+          required: true
+          in: path
+          description: 'User or team name.'
+          type: string
+      summary: 'Retrieve server statuses'
+      tags:
+        - projects
   /v1/{namespace}/projects/{project}/servers/{server}/:
     get:
       operationId: projects_servers_read
@@ -5446,6 +5472,18 @@ definitions:
         description: 'Operation field errors.'
         items:
           type: string
+  ServerStatus:
+    type: object
+    properties:
+      id:
+        type: string
+        description: 'Server unique identifier in UUID format.'
+      status:
+        type: string
+        enum:
+          - Stopped
+          - Running
+          - Error
   ServerRunStatistics:
     type: object
     properties:
