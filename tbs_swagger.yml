@@ -1232,6 +1232,10 @@ paths:
           description: "Project copied"
           schema:
             $ref: '#/definitions/Project'
+        400:
+          description: 'Invalid data supplied'
+          schema:
+            $ref: '#/definitions/UserError'
         404:
           description: 'Project not found.'
           schema:
@@ -1242,6 +1246,15 @@ paths:
           in: path
           description: 'User or team name.'
           type: string
+        - name: name
+          required: false
+          in: body
+          schema:
+            type: object
+            properties:
+              project:
+                type: string
+                description: "Name for the newly copied project"
         - name: project_copy_data
           required: true
           in: body
