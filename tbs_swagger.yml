@@ -1246,15 +1246,6 @@ paths:
           in: path
           description: 'User or team name.'
           type: string
-        - name: name
-          required: false
-          in: body
-          schema:
-            type: object
-            properties:
-              project:
-                type: string
-                description: "Name for the newly copied project"
         - name: project_copy_data
           required: true
           in: body
@@ -1264,6 +1255,9 @@ paths:
               project:
                 type: string
                 description: "UUID of the project the user wishes to copy."
+              name:
+                type: string
+                description: "Name for the newly copied project"
             required:
               - project
       consumes:
