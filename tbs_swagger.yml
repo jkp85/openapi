@@ -1235,7 +1235,7 @@ paths:
         400:
           description: 'Invalid data supplied'
           schema:
-            $ref: '#/definitions/UserError'
+            $ref: '#/definitions/ProjectError'
         404:
           description: 'Project not found.'
           schema:
