@@ -1232,6 +1232,10 @@ paths:
           description: "Project copied"
           schema:
             $ref: '#/definitions/Project'
+        400:
+          description: 'Invalid data supplied'
+          schema:
+            $ref: '#/definitions/ProjectError'
         404:
           description: 'Project not found.'
           schema:
@@ -1251,6 +1255,9 @@ paths:
               project:
                 type: string
                 description: "UUID of the project the user wishes to copy."
+              name:
+                type: string
+                description: "Name for the newly copied project"
             required:
               - project
       consumes:
