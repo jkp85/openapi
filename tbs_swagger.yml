@@ -2327,6 +2327,245 @@ paths:
       summary: 'Delete a project file'
       tags:
         - projects
+  /v1/{namespace}/projects/{project}/deployments/:
+    get:
+      operationId: projects_deployments_list
+      responses:
+        '200':
+          description: 'Deployment list.'
+          examples:
+            application/json: []
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Deployment'
+      parameters:
+        - name: project
+          required: true
+          in: path
+          description: 'Project unique identifier expressed as UUID or name.'
+          type: string
+        - name: namespace
+          required: true
+          in: path
+          description: 'User or team name.'
+          type: string
+        - name: limit
+          required: false
+          in: query
+          description: 'Limit results when getting deployment list.'
+          type: string
+        - name: offset
+          required: false
+          in: query
+          description: 'Offset results when getting deployment list.'
+          type: string
+        - name: name
+          required: false
+          in: query
+          description: 'Server name.'
+          type: string
+        - name: ordering
+          required: false
+          in: query
+          description: 'Ordering option when getting deployment list.'
+          type: string
+      summary: 'Retrieve deployments'
+      tags:
+        - projects
+    post:
+      operationId: projects_deployments_create
+      responses:
+        '201':
+          description: 'Deployment created.'
+          schema:
+            $ref: '#/definitions/Deployment'
+        '400':
+          description: 'Invalid data supplied.'
+          schema:
+            $ref: '#/definitions/DeploymentError'
+      parameters:
+        - name: project
+          required: true
+          in: path
+          description: 'Project unique identifer expressed as UUID or name.'
+          type: string
+        - name: namespace
+          required: true
+          in: path
+          description: 'User or team name.'
+          type: string
+        - name: deployment_data
+          in: body
+          schema:
+            $ref: '#/definitions/DeploymentData'
+      consumes:
+        - application/json
+      summary: 'Create a new deployment'
+      tags:
+        - projects
+  /v1/{namespace}/projects/{project}/deployments/{deployment}/:
+    get:
+      operationId: projects_deployments_read
+      responses:
+        '200':
+          description: 'Deployment retrieved.'
+          schema:
+            $ref: '#/definitions/Deployment'
+        '404':
+          description: 'Deployment not found.'
+          schema:
+            $ref: '#/definitions/NotFound'
+      parameters:
+        - name: project
+          required: true
+          in: path
+          description: 'Project unique identifier expressed as UUID or name.'
+          type: string
+        - name: namespace
+          required: true
+          in: path
+          description: 'User or team name.'
+          type: string
+        - name: deployment
+          required: true
+          in: path
+          description: 'Deployment unique identifier expressed as UUID or name.'
+          type: string
+      summary: 'Retrieve a deployment'
+      tags:
+        - projects
+    put:
+      operationId: projects_deployments_replace
+      responses:
+        '200':
+          description: 'Deployment updated.'
+          schema:
+            $ref: '#/definitions/Deployment'
+        '400':
+          description: 'Invalid data supplied.'
+          schema:
+            $ref: '#/definitions/DeploymentError'
+      parameters:
+        - name: project
+          required: true
+          in: path
+          description: 'Project unique identifier expressed as UUID or name.'
+          type: string
+        - name: namespace
+          required: true
+          in: path
+          description: 'User or team name.'
+          type: string
+        - name: server
+          required: true
+          in: path
+          description: 'Deployment unique identifier expressed as UUID or name.'
+          type: string
+        - name: deployment_data
+          in: body
+          schema:
+            $ref: '#/definitions/DeploymentData'
+      consumes:
+        - application/json
+      summary: 'Replace a deployment'
+      tags:
+        - projects
+    patch:
+      operationId: projects_deployments_update
+      responses:
+        '200':
+          description: Deployment updated
+          schema:
+            $ref: '#/definitions/Deployment'
+        '400':
+          description: Invalid data supplied
+          schema:
+            $ref: '#/definitions/DeploymentData'
+        '404':
+          description: Deployment not found
+          schema:
+            $ref: '#/definitions/NotFound'
+      parameters:
+        - name: project
+          required: true
+          in: path
+          description: 'Project unique identifier expressed as UUID or name.'
+          type: string
+        - name: namespace
+          required: true
+          in: path
+          description: 'User or team name.'
+          type: string
+        - name: server
+          required: true
+          in: path
+          description: 'Deployment unique identifier expressed as UUID or name.'
+          type: string
+        - name: deployment_data
+          in: body
+          schema:
+            $ref: '#/definitions/DeploymentData'
+      consumes:
+        - application/json
+      summary: 'Update a deployment'
+      tags:
+        - projects
+    delete:
+      operationId: projects_deployment_delete
+      responses:
+        '204':
+          description: Deployment deleted
+        '404':
+          description: Deployment not found
+          schema:
+            $ref: '#/definitions/NotFound'
+      parameters:
+        - name: project
+          required: true
+          in: path
+          description: 'Project unique identifier.'
+          type: string
+        - name: namespace
+          required: true
+          in: path
+          description: 'User or team name.'
+          type: string
+        - name: deployment
+          required: true
+          in: path
+          description: 'User unique identifier.'
+          type: string
+      summary: 'Delete a deployment'
+      tags:
+        - projects
+  /v1/{namespace}/projects/{project}/deployments/{deployment}/deploy/:
+    post:
+      operationId: projects_deployments_deploy
+      responses:
+        '201':
+          description: 'Deployment successful.'
+        '400':
+          description: 'Invalid data supplied.'
+      parameters:
+        - name: project
+          required: true
+          in: path
+          description: 'Project unique identifier expressed as UUID or name.'
+          type: string
+        - name: namespace
+          required: true
+          in: path
+          description: 'User or team name.'
+          type: string
+        - name: deployment
+          required: true
+          in: path
+          description: 'Deployment unique identifier expressed as UUID or name.'
+          type: string
+      summary: 'Deploy an existing model'
+      tags:
+        - projects
   /v1/{namespace}/projects/{project}/servers/:
     get:
       operationId: projects_servers_list
@@ -2405,7 +2644,7 @@ paths:
         - application/json
       summary: 'Create a new server'
       tags:
-        - projects
+        - projects 
   /v1/{namespace}/projects/{project}/servers/statuses/:
     get:
       operationId: projects_servers_statuses
@@ -4901,6 +5140,102 @@ definitions:
       default_source:
         type: array
         description: 'default_source field errors'
+        items:
+          type: string
+  DeploymentConfig:
+    type: object
+    properties:
+      handler:
+        type: string
+        description: 'The filename and handler function defined by the user that will handle requests to the deployment. Ex: handler.predict'
+      files:
+        type: array
+        description: 'An array of ProjectFile names that should be included in the deployment.'
+        items:
+          type: string
+  Deployment:
+    type: object
+    properties:
+      id:
+        type: string
+        description: 'Deploymeny unique identifier'
+      project:
+        type: string
+        description: 'Project name.'
+      name:
+        type: string
+        description: 'Deployment name.'
+      created_at:
+        type: string
+        description: 'Date and time when server was created.'
+      created_by:
+        type: string
+        description: 'User that created server.'
+      config:
+        type: object
+        description: 'TODO'
+        $ref: '#/definitions/DeploymentConfig'
+      runtime:
+        type: string
+        description: 'Language runtime the deployment will use.'
+        enum:
+          - python2.7
+      framework:
+        type: string
+        description: 'Framework that the deployment will have access to.'
+        enum:
+          - tensorflow
+  DeploymentData:
+    type: object
+    properties:
+      name:
+        description: 'Deployment name.'
+        type: string
+      config:
+        type: object
+        description: 'Deployment configuration for included files and handler.'
+        $ref: '#/definitions/DeploymentConfig'
+      runtime:
+        type: string
+        description: 'Language runtime the deployment will use.'
+        enum:
+          - python2.7
+      framework:
+        type: string
+        description: 'Framework that the deployment will have access to.'
+        enum:
+          - tensorflow
+    required:
+      - name
+      - config
+      - runtime
+      - framework
+  DeploymentError:
+    type: object
+    properties:
+      non_field_errors:
+        type: array
+        description: 'Errors not connected to any field.'
+        items:
+          type: string
+      name:
+        type: array
+        description: 'Invalid deployment name.'
+        items:
+          type: string
+      config:
+        type: array
+        description: 'Invalid deployment configuration.'
+        items:
+          type: string
+      runtime:
+        type: array
+        description: 'Invalid runtime.'
+        items:
+          type: string
+      framework:
+        type: array
+        description: 'Invalid framework.'
         items:
           type: string
   DockerHost:
